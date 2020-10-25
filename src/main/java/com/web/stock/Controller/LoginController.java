@@ -14,7 +14,7 @@ public class LoginController {
     @RequestMapping("/register")
     public void register(User u1){
         System.out.println(u1.toString());
-        System.out.println(u1.getEmail());
+        // System.out.println(u1.getEmail());
     }
     
 }

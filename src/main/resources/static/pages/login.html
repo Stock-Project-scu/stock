@@ -25,27 +25,31 @@
         .captcha {width:60%;display:inline-block;}
         .captcha-img {display:inline-block;width:34%;}
         .captcha-img img {height:34px;border:1px solid #e6e6e6;height:36px;width:100%;}
-        .register {float: right; color: rgb(30, 159, 255);}
+        .toregister {
+            float: right;
+            color: rgb(30, 159, 255);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 <div class="layui-container">
     <div class="admin-login-background">
         <div class="layui-form login-form">
-            <form class="layui-form" action="">
+            <form class="layui-form">
                 <div class="layui-form-item logo-title">
                     <h1>SCU Features登录</h1>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-icon layui-icon-username" for="username"></label>
-                    <input type="text" name="username" lay-verify="required|account" placeholder="用户名或者邮箱" autocomplete="off" class="layui-input" value="admin">
+                    <label class="layui-icon layui-icon-username"></label>
+                    <input type="text" name="username" lay-verify="required|account" placeholder="用户名或者邮箱" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-icon layui-icon-password" for="password"></label>
-                    <input type="password" name="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" value="123456">
+                    <label class="layui-icon layui-icon-password"></label>
+                    <input type="password" name="password" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-icon layui-icon-vercode" for="captcha"></label>
+                    <label class="layui-icon layui-icon-vercode"></label>
                     <input type="text" name="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
                     <div class="captcha-img">
                         <img id="captchaPic" src="../images/captcha.jpg">
@@ -57,10 +61,10 @@
                 <div class="layui-form-item">
                     <button class="layui-btn layui-btn layui-btn-normal layui-btn-fluid" lay-submit="" lay-filter="login">登 入</button>
                 </div>
-                <div class="layui-form-item">
-                    <div class="register" lay-submit="" lay-filter="login">注册一个新账号</div>
-                </div>
             </form>
+            <div class="layui-form-item">
+                <div class="toregister" lay-filter="toregister">注册一个新账号</div>
+            </div>
         </div>
     </div>
 </div>
@@ -69,8 +73,9 @@
 <script src="../lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
 <script>
     layui.use(['form'], function () {
-        var form = layui.form,
-            layer = layui.layer;
+        var form = layui.form;
+        var layer = layui.layer;
+        var $ = layui.jquery;
 
         // 登录过期的时候，跳出ifram框架
         if (top.location != self.location) top.location = self.location;
@@ -98,11 +103,16 @@
                 layer.msg('验证码不能为空');
                 return false;
             }
-            layer.msg('登录成功', function () {
-                window.location = '../index.html';
-            });
+            // layer.msg('登录成功', function () {
+            //     window.location = '../index.html';
+            // });
             return false;
         });
+    });
+
+    // 前往注册区
+    $(".toregister").click(function() {
+        window.location = "register.html";
     });
 </script>
 </body>

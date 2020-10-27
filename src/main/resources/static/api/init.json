@@ -1,7 +1,7 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "page/welcome-1.html?t=1"
+    "href": "pages/showInIndex.html"
   },
   "logoInfo": {
     "title": "SCU Futures",
@@ -23,13 +23,13 @@
           "child": [
             {
               "title": "个人信息",
-              "href": "page/welcome-1.html",
+              "href": "pages/userInfo.html",
               "icon": "fa fa-home",
               "target": "_self"
             },
             {
               "title": "资产管理",
-              "href": "page/welcome-2.html",
+              "href": "pages/property.html",
               "icon": "fa fa-money",
               "target": "_self"
             }
@@ -43,13 +43,13 @@
           "child": [
             {
               "title": "实时行情",
-              "href": "page/welcome-1.html",
+              "href": "pages/currentPrice.html",
               "icon": "fa fa-line-chart",
               "target": "_self"
             },
             {
               "title": "订单管理",
-              "href": "page/welcome-2.html",
+              "href": "pages/orderManage.html",
               "icon": "fa fa-object-group",
               "target": "_self"
             }
@@ -57,15 +57,29 @@
         },
         {
           "title": "财经资讯",
-          "href": "page/menu.html",
+          "href": "pages/news.html",
           "icon": "fa fa-envelope",
           "target": "_self"
         },
         {
           "title": "关于SCU Futures",
-          "href": "page/setting.html",
+          "href": "",
           "icon": "fa fa-info-circle",
-          "target": "_self"
+          "target": "_self",
+          "child": [
+            {
+              "title": "系统介绍",
+              "href": "pages/introduction.html",
+              "icon": "fa fa-question-circle",
+              "target": "_self"
+            },
+            {
+              "title": "建议反馈",
+              "href": "pages/advice.html",
+              "icon": "fa fa-pencil-square-o",
+              "target": "_self"
+            }
+          ]
         }
       ]
     },

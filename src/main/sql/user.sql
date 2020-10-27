@@ -11,7 +11,7 @@
  Target Server Version : 50151
  File Encoding         : 65001
 
- Date: 27/10/2020 16:49:05
+ Date: 27/10/2020 18:44:33
 */
 
 SET NAMES utf8mb4;
@@ -27,6 +27,11 @@ CREATE TABLE `user`  (
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES (1, 'ddd', '1097249217@qq.com', '123456');
 
 SET FOREIGN_KEY_CHECKS = 1;

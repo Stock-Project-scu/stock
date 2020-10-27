@@ -35,8 +35,14 @@ public class UserServiceImpl implements Userservice {
         return usermapper.findbyUseremail(email);
     }
     @Override
-    public User signUser(User user){
-        return usermapper.signUser(user);
+    public boolean insertUser(User user){
+         try {
+            usermapper.insertUser(user);
+            return true;
+         } catch (Exception e) {
+             //TODO: handle exception
+             return false;
+         }
     }
 
     

@@ -11,5 +11,5 @@ public interface Userservice {
     User getUserByname(String username);
     List<User> getAlluser();
     User getUserByemail(String email);
-    User signUser(User user);//注册用户
+    boolean insertUser(User user);//注册用户
 }

@@ -14,6 +14,6 @@ public interface UserMapper {
     List<User> findAll();//所有遍历
     User findbyUsername(String username);//根据用户名查找
     User findbyUseremail(String email);//根据email查找
-    User signUser(User user);//注册用户
+    boolean insertUser(User user);//注册用户
     
 }

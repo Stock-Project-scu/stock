@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("mapper.UserMapper")
+@MapperScan("com.web.stock.mapper")
 public class StockApplication {
 
 	public static void main(String[] args) {

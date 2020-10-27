@@ -17,14 +17,17 @@ public class LoginController {
     @Autowired 
     private Userservice userservice;//创建一个userservice
 
-    @RequestMapping("/register")
-    public boolean register(User user){
+    @RequestMapping("/login")
+    public boolean login(User user){
+        System.out.println("开始进入登录");
         System.out.println(user.toString());
         User u1 =userservice.getUserByname(user.getUsername());
         if(user.getPassword()==u1.getPassword()){
+            System.out.println("成功");
             return true;//登陆成功
         }
         else{
+            System.out.println("失败");
             return false;//登录失败，密码不对或者是其他问题
         }
     }
@@ -34,7 +37,7 @@ public class LoginController {
         try {
             if(userservice.getUserByname(user.getUsername())==null){
                 //如果找不到就说明可以注册
-                userservice.signUser(user);
+                userservice.insertUser(user);
                 return "注册成功";
             }
             else{

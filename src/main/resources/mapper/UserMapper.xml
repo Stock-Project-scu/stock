@@ -7,14 +7,17 @@
         <result column="passWord" jdbcType="VARCHAR" property="passWord" />
         <result column="realName" jdbcType="VARCHAR" property="realName" />
     </resultMap> -->
-    <select id="findAll" resultType="User">
+    <select id="findAll" resultType="com.web.stock.bean.User">
         SELECT * FROM user
     </select>
-    <select id="findbyUsername" resultType="User">
+    <select id="findbyUsername" resultType="com.web.stock.bean.User">
         select * from user where username = #{username}
     </select>
-    <select id="findbyUseremail" resultType="User">
+    <select id="findbyUseremail" resultType="com.web.stock.bean.User">
         select * from user where email = #{email}
     </select>
+    <insert id="insertUser" >
+        insert into user (username,email,password) values (#{username},#{email},#{password})
+    </insert>
     
 </mapper>

@@ -2,5 +2,13 @@ spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=GMT%2B8
     username: root
-    password: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+#mybatis的相关配置
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  #type-aliases-package: com.web.stock.bean
+  #驼峰命名,暂不开启
+  configuration:
+    map-underscore-to-camel-case: false

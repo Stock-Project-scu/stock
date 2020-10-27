@@ -20,9 +20,11 @@ public class LoginController {
     @RequestMapping("/login")
     public boolean login(User user){
         System.out.println("开始进入登录");
-        System.out.println(user.toString());
+        //System.out.println(user.toString());
         User u1 =userservice.getUserByname(user.getUsername());
-        if(user.getPassword()==u1.getPassword()){
+        System.out.println(u1);
+        System.out.println(user);
+        if(user.getPassword().equals(u1.getPassword())){
             System.out.println("成功");
             return true;//登陆成功
         }

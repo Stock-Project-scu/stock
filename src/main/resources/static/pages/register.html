@@ -100,8 +100,6 @@
                 },
                 password: [/(.+){6,12}$/, '密码必须6到12位'],
                 repassword: function (value) {
-
-
                     if ($('#password').val() != $('#repassword').val()) {
                         return '两次密码不一致';
                     }

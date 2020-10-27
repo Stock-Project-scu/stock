@@ -39,6 +39,7 @@ public class LoginController {
         try {
             if(userservice.getUserByname(user.getUsername())==null){
                 //如果找不到就说明可以注册
+                
                 userservice.insertUser(user);
                 return "注册成功";
             }

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.4.RELEASE</version>
-        <relativePath/>
+        <relativePath />
     </parent>
     <groupId>com.web</groupId>
-	<artifactId>stock</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>stock</name>
-	<description>Demo project for Spring Boot</description>
+    <artifactId>stock</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>stock</name>
+    <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -20,6 +19,13 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.6</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -52,14 +58,16 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
+        
     </dependencies>
+
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>    
+            </plugin>
         </plugins>
     </build>
 </project>

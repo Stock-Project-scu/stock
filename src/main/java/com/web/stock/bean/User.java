@@ -1,6 +1,5 @@
 package com.web.stock.bean;
 
-import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +16,7 @@ public class User {
 
 
 
-private String email;
+    private String email;
     //private String id;
     private String username;
     private String password;

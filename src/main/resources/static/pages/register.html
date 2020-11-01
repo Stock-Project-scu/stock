@@ -73,10 +73,11 @@
 <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="../lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
 <script>
-    layui.use(['form'], function () {
+    layui.use(['form', 'layer'], function () {
         var form = layui.form;
         var layer = layui.layer;
         var $ = layui.jquery;
+        var layer = layui.layer;
 
         // 登录过期的时候，跳出ifram框架
         if (top.location != self.location) top.location = self.location;
@@ -89,35 +90,53 @@
             });
         });
 
+        // 自定义验证规则
+        form.verify({
+            nikename: function (value) {
+                if (value.length < 5) {
+                    return '昵称至少得5个字符';
+                }
+            },
+            password: [/(.+){6,12}$/, '密码必须6到12位'],
+            repassword: function (value) {
+                if ($('#password').val() != $('#repassword').val()) {
+                    return '两次密码不一致';
+                }
+            },
+            agree: function(value) {
+                if ($("#isagree")[0].checked == false) {
+                    return "您必须先同意用户协议才能继续";
+                }
+            }
+        });
+
         // 进行注册操作
         form.on('submit(register)', function(data) {
-            // 自定义验证规则
-            form.verify({
-                nikename: function (value) {
-                    if (value.length < 5) {
-                        return '昵称至少得5个字符';
-                    }
-                },
-                password: [/(.+){6,12}$/, '密码必须6到12位'],
-                repassword: function (value) {
-                    if ($('#password').val() != $('#repassword').val()) {
-                        return '两次密码不一致';
-                    }
-                },
-                agree: function(value) {
-                    if ($("#isagree")[0].checked == false) {
-                        return "您必须先同意用户协议才能继续";
-                    }
-                }
-            });
-            console.log(data.field);
+            // console.log(data.field);
             $.ajax({
                 type: "POST",
                 url: "/signin",
                 data: data.field,
                 dataType: "json",
-                success: function(res) {
-                    console.log(res);
+                complete: function(e) {
+                    console.log(e);
+                    if (e.status == 200) {
+                        if (e.readyState == 4) {
+                            if (e.responseText == "注册失败,名称重复") {
+                                layer.alert("用户名已经存在了", {icon: 5, title: "提示"});
+                            }
+                            else if (e.responseText == "注册成功") {
+                                layer.msg("注册成功 即将跳转至登录页面", {anim: 0}, function() {
+                                    setTimeout(function() {
+                                        window.location = "login.html"
+                                    }, 1000)
+                                })
+                            }
+                            else {
+                                layer.alert("注册失败 请稍后重试", {icon: 5, title: "提示"});
+                            }
+                        }
+                    }
                 }
             })
             return false;

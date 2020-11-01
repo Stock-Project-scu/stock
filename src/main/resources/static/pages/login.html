@@ -90,10 +90,7 @@
 
         // 进行登录操作
         form.on('submit(login)', function (data) {
-            
-            data = data.field;
-            console.log(data);
-            let d=data;
+            console.log(data.field);
             if (data.username == '') {
                 layer.msg('用户名不能为空');
                 return false;
@@ -109,23 +106,24 @@
             $.ajax({
                 type: "POST",
                 url: "/login",
-                data: d,
+                data: data.field,
                 dataType: "json",
                 success: function(res) {
                     console.log(res);
-                    if(res==true){
-                        window.location = '../index.html';
-                    }
+                    // if(res==true){
+                    //     window.location = '../index.html';
+                    // }
                 }
             });
 
             return false;
         });
-            //这里请给我发一个post请求用于登录，url="/login"
-            // layer.msg('登录成功', function () {
-            //     window.location = '../index.html';
-            // });
-            return false;
+        /*
+            约定：
+            1表示登录成功
+            2表示密码错误
+            3表示用户或邮箱不存在
+        */
     });
 
     // 前往注册区

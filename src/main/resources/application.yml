@@ -4,6 +4,11 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+    #模板引擎位置
+  thymeleaf:
+     cache: false
+     prefix: classpath:/static/
+
 #mybatis的相关配置
 mybatis:
   #mapper配置文件
@@ -12,3 +17,6 @@ mybatis:
   #驼峰命名,暂不开启
   configuration:
     map-underscore-to-camel-case: false
+
+
+   

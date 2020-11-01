@@ -1,31 +1,37 @@
 package com.web.stock.Controller;
 
+import javax.servlet.http.HttpSession;
+
 import com.web.stock.bean.User;
 import com.web.stock.service.Userservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class LoginController {
-    // @RequestMapping("/")
-    // public String Hello(){
-    //     return "kkk";
-    // }
+
     @Autowired 
     private Userservice userservice;//创建一个userservice
-
+    @Autowired
+    HttpSession session;
+    
     @RequestMapping("/login")
+    @ResponseBody
     public boolean login(User user){
         System.out.println("开始进入登录");
-        //System.out.println(user.toString());
+        
         User u1 =userservice.getUserByname(user.getUsername());
         System.out.println(u1);
         System.out.println(user);
         if(user.getPassword().equals(u1.getPassword())){
             System.out.println("成功");
+            session.setAttribute("username", user.getUsername());//seesion存储username
+            String un = (String)session.getAttribute("username");
+            System.out.println("un="+un);
             return true;//登陆成功
         }
         else{
@@ -51,5 +57,15 @@ public class LoginController {
             return "注册失败，原因"+e.toString();
         }
     }
-    
+    //跳转到gotologin
+    @RequestMapping("/gotologin")
+    public String gotologin(){
+        return "/pages/login.html";
+    }
+    //注销
+    @RequestMapping("/logoff")
+    public String logoff(){
+        session.removeAttribute("username");//删除session
+        return "/pages/login.html";
+    }
 }

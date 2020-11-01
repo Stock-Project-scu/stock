@@ -110,9 +110,9 @@
                 dataType: "json",
                 success: function(res) {
                     console.log(res);
-                    // if(res==true){
-                    //     window.location = '../index.html';
-                    // }
+                     if(res==true){
+                         window.location = '../index.html';
+                     }
                 }
             });
 
@@ -128,7 +128,7 @@
 
     // 前往注册区
     $(".toregister").click(function() {
-        window.location = "register.html";
+        window.location = "/pages/register.html"; //修改跳转
     });
 </script>
 </body>

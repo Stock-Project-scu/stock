@@ -1,11 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>订单管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .layui-card {border:1px solid #f2f2f2;border-radius:5px;}
+    </style>
 </head>
 <body>
-    订单管理页
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-card">
+            <div class="layui-card-header">正在进行的交易</div>
+            <div class="layui-card-body">
+                <table id="currentOrder" lay-filter="stockHandle"></table>
+            </div>
+        </div>
+        <div class="layui-card">
+            <div class="layui-card-header">历史订单</div>
+            <div class="layui-card-body">
+                <table id="historyOrder"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script type="text/html" id="stockHandle">
+    <div class="layui-btn layui-btn-xs" lay-event="sellNow">现价抛出</div>
+    <!-- <div class="layui-btn layui-btn-xs" lay-event="sellAtPrice">挂价抛出</div> -->
+</script>
+<script>
+    layui.use(['layer', 'table'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var table = layui.table;
+
+        table.render({
+            elem: "#currentOrder",
+            url: "../json/currentOrder.json",
+            page: false,
+            toolbar: true,
+            title: "正在进行的交易",
+            text: {
+                none: "暂无进行中的交易"
+            },
+            cols: [[
+                {field: "id", title: "编号", sort: true, fixed: "left"},
+                {field: "stockId", title: "证券代码"},
+                {field: "stockName", title: "证券名称"},
+                {field: "count", title: "证券数量"},
+                {field: "countCanSell", title: "可卖数量"},
+                {field: "primeCost", title: "成本价"},
+                {field: "currentPrice", title: "当前价"},
+                {field: "todayBuy", title: "今买数量"},
+                {field: "todaySell", title: "今卖数量"},
+                {field: "profitLoss", title: "浮动盈亏"},
+                {title: "操作", toolbar: "#stockHandle", fixed: "right"}
+            ]]
+        })
+        
+        table.render({
+            elem: "#historyOrder",
+            url: "../json/historyOrder.json",
+            page: true,
+            toolbar: true,
+            title: "历史交易",
+            cols: [[
+                {field: "id", title: "编号", sort: true, fixed: "left"},
+                {field: "date", title: "成交日期"},
+                {field: "time", title: "成交时间"},
+                {field: "stockId", title: "证券代码"},
+                {field: "stockName", title: "证券名称"},
+                {field: "BSFlag", title: "买卖状态"},
+                {field: "doneCost", title: "成交价格"},
+                {field: "doneCount", title: "成交数量"},
+                {field: "donePrice", title: "成交金额"}
+            ]]
+        });
+
+        table.on('tool(stockHandle)', function(obj){
+            var data = obj.data;
+            if (obj.event == "sellNow") {
+                layer.alert("现价抛出");
+            }
+        });
+        
+    });
+</script>
 </body>
 </html>

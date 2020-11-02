@@ -8,16 +8,16 @@
         <result column="realName" jdbcType="VARCHAR" property="realName" />
     </resultMap> -->
     <select id="findAll" resultType="com.web.stock.bean.User">
-        SELECT * FROM user
+        SELECT * FROM userXM01
     </select>
     <select id="findbyUsername" resultType="com.web.stock.bean.User">
-        select * from user where username = #{username}
+        select * from userXM01 where username = #{username}
     </select>
     <select id="findbyUseremail" resultType="com.web.stock.bean.User">
-        select * from user where email = #{email}
+        select * from userXM01 where email = #{email}
     </select>
     <insert id="insertUser" >
-        insert into user (username,email,password) values (#{username},#{email},#{password})
+        insert into userXM01 (username,email,password) values (#{username},#{email},#{password})
     </insert>
     
 </mapper>

@@ -115,7 +115,7 @@
             // console.log(data.field);
             $.ajax({
                 type: "POST",
-                url: "lo/signin",
+                url: "/lo/signin", //注意绝对路径
                 data: data.field,
                 dataType: "json",
                 complete: function(e) {

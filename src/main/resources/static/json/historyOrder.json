@@ -1,0 +1,117 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 10,
+    "data": [
+        {
+            "id": 1,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        },
+        {
+            "id": 2,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        },
+        {
+            "id": 3,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        },
+        {
+            "id": 4,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        },
+        {
+            "id": 5,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        },
+        {
+            "id": 6,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        },
+        {
+            "id": 7,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        },
+        {
+            "id": 8,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        },
+        {
+            "id": 9,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        },
+        {
+            "id": 10,
+            "date": "20201102",
+            "time": "20:22:30",
+            "stockId": "300716",
+            "stockName": "国立科技",
+            "BSFlag": "证券卖出",
+            "doneCost": 11.90,
+            "doneCount": -900,
+            "donePrice": 10710
+        }
+    ]
+}

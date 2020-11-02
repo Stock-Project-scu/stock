@@ -1,0 +1,127 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 10,
+    "data": [
+        {
+            "id": 1,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        },
+        {
+            "id": 2,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        },
+        {
+            "id": 3,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        },
+        {
+            "id": 4,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        },
+        {
+            "id": 5,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        },
+        {
+            "id": 6,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        },
+        {
+            "id": 7,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        },
+        {
+            "id": 8,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        },
+        {
+            "id": 9,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        },
+        {
+            "id": 10,
+            "stockId": "600345",
+            "stockName": "长江通信",
+            "count": "1000",
+            "countCanSell": "1000",
+            "primeCost": 21.057,
+            "currentPrice": 18.460,
+            "todayBuy": 0,
+            "todaySell": 0,
+            "profitLoss": -5454.00
+        }
+    ]
+}

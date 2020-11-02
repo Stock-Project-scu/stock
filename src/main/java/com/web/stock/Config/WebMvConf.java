@@ -28,8 +28,12 @@ public class WebMvConf implements WebMvcConfigurer {
         .excludePathPatterns("/pages/**") // 排除静态文件
         .excludePathPatterns("/page/**") // 排除静态文件
         .excludePathPatterns("/test") 
+        .excludePathPatterns("/gotologin") 
+        .excludePathPatterns("/static/**") 
         .excludePathPatterns("/js/**")
-        .excludePathPatterns("/img/**")
+        .excludePathPatterns("/lo/**")  // 所有login界面的路由
+        .excludePathPatterns("/login") 
+        .excludePathPatterns("/images/**")
         .excludePathPatterns("/css/**");
     }
 }

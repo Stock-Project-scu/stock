@@ -17,9 +17,6 @@
     <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <style id="layuimini-bg-color">
     </style>
-    <script>
-        console.log("cookie"+document.cookie);
-    </script>
 </head>
 
 <body class="layui-layout-body layuimini-all">
@@ -150,6 +147,11 @@
         };
         miniAdmin.render(options);
 
+        // 临时渲染用户名
+        var username = document.cookie.split('=')[1];
+        console.log(username);
+        $(".layuimini-setting>a").text(username)
+
         // 百度统计代码，只统计指定域名
         miniTongji.render({
             specific: true,
@@ -167,7 +169,7 @@
                     setTimeout(function () {
                         layer.msg('退出成功', function () {
                             window.location = 'pages/login.html';
-                        });
+                        }, {anim: 0});
                     }, 1000);
                 }
                 else {

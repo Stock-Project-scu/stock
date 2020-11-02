@@ -17,7 +17,11 @@
     <link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <style id="layuimini-bg-color">
     </style>
+    <script>
+        console.log("cookie"+document.cookie);
+    </script>
 </head>
+
 <body class="layui-layout-body layuimini-all">
 <div class="layui-layout layui-layout-admin">
 
@@ -157,7 +161,8 @@
         });
 
         $('.login-out').on("click", function () {
-            $.get("/logoff", function (data) {
+            $.get("/lo/logoff", function (data) {
+                console.log(data)
                 if (data == 1) {
                     setTimeout(function () {
                         layer.msg('退出成功', function () {

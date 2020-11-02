@@ -8,12 +8,13 @@ import javax.servlet.http.HttpSession;
 import com.web.stock.bean.User;
 import com.web.stock.service.Userservice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/lo")
@@ -23,22 +24,20 @@ public class LoginController {
     private Userservice userservice;// 创建一个userservice
     @Autowired
     HttpSession session;
-
-    
-
+    Logger logger =LoggerFactory.getLogger(LoginController.class);
     @RequestMapping("/login")
     @ResponseBody
     public Integer login(HttpServletResponse response,
-            @RequestParam(value = "username", required = true) String Username,
-            @RequestParam(value = "password", required = true) String Passowrd) {
-        System.out.println("开始进入登录");
+            @RequestParam(value = "username", required = true) String username,
+            @RequestParam(value = "password", required = true) String passowrd) {
+                
+        logger.info("开始进入登录");
         Cookie cookie = new Cookie("username", null); // cookie存放用户名
         try {
-            User u1 = userservice.getUserByname(Username);
-            System.out.println(u1);
-            System.out.println("Username值=" + Username);
-            if (Passowrd.equals(u1.getPassword())) {
-                System.out.println("成功");
+            User u1 = userservice.getUserByname(username);
+            logger.info("Username值[{}]" , username);
+            if (passowrd.equals(u1.getPassword())) {
+                logger.info("成功");
                 session.setAttribute("username", u1.getUsername());// seesion存储username
                 String un = (String) session.getAttribute("username");
                 cookie.setValue(u1.getUsername());
@@ -46,15 +45,15 @@ public class LoginController {
                 response.addCookie(cookie);
                 
                 cookie.setMaxAge(6 * 60 * 60); // 6小时cookie过期
-                System.out.println("cookie=");
-                System.out.println("sessionvalue=" + un);
+                logger.info("sessionvalue={}",un);
+                
                 return 1;// 登陆成功
             } else {
-                System.out.println("失败");
+                logger.info("登录失败");
                 return 2;// 登录失败，密码不对
             }
         } catch (Exception e) {
-            System.err.println(e.toString());
+            logger.error("错误", e);
             return 3;
         }
     }
@@ -62,17 +61,17 @@ public class LoginController {
     @RequestMapping("/signin")
     @ResponseBody
     public String sign(User user) {
+        logger.info("进入注册");
         try {
             if (userservice.getUserByname(user.getUsername()) == null) {
                 // 如果找不到就说明可以注册
-
                 userservice.insertUser(user);
                 return "注册成功";
             } else {
                 return "注册失败,名称重复";
             }
         } catch (Exception e) {
-            System.err.println(e.toString());
+            logger.error("注册失败", e);
             return "注册失败，原因" + e.toString();
         }
     }

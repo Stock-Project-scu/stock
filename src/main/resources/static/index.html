@@ -157,9 +157,18 @@
         });
 
         $('.login-out').on("click", function () {
-            layer.msg('退出登录成功', function () {
-                window.location = 'page/login-3.html';
-            });
+            $.get("/logoff", function (data) {
+                if (data == 1) {
+                    setTimeout(function () {
+                        layer.msg('退出成功', function () {
+                            window.location = 'pages/login.html';
+                        });
+                    }, 1000);
+                }
+                else {
+                    layer.msg('出现未知错误 请稍后重试');
+                }
+            })
         });
     });
 </script>

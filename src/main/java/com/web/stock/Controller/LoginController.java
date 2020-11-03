@@ -12,12 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/lo")
+//@RequestMapping("/lo")
+@CrossOrigin
 public class LoginController {
 
     @Autowired
@@ -46,7 +48,7 @@ public class LoginController {
                 
                 cookie.setMaxAge(6 * 60 * 60); // 6小时cookie过期
                 logger.info("sessionvalue={}",un);
-                
+                //response.sendRedirect("/index.html");
                 return 1;// 登陆成功
             } else {
                 logger.info("登录失败");
@@ -80,7 +82,7 @@ public class LoginController {
     @RequestMapping("/gotologin")
     public String gotologin(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "/pages/login.html";
+        return "pages/login";
     }
 
     // 注销
@@ -96,4 +98,6 @@ public class LoginController {
         session.removeAttribute("username");// 删除session
         return 1;
     }
+
+    
 }

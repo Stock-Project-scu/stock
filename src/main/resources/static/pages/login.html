@@ -105,7 +105,7 @@
             }
             $.ajax({
                 type: "POST",
-                url: "/lo/login",
+                url: "login",
                 data: data.field,
                 dataType: "json",
                 success: function(res) {
@@ -113,9 +113,11 @@
                     if(res == 1){
                         layer.msg("登录成功");
                         setTimeout(function() {
-                            window.location = '../index.html';
-                        }, 1000);
+                            window.location = 'gotoindex';
+                            //$.get("gotoindex",()=>{console.log("跳转")})
+                        }, 500);
                     }
+                    
                     else if (res == 2) {
                         layer.alert("密码错误 请重新输入", {icon: 5, title: "提示"});
                     }
@@ -123,8 +125,9 @@
                         layer.alert("用户名或邮箱不存在", {icon: 5, title: "提示"});
                     }
                 }
+                
             });
-
+            
             return false;
         });
         /*
@@ -137,8 +140,8 @@
 
     // 前往注册区
     $(".toregister").click(function() {
-        window.location = "/pages/register.html"; //修改跳转
-    });
+        window.location = "gotoregister"; //修改跳转
+    })
 </script>
 </body>
 </html>

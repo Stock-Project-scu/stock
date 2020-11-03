@@ -29,6 +29,8 @@ public class WebMvConf implements WebMvcConfigurer {
         .excludePathPatterns("/page/**") // 排除静态文件
         .excludePathPatterns("/test") 
         .excludePathPatterns("/gotologin") 
+        .excludePathPatterns("/gotoregister")
+        //.excludePathPatterns("/gotoindex")
         .excludePathPatterns("/static/**") 
         .excludePathPatterns("/js/**")
         .excludePathPatterns("/lo/**")  // 所有login界面的路由

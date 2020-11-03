@@ -115,7 +115,7 @@
             // console.log(data.field);
             $.ajax({
                 type: "POST",
-                url: "/lo/signin", //注意绝对路径
+                url: "signin", //注意绝对路径
                 data: data.field,
                 dataType: "json",
                 complete: function(e) {
@@ -128,7 +128,7 @@
                             else if (e.responseText == "注册成功") {
                                 layer.msg("注册成功 即将跳转至登录页面", {anim: 0}, function() {
                                     setTimeout(function() {
-                                        window.location = "login.html"
+                                        window.location = "gotologin"
                                     }, 1000)
                                 })
                             }
@@ -144,7 +144,8 @@
 
         // 前往登录区
         $(".tologin").click(function() {
-            window.location = "login.html";
+            window.location = "gotologin";
+            
         });
     });
 </script>

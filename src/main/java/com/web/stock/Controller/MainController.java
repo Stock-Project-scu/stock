@@ -26,7 +26,7 @@ public class MainController {
         
         return "/pages/register";
     }
-    @RequestMapping("/gotoindex")
+    @RequestMapping("/index")
     public String gotoindex(){
         return "/index";
     }

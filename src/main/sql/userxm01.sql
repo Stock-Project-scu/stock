@@ -20,8 +20,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for userxm01
 -- ----------------------------
-DROP TABLE IF EXISTS `userxm01`;
-CREATE TABLE `userxm01`  (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE `userxm01`  (
 -- ----------------------------
 -- Records of userxm01
 -- ----------------------------
-INSERT INTO `userxm01` VALUES (1, 'ddd', '1097249217@qq.com', '123456');
-INSERT INTO `userxm01` VALUES (2, 'dxt', '1097249217@qq.com', '123456');
+INSERT INTO `user` VALUES (1, 'ddd', '1097249217@qq.com', '123456');
+INSERT INTO `user` VALUES (2, 'dxt', '1097249217@qq.com', '123456');
 
 SET FOREIGN_KEY_CHECKS = 1;

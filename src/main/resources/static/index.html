@@ -163,12 +163,12 @@
         });
 
         $('.login-out').on("click", function () {
-            $.get("/lo/logoff", function (data) {
+            $.get("logoff", function (data) {
                 console.log(data)
                 if (data == 1) {
                     setTimeout(function () {
                         layer.msg('退出成功', function () {
-                            window.location = 'pages/login.html';
+                            window.location = "gotologin";
                         }, {anim: 0});
                     }, 1000);
                 }

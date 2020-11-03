@@ -35,7 +35,7 @@ public class WebMvConf implements WebMvcConfigurer {
         .excludePathPatterns("/js/**")
         .excludePathPatterns("/lo/**")  // 所有login界面的路由
         .excludePathPatterns("/login") 
-        .excludePathPatterns("/sigin") 
+        .excludePathPatterns("/signin") 
         .excludePathPatterns("/images/**")
         .excludePathPatterns("/css/**");
     }

@@ -14,7 +14,7 @@ public class User {
 // username: "436543"*/
     private String email;
     //private String id;
-    private String username;
+    private String userName;
     private String password;
 
 }

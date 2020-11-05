@@ -8,7 +8,7 @@ import com.web.stock.bean.User;
  * service接口
  */
 public interface Userservice {
-    User getUserByname(String username);
+    User getUserByName(String userName);
     List<User> getAlluser();
     User getUserByemail(String email);
     boolean insertUser(User user);//注册用户

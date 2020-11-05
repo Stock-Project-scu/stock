@@ -18,9 +18,9 @@ public class UserServiceImpl implements Userservice {
     private UserMapper usermapper;
 
     @Override
-    public User getUserByname(String username) {
+    public User getUserByName(String userName) {
         
-        return usermapper.findbyUsername(username) ;
+        return usermapper.findbyUserName(userName) ;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class UserServiceImpl implements Userservice {
     @Override
     public User getUserByemail(String email) {
         
-        return usermapper.findbyUseremail(email);
+        return usermapper.findbyEmail(email);
     }
     @Override
     public boolean insertUser(User user){

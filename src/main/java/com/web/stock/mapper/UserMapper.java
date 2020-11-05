@@ -12,8 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
     List<User> findAll();//所有遍历
-    User findbyUsername(String username);//根据用户名查找
-    User findbyUseremail(String email);//根据email查找
+    User findbyUserName(String username);//根据用户名查找
+    User findbyEmail(String email);//根据email查找
     boolean insertUser(User user);//注册用户
     
 }

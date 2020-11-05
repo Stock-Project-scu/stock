@@ -30,19 +30,19 @@ public class LoginController {
     @RequestMapping("/login")
     @ResponseBody
     public Integer login(HttpServletResponse response,
-            @RequestParam(value = "username", required = true) String username,
+            @RequestParam(value = "username", required = true) String userName,
             @RequestParam(value = "password", required = true) String passowrd) {
                 
         logger.info("开始进入登录");
         Cookie cookie = new Cookie("username", null); // cookie存放用户名
         try {
-            User u1 = userservice.getUserByname(username);
-            logger.info("Username值[{}]" , username);
+            User u1 = userservice.getUserByName(userName);
+            logger.info("Username值[{}]" , userName);
             if (passowrd.equals(u1.getPassword())) {
                 logger.info("成功");
-                session.setAttribute("username", u1.getUsername());// seesion存储username
+                session.setAttribute("username", u1.getUserName());// seesion存储username
                 String un = (String) session.getAttribute("username");
-                cookie.setValue(u1.getUsername());
+                cookie.setValue(u1.getUserName());
                 cookie.setPath("/");
                 response.addCookie(cookie);
                 
@@ -65,7 +65,7 @@ public class LoginController {
     public String sign(User user) {
         logger.info("进入注册");
         try {
-            if (userservice.getUserByname(user.getUsername()) == null) {
+            if (userservice.getUserByName(user.getUserName()) == null) {
                 // 如果找不到就说明可以注册
                 userservice.insertUser(user);
                 return "注册成功";

@@ -22,10 +22,10 @@ public class ConfigInterceptor implements HandlerInterceptor {
         // 从session中获取用户信息
         //session暂时没有设置其他两项
         
-        String username = (String)session.getAttribute("username");
+        String userName = (String)session.getAttribute("username");
         Logger logger =LoggerFactory.getLogger(ConfigInterceptor.class);
         //session过期
-        if (username == null) {
+        if (userName == null) {
             logger.info(">>>session过期, 跳至登录页");
             response.sendRedirect("gotologin"); // 通过接口跳转登录页面, 注:重定向后下边的代码还会执行 ; /outToLogin是跳至登录页的后台接口
             return false;

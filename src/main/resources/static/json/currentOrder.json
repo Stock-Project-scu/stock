@@ -4,11 +4,12 @@
     "count": 10,
     "data": [
         {
-            "id": 1,
+            "id": "1",
+            "userName":"ddd",
             "stockId": "600345",
             "stockName": "长江通信",
-            "count": "1000",
-            "countCanSell": "1000",
+            "count": 1000,
+            "countCanSell": 1000,
             "primeCost": 21.057,
             "currentPrice": 18.460,
             "todayBuy": 0,

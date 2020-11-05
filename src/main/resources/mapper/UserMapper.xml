@@ -10,10 +10,10 @@
     <select id="findAll" resultType="com.web.stock.bean.User">
         SELECT * FROM user
     </select>
-    <select id="findbyUsername" resultType="com.web.stock.bean.User">
+    <select id="findbyUserName" resultType="com.web.stock.bean.User">
         select * from user where username = #{username}
     </select>
-    <select id="findbyUseremail" resultType="com.web.stock.bean.User">
+    <select id="findbyEmail" resultType="com.web.stock.bean.User">
         select * from user where email = #{email}
     </select>
     <insert id="insertUser" >

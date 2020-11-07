@@ -18,8 +18,8 @@
     Integer todayBuy;       //今日买入
     Integer todaySell;      //今日卖出
     Double profitLoss;      //浮动盈亏 -->
-    <insert id="addCurrentOrder" parameterType="com.web.stock.bean.CurrentOrder">
+    <!-- <insert id="addCurrentOrder" parameterType="com.web.stock.bean.CurrentOrder">
         insert into currentorder (userName,stockId,count,countCansell,primeCost,primeCost,currentPrice,todayBuy,todaySell) 
         values (#{userName},#{stockId},#{count},#{countCansell},#{},#{})
-    </insert>
+    </insert> -->
 </mapper>

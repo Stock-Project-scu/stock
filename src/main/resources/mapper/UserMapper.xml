@@ -16,7 +16,7 @@
     <select id="findbyEmail" resultType="com.web.stock.bean.User">
         select * from user where email = #{email}
     </select>
-    <insert id="insertUser" >
+    <insert id="insertUser" parameterType="com.web.stock.bean.User">
         insert into user (username,email,password) values (#{username},#{email},#{password})
     </insert>
     

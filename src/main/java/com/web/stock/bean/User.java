@@ -13,8 +13,8 @@ public class User {
 // repassword: "123456"
 // username: "436543"*/
     private String email;
-    //private String id;
-    private String userName;
+    
+    private String username;
     private String password;
 
 }

@@ -18,9 +18,9 @@ public class UserServiceImpl implements Userservice {
     private UserMapper usermapper;
 
     @Override
-    public User getUserByName(String userName) {
+    public User getUserByName(String username) {
         
-        return usermapper.findbyUserName(userName) ;
+        return usermapper.findbyUserName(username) ;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UserServiceImpl implements Userservice {
             usermapper.insertUser(user);
             return true;
          } catch (Exception e) {
-             //TODO: handle exception
+             
              return false;
          }
     }

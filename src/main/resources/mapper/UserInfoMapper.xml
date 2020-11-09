@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.stock.mapper.UserInfoMapper">
+    <select id="findAll" resultType="com.web.stock.bean.User">
+        SELECT * FROM userinfo
+    </select>
+    <select id="findByUserName" resultType="com.web.stock.bean.User">
+        select * from userinfo where username=#{username}
+    </select>
+    <insert id="insertUserinfo" parameterType="com.web.stock.bean.UserInfo">
+        insert userinfo (username,email,address,sex,introduction) 
+        values (#{username},#{email},#{address},#{sex},#{introduction})
+    </insert> 
+    <insert id="insertUserinfobyUser" parameterType="com.web.stock.bean.User">
+        insert userinfo (username,email) 
+        values (#{username},#{email},#{address},#{sex},#{introduction})
+    </insert>
+    <update id="setSex" >
+        update userinfo set
+            sex = #{sex}
+    </update>
+    <update id="setAdress">
+        update userinfo set
+            address = #{address}
+    </update>
+    <update id="setEmail">
+        upadte
+    </update>
+</mapper>

@@ -12,6 +12,7 @@ public class User {
 // password: "123456"
 // repassword: "123456"
 // username: "436543"*/
+    private String id;//编号
     private String email;
     
     private String username;

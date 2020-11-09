@@ -1,10 +1,10 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3366/XM01?useUnicode=true&characterEncoding=UTF-8&serverTimezone=CST
-    username: XM01
+    url: jdbc:mysql://localhost:3306/XM01?useUnicode=true&characterEncoding=UTF-8&serverTimezone=CST
+    username: xm01
     password: xm01aaa
     driver-class-name: com.mysql.jdbc.Driver
-    #
+    #localhost:3366
     #username: root
     #password: XWClassroom20202023
     #模板引擎位置

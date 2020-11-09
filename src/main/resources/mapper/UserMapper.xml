@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.web.stock.mapper.UserMapper">
-    <!-- <resultMap id="BaseResultMap" type="com.example.entity.User">
-        <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="userName" jdbcType="VARCHAR" property="userName" />
-        <result column="passWord" jdbcType="VARCHAR" property="passWord" />
-        <result column="realName" jdbcType="VARCHAR" property="realName" />
-    </resultMap> -->
     <select id="findAll" resultType="com.web.stock.bean.User">
         SELECT * FROM user
     </select>
@@ -19,5 +13,12 @@
     <insert id="insertUser" parameterType="com.web.stock.bean.User">
         insert into user (username,email,password) values (#{username},#{email},#{password})
     </insert>
-    
+    <select id="findIdbyUserName" resultType="java.lang.Integer">
+        select id from user where username = #{username}
+    </select>
+    <update id="setEmail">
+        update user set
+            email = #{email}
+            where 
+    </update>
 </mapper>

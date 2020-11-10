@@ -25,7 +25,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">用户名</label>
                         <div class="layui-input-block">
-                            <input type="text" name="" placeholder="更改用户名" autocomplete="off" class="layui-input">
+                            <input type="text" name="" placeholder="更改用户名" autocomplete="off" class="layui-input" readonly="readonly">
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -131,6 +131,19 @@
         var form = layer.form;
         var $ = layui.jquery;
         
+        $(function () {
+            var username = document.cookie.split('=')[1];
+            // console.log(username);
+            $.ajax({
+                method: 'post',
+                data: {username: username},
+                url: 'getdata/userinfo',
+                dataType: 'json',
+                success: function(res) {
+                    console.log(res);
+                }
+            })
+        });
     });
 </script>
 </body>

@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("/change")
-public class ChangeUser {
+public class ChangeController {
     @Autowired
     private Userservice userservice;// 创建一个userservice
-    Logger logger =LoggerFactory.getLogger(LoginController.class);
+    Logger logger = LoggerFactory.getLogger(ChangeController.class);
 
     //修改用户信息
     @RequestMapping("/userinfo")
@@ -43,9 +43,6 @@ public class ChangeUser {
             logger.error("出现错误", e);
             return 0;
         }
-        
-        
-        
         return 1;
     }
 }

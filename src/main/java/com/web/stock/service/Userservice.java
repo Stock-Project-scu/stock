@@ -17,4 +17,5 @@ public interface Userservice {
     Integer setEmailbyId(Integer id,String email);                 //更改邮箱
     Integer setUsernamebyId(Integer id,String username);            //修改用户名（慎用）
     Integer findIdbyUserName(String username);//根据用户名返回id 
+    Integer setAgebyId(Integer id,Integer age);//修改年龄
 }

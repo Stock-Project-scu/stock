@@ -16,6 +16,8 @@ public interface UserMapper {
     User findbyEmail(String email);//根据email查找
     Integer insertUser(User user);//注册用户
     Integer findIdbyUserName(String username);//根据用户名返回id 
-    Integer setEmail(String email);//修改邮箱（慎用）
-    Integer setUsername(String username);//修改用户名（慎用）
+    Integer setSexbyId(Integer id,String sex);                //修改性别
+    Integer setAddressbyId(Integer id,String address);             //修改地址
+    Integer setEmailbyId(Integer id,String email);                 //更改邮箱
+    Integer setUsernamebyId(Integer id,String username);            //修改用户名（慎用）
 }

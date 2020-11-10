@@ -45,5 +45,35 @@ public class UserServiceImpl implements Userservice {
          }
     }
 
+    @Override
+    public Integer setSexbyId(Integer id, String sex) {
+        
+        return usermapper.setSexbyId(id, sex);
+    }
+
+    @Override
+    public Integer setAddressbyId(Integer id, String address) {
+        // TODO Auto-generated method stub
+        return usermapper.setAddressbyId(id, address);
+    }
+
+    @Override
+    public Integer setEmailbyId(Integer id, String email) {
+        // TODO Auto-generated method stub
+        return usermapper.setEmailbyId(id, email);
+    }
+
+    @Override
+    public Integer setUsernamebyId(Integer id, String username) {
+        // TODO Auto-generated method stub
+        return usermapper.setUsernamebyId(id, username);
+    }
+
+    @Override
+    public Integer findIdbyUserName(String username) {
+        // TODO Auto-generated method stub
+        return findIdbyUserName(username);
+    }
+
     
 }

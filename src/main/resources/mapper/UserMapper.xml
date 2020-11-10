@@ -16,9 +16,24 @@
     <select id="findIdbyUserName" resultType="java.lang.Integer">
         select id from user where username = #{username}
     </select>
-    <update id="setEmail">
+    <update id="setSexbyId">
         update user set
-            email = #{email}
+            sex = #{sex}
             where 
+    </update>
+    <update id="AddressbyId">
+        update user set
+            address = #{address}
+            where id = #{id}
+    </update>
+    <update id="setUsernamebyId">
+        update user set
+            username = #{username} 
+            where id= #{id}
+    </update>
+    <update id="setEmailbyId">
+        update user set 
+            email = #{email} 
+            where id = #{id}
     </update>
 </mapper>

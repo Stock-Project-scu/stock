@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //@RequestMapping("/lo")
 @CrossOrigin
 public class LoginController {
-
     @Autowired
     private Userservice userservice;// 创建一个userservice
     @Autowired

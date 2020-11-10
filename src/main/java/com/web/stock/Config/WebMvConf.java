@@ -19,8 +19,6 @@ public class WebMvConf implements WebMvcConfigurer {
         registry.addInterceptor(configInterceptor)
         // .addPathPatterns() 是配置需要拦截的路径 
         .addPathPatterns("/**")
-        // .excludePathPatterns() 用于排除拦截
-        //.excludePathPatterns("/") // 排除127.0.0.1进入登录页
         .excludePathPatterns("/code") // 排除登录页获取验证码接口
         .excludePathPatterns("/loginVerify") // 排除验证账号密码接口
         .excludePathPatterns("/outToLogin")
@@ -30,7 +28,6 @@ public class WebMvConf implements WebMvcConfigurer {
         .excludePathPatterns("/test") 
         .excludePathPatterns("/gotologin") 
         .excludePathPatterns("/gotoregister")
-        //.excludePathPatterns("/gotoindex")
         .excludePathPatterns("/static/**") 
         .excludePathPatterns("/js/**")
         .excludePathPatterns("/lo/**")  // 所有login界面的路由

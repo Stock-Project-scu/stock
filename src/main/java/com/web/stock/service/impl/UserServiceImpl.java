@@ -75,5 +75,11 @@ public class UserServiceImpl implements Userservice {
         return findIdbyUserName(username);
     }
 
+    @Override
+    public Integer setAgebyId(Integer id, Integer age) {
+        // TODO Auto-generated method stub
+        return usermapper.setAgebyId(id, age);
+    }
+
     
 }

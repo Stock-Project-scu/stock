@@ -20,4 +20,5 @@ public interface UserMapper {
     Integer setAddressbyId(Integer id,String address);             //修改地址
     Integer setEmailbyId(Integer id,String email);                 //更改邮箱
     Integer setUsernamebyId(Integer id,String username);            //修改用户名（慎用）
+    Integer setAgebyId(Integer id,Integer age);//修改年龄
 }

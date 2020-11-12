@@ -36,4 +36,9 @@
             email = #{email} 
             where id = #{id}
     </update>
+    <update id="setAgebyId">
+        update user set
+            age = #{age} 
+            where id = #{id}
+    </update>
 </mapper>

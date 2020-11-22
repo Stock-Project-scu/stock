@@ -1,11 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>财经信息</title>
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .news-card {
+            border:1px solid #f2f2f2;
+            border-radius:5px;
+            margin: 15px;
+        }
+        .news-card-title {
+            font-size: 22px;
+            padding: 10px;
+        }
+        .news-card-redirect {
+            display: block;
+            font-size: 16px;
+            padding: 5px;
+        }
+        .news-card-redirect:hover {
+            color: #009688;
+        }
+    </style>
 </head>
 <body>
-    财经资讯页
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="news-card">
+            <div class="news-card-title">[观点] “长牛”驱动因素仍在</div>
+            <a class="news-card-redirect" href="javascript:void(0);">→ 继续阅读</a>
+        </div>
+        <div class="news-card">
+            <div class="news-card-title">[观点] 老艾：有到割外资韭菜时？</div>
+            <a class="news-card-redirect" href="javascript:void(0);">→ 继续阅读</a>
+        </div>
+        <div class="news-card">
+            <div class="news-card-title">[研报] 军工十四五发展方向明确</div>
+            <a class="news-card-redirect" href="javascript:void(0);">→ 继续阅读</a>
+        </div>
+    </div>
+    
+</div>
+<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+    layui.use(['layer'], function () {
+        var $ = layui.jquery,
+            layer = layui.layer;
+
+        // 查看财经资讯
+        
+    });
+</script>
 </body>
 </html>

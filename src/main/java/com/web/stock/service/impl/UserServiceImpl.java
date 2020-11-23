@@ -72,7 +72,7 @@ public class UserServiceImpl implements Userservice {
     @Override
     public Integer findIdbyUserName(String username) {
         // TODO Auto-generated method stub
-        return findIdbyUserName(username);
+        return usermapper.findIdbyUserName(username);
     }
 
     @Override
@@ -81,5 +81,23 @@ public class UserServiceImpl implements Userservice {
         return usermapper.setAgebyId(id, age);
     }
 
-    
+
+
+	@Override
+	public Integer setPassowrdbyId(Integer id, String password) {
+		// TODO Auto-generated method stub
+		return usermapper.setPassowrdbyId(id, password);
+	}
+
+    @Override
+    public Integer setIntroductionbyId(Integer id, String introduction) {
+        // TODO Auto-generated method stub
+        return usermapper.setIntroductionbyId(id, introduction);
+    }
+
+    // @Override
+    // public Integer getIdbyName(String username) {
+    //     // TODO Auto-generated method stub
+    //     return usermapper.getIdbyName(username);
+    // }
 }

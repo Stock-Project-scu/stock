@@ -7,6 +7,7 @@
     <select id="findbyUserName" resultType="com.web.stock.bean.User">
         select * from user where username = #{username}
     </select>
+    
     <select id="findbyEmail" resultType="com.web.stock.bean.User">
         select * from user where email = #{email}
     </select>
@@ -19,9 +20,9 @@
     <update id="setSexbyId">
         update user set
             sex = #{sex}
-            where 
+            where id = #{id}
     </update>
-    <update id="AddressbyId">
+    <update id="setAddressbyId">
         update user set
             address = #{address}
             where id = #{id}
@@ -36,9 +37,19 @@
             email = #{email} 
             where id = #{id}
     </update>
+    <update id="setIntroductionbyId">
+        update user set 
+            introduction = #{introduction} 
+            where id = #{id}
+    </update>
     <update id="setAgebyId">
         update user set
             age = #{age} 
+            where id = #{id}
+    </update>
+    <update id="setPassowrdbyId">
+        update user set
+            password = #{password} 
             where id = #{id}
     </update>
 </mapper>

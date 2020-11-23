@@ -25,5 +25,4 @@ public class User {
     Integer age;            //年龄
     String address;         //所在地
     String introduction;    //个人简介
-
 }

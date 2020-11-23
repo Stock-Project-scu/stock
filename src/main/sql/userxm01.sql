@@ -11,7 +11,7 @@
  Target Server Version : 50151
  File Encoding         : 65001
 
- Date: 10/11/2020 19:14:34
+ Date: 23/11/2020 22:12:13
 */
 
 SET NAMES utf8;
@@ -24,11 +24,11 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `sex` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `age` int(10) NULL DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `introduction` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `username`(`username`) USING BTREE
@@ -37,8 +37,8 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'ddd', '1097249217@qq.com', '123456', NULL, NULL, NULL, NULL);
-INSERT INTO `user` VALUES (2, 'dxt', '1097249217@qq.com', '123456', NULL, NULL, NULL, NULL);
-INSERT INTO `user` VALUES (3, 'aaa', '111@qq.com', '123456', NULL, NULL, NULL, NULL);
+INSERT INTO `user` VALUES (1, 'ddd', '123456', '1097249217@qq.com', '男', 18, '上海', NULL);
+INSERT INTO `user` VALUES (2, 'dxt', '123456', '1097249217@qq.com', NULL, NULL, NULL, NULL);
+INSERT INTO `user` VALUES (3, 'aaa', '123456', '111@qq.com', '男', 18, '深圳', 'nihao');
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -58,14 +58,18 @@ public class ChangeController {
     // 修改密码
     @RequestMapping("/password")
     @ResponseBody
-    public Integer changePassord(@RequestParam(value = "repwd", required = true) String password,HttpServletResponse response) {
+    public Integer changePassord(@RequestParam(value = "repwd", required = true) String password,
+    @RequestParam(value = "oldpwd", required = true) String oldpassword,HttpServletResponse response) {
         try {
             logger.info("用户 {} 进入密码修改", session.getAttribute("username"));
             logger.info("开始密码修改");
-            // User u1 =
+            User u1 = userservice.getUserByName(session.getAttribute("username").toString());
+            if(oldpassword!=u1.getPassword()){
+                return 2;
+            }
             // userservice.getUserByName(session.getAttribute("username").toString());
             logger.info("用户密码要修改的{}", password);
-            Integer id = userservice.findIdbyUserName(session.getAttribute("username").toString());
+            Integer id = u1.getId();
 
             logger.info("用户ID={}", id.toString());
             userservice.setPassowrdbyId(id, password);

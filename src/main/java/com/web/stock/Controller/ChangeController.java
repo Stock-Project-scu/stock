@@ -64,7 +64,11 @@ public class ChangeController {
             logger.info("用户 {} 进入密码修改", session.getAttribute("username"));
             logger.info("开始密码修改");
             User u1 = userservice.getUserByName(session.getAttribute("username").toString());
-            if(oldpassword!=u1.getPassword()){
+            logger.info("输入的old密码={}",oldpassword);
+            if(!oldpassword.equals(u1.getPassword())){
+                logger.info("原密码={}",u1.getPassword());
+                //logger.info("输入的")
+                logger.info("输入密码有误，返回");
                 return 2;
             }
             // userservice.getUserByName(session.getAttribute("username").toString());

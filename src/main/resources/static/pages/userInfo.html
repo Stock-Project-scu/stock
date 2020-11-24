@@ -111,6 +111,12 @@
                 dataType: 'json',
                 success: function(res) {
                     console.log(res);
+                    if (res.sex == "男") {
+                        res.sex = 0;
+                    }
+                    else if (res.sex == "女") {
+                        res.sex = 1;
+                    }
                     for (var key in res) {
                         // console.log(key + ":" + res[key]);
                         form.val("userinfo", {[key]: res[key]});

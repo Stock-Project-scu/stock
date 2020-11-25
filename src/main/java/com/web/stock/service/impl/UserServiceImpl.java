@@ -2,6 +2,7 @@ package com.web.stock.service.impl;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.web.stock.bean.User;
 import com.web.stock.mapper.UserMapper;
 import com.web.stock.service.Userservice;
@@ -20,24 +21,23 @@ public class UserServiceImpl implements Userservice {
     @Override
     public User getUserByName(String username) {
         
-        return usermapper.findbyUserName(username) ;
+        return usermapper.selectOne(new QueryWrapper<User>().eq("username",username));
     }
 
     @Override
     public List<User> getAlluser() {
-        
-        return usermapper.findAll() ;
+        return usermapper.selectList(null) ;
     }
 
     @Override
     public User getUserByemail(String email) {
         
-        return usermapper.findbyEmail(email);
+        return usermapper.selectOne(new QueryWrapper<User>().eq("email",email));
     }
     @Override
     public boolean insertUser(User user){
          try {
-            usermapper.insertUser(user);
+            usermapper.insert(user);
             return true;
          } catch (Exception e) {
              
@@ -47,57 +47,116 @@ public class UserServiceImpl implements Userservice {
 
     @Override
     public Integer setSexbyId(Integer id, String sex) {
-        
-        return usermapper.setSexbyId(id, sex);
+        try {
+            User u1 = new User();
+            u1.setId(id);
+            u1.setSex(sex);
+            usermapper.updateById(u1);
+        } catch (Exception e) {
+            System.err.println(e);
+            return 2;
+        }
+        return 1;
     }
 
     @Override
     public Integer setAddressbyId(Integer id, String address) {
-        // TODO Auto-generated method stub
-        return usermapper.setAddressbyId(id, address);
+      
+        try {
+            User u1 = new User();
+            u1.setId(id);
+            u1.setAddress(address);
+            usermapper.updateById(u1);
+        } catch (Exception e) {
+            System.err.println(e);
+            return 2;
+        }
+        return 1;
     }
 
     @Override
     public Integer setEmailbyId(Integer id, String email) {
-        // TODO Auto-generated method stub
-        return usermapper.setEmailbyId(id, email);
+        
+        try {
+            User u1 = new User();
+            u1.setId(id);
+            u1.setEmail(email);
+            usermapper.updateById(u1);
+        } catch (Exception e) {
+            System.err.println(e);
+            return 2;
+        }
+        return 1;
     }
 
     @Override
     public Integer setUsernamebyId(Integer id, String username) {
-        // TODO Auto-generated method stub
-        return usermapper.setUsernamebyId(id, username);
+        
+        try {
+            User u1 = new User();
+            u1.setId(id);
+            u1.setUsername(username);
+            usermapper.updateById(u1);
+        } catch (Exception e) {
+            System.err.println(e);
+            return 2;
+        }
+        return 1;
     }
 
     @Override
     public Integer findIdbyUserName(String username) {
-        // TODO Auto-generated method stub
-        return usermapper.findIdbyUserName(username);
+        
+        User u1 = usermapper.selectOne(new QueryWrapper<User>().eq("username",username));
+        return u1.getId();
     }
 
     @Override
     public Integer setAgebyId(Integer id, Integer age) {
-        // TODO Auto-generated method stub
-        return usermapper.setAgebyId(id, age);
+        
+        try {
+            User u1 = new User();
+            u1.setId(id);
+            u1.setAge(age);
+            usermapper.updateById(u1);
+        } catch (Exception e) {
+            System.err.println(e);
+            return 2;
+        }
+        return 1;
     }
 
 
 
 	@Override
 	public Integer setPassowrdbyId(Integer id, String password) {
-		// TODO Auto-generated method stub
-		return usermapper.setPassowrdbyId(id, password);
+		
+		try {
+            User u1 = new User();
+            u1.setId(id);
+            u1.setPassword(password);
+            usermapper.updateById(u1);
+        } catch (Exception e) {
+            System.err.println(e);
+            return 2;
+        }
+        return 1;
 	}
 
     @Override
     public Integer setIntroductionbyId(Integer id, String introduction) {
-        // TODO Auto-generated method stub
-        return usermapper.setIntroductionbyId(id, introduction);
+        
+        try {
+            User u1 = new User();
+            u1.setId(id);
+            u1.setIntroduction(introduction);
+            usermapper.updateById(u1);
+        } catch (Exception e) {
+            System.err.println(e);
+            return 2;
+        }
+        return 1;
     }
 
-    // @Override
-    // public Integer getIdbyName(String username) {
-    //     // TODO Auto-generated method stub
-    //     return usermapper.getIdbyName(username);
-    // }
+    
 }

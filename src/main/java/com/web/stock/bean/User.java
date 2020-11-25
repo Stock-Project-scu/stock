@@ -8,16 +8,9 @@ import lombok.Data;
 @AllArgsConstructor
 
 public class User {
-//     //** email: "1097249217@qq.com"
-// password: "123456"
-// repassword: "123456"
-// username: "436543"*/
-    // private String id;//编号
-    // private String email;
-    
-    // private String username;
-    
-    Integer id;              //编号
+    public User() {
+	}
+	Integer id;              //编号
     String username;        //用户名
     String password;
     String email;

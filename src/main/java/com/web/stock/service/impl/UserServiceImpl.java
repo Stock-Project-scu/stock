@@ -40,7 +40,6 @@ public class UserServiceImpl implements Userservice {
             usermapper.insert(user);
             return true;
          } catch (Exception e) {
-             
              return false;
          }
     }

@@ -1,5 +1,7 @@
 package com.web.stock.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +11,8 @@ import lombok.Data;
 
 public class User {
     public User() {
-	}
+    }
+    @TableId(type = IdType.AUTO)
 	Integer id;              //编号
     String username;        //用户名
     String password;

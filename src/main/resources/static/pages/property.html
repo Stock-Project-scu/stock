@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>个人信息</title>
@@ -10,143 +11,156 @@
     <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
     <link rel="stylesheet" href="../css/public.css" media="all">
     <style>
-        .layui-card {border:1px solid #f2f2f2;border-radius:5px;}
-        .layui-input-block {width: 200px;}
-        .blackText {color: black !important;}
+        .layui-card {
+            border: 1px solid #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .layui-input-block {
+            width: 200px;
+        }
+
+        .blackText {
+            color: black !important;
+        }
     </style>
 </head>
+
 <body>
-<div class="layuimini-container">
-    <div class="layuimini-main">
-        <div class="layui-card">
-            <div class="layui-card-header">我的资产</div>
-            <div class="layui-card-body">
-                <div class="layui-form" lay-filter="userproperty">
-                    <!-- 内容区域 -->
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">现有资产</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="property" autocomplete="off" class="layui-input layui-disabled blackText" readonly="readonly">
+    <div class="layuimini-container">
+        <div class="layuimini-main">
+            <div class="layui-card">
+                <div class="layui-card-header">我的资产</div>
+                <div class="layui-card-body">
+                    <div class="layui-form" lay-filter="userproperty">
+                        <!-- 内容区域 -->
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">现有资产</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="property" autocomplete="off"
+                                    class="layui-input layui-disabled blackText" readonly="readonly">
+                            </div>
                         </div>
-                    </div>
-                    <!-- 提交区域 -->
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit lay-filter="transferIn">转入资金</button>
-                            <button class="layui-btn layui-btn-primary" lay-submit lay-filter="transferOut">提现</button>
+                        <!-- 提交区域 -->
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="transferIn">转入资金</button>
+                                <button class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="transferOut">提现</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
-<script>
-    layui.use(['layer', 'form'], function () {
-        var layer = layui.layer;
-        var form = layui.form;
-        var $ = layui.jquery;
-        
-        // 页面加载时自动获取资产
-        $(document).ready(function () {
-            var username = document.cookie.split('=')[1];
-            // console.log(username);
-            // TODO: 服务器端暂时没做 代码先注释起来
-            // $.ajax({
-            //     method: 'post',
-            //     data: {username: username},
-            //     url: '../getdata/property',
-            //     dataType: 'json',
-            //     success: function(res) {
-            //         console.log(res);
-            //         form.val("userproperty", {property: res});
-            //     }
-            // });
-            // 临时指定金额 发送好请求要删
-            form.val("userproperty", {property: "1980.5"});
-        });
+    <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+    <script>
+        layui.use(['layer', 'form'], function () {
+            var layer = layui.layer;
+            var form = layui.form;
+            var $ = layui.jquery;
 
-        // 监听加钱按钮
-        form.on("submit(transferIn)", () => {
-            layer.prompt({
-                title: "请输入转入资金",
-            }, (value) => {
-                if (!parseFloat(value)) {
-                    layer.msg("输入内容不合法 请重新输入", {anim: 6});
-                }
-                else if (parseFloat(value) < 0) {
-                    layer.msg("金额不合法 请重新输入", {anim: 6});
-                }
-                else {
-                    var money = parseFloat(value);
-                    console.log(money);
-                    // 发送请求
-                    $.ajax({
-                        method: 'post',
-                        url: '../change/addMoney',
-                        data: {money: money},
-                        success: (res) => {
-                            layer.msg("转入成功", {anim: 0}, () => {
-                                location.reload();
-                            });
-                        },
-                        error: () => {
-                            layer.msg("出现未知错误 请联系管理员", {anim: 6});
-                        }
-                    });
-                }
+            // 页面加载时自动获取资产
+            $(document).ready(function () {
+                var username = document.cookie.split('=')[1];
+                console.log(username);
+                //TODO: 服务器端暂时没做 代码先注释起来
+                $.ajax({
+                    method: 'post',
+                    data: { username: username },
+                    url: '../getdata/property',
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res);
+                        form.val("userproperty", { property: res });
+                    }
+                });
+                //临时指定金额 发送好请求要删
+                //form.val("userproperty", {property: "1980.5"});
             });
-        });
-        /*
-            约定：
-            res随便传值
-        */
 
-        // 监听减钱按钮
-        form.on("submit(transferOut)", () => {
-            layer.prompt({
-                title: "请输入提现资金",
-            }, (value) => {
-                if (!parseFloat(value)) {
-                    layer.msg("输入内容不合法 请重新输入", {anim: 6});
-                }
-                else if (parseFloat(value) < 0) {
-                    layer.msg("金额不合法 请重新输入", {anim: 6});
-                }
-                else {
-                    var money = parseFloat(value);
-                    console.log(money);
-                    // 发送请求
-                    $.ajax({
-                        method: 'post',
-                        url: '../change/withdrawMoney',
-                        data: {money: money},
-                        success: (res) => {
-                            if (res == 1) {
-                                layer.msg("提现成功", {anim: 0}, () => {
+            // 监听加钱按钮
+            form.on("submit(transferIn)", () => {
+                layer.prompt({
+                    title: "请输入转入资金",
+                }, (value) => {
+                    if (!parseFloat(value)) {
+                        layer.msg("输入内容不合法 请重新输入", { anim: 6 });
+                    }
+                    else if (parseFloat(value) < 0) {
+                        layer.msg("金额不合法 请重新输入", { anim: 6 });
+                    }
+                    else {
+                        var money = parseFloat(value);
+                        console.log(money);
+                        // 发送请求
+                        $.ajax({
+                            method: 'post',
+                            url: '../change/addMoney',
+                            data: { money: money },
+                            success: (res) => {
+                                layer.msg("转入成功", { anim: 0 }, () => {
                                     location.reload();
                                 });
+                            },
+                            error: () => {
+                                layer.msg("出现未知错误 请联系管理员", { anim: 6 });
                             }
-                            else {
-                                layer.msg("提现失败 可能是余额不足", {anim: 6});
-                                return false;
-                            }
-                        },
-                        error: () => {
-                            layer.msg("出现未知错误 请联系管理员", {anim: 6});
-                        }
-                    });
-                }
+                        });
+                    }
+                });
             });
+            /*
+                约定：
+                res随便传值
+            */
+
+            // 监听减钱按钮
+            form.on("submit(transferOut)", () => {
+                layer.prompt({
+                    title: "请输入提现资金",
+                }, (value) => {
+                    if (!parseFloat(value)) {
+                        layer.msg("输入内容不合法 请重新输入", { anim: 6 });
+                    }
+                    else if (parseFloat(value) < 0) {
+                        layer.msg("金额不合法 请重新输入", { anim: 6 });
+                    }
+                    else {
+                        var money = parseFloat(value);
+                        console.log(money);
+                        // 发送请求
+                        $.ajax({
+                            method: 'post',
+                            url: '../change/withdrawMoney',
+                            data: { money: money },
+                            success: (res) => {
+                                if (res == 1) {
+                                    layer.msg("提现成功", { anim: 0 }, () => {
+                                        location.reload();
+                                    });
+                                }
+                                else {
+                                    layer.msg("提现失败 可能是余额不足", { anim: 6 });
+                                    return false;
+                                }
+                            },
+                            error: () => {
+                                layer.msg("出现未知错误 请联系管理员", { anim: 6 });
+                            }
+                        });
+                    }
+                });
+            });
+            /*
+                约定：
+                1 提现成功
+                2 余额不足
+            */
         });
-        /*
-            约定：
-            1 提现成功
-            2 余额不足
-        */
-    });
-</script>
+    </script>
 </body>
+
 </html>

@@ -51,4 +51,12 @@ public class ChangeController {
         String username = session.getAttribute("username").toString();
         return changeservice.addUserPropertyService(username, money);
     }
+    @RequestMapping("/withdrawMoney")
+    @ResponseBody
+    public Integer withdrawMoney(
+    @RequestParam(value = "money", required = true) double money){
+        logger.info("进入修改资产,减少金额={}",money);
+        String username = session.getAttribute("username").toString();
+        return changeservice.subUserPropertyService(username, money);
+    }
 }

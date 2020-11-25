@@ -101,4 +101,26 @@ public class ChangeServiceImpl implements ChangeService {
         }
     }
 
+    @Override
+    public Integer subUserPropertyService(String username, double property) {
+        try {
+            logger.info("进入资产添加");
+            //User u1 = userservice.getUserByName(session.getAttribute("username").toString());// 获取用户
+            //logger.info("获取到用户={}", u1.toString());
+            logger.info("进入获取资产");
+            UserProperty up1 = userpropertyservice.getUserPropertyByName(username);
+            if(up1.getProperty() < property){
+                logger.info("余额不足");
+                return 2;
+            }
+            up1.setProperty(up1.getProperty() - property);
+            logger.info("添加资产+{}", up1.getProperty());
+            logger.info("添加成功");
+            return userpropertyservice.updateUserPropertyById(up1.getId(), up1.getProperty());
+        } catch (Exception e) {
+            logger.error("添加失败", e);
+            return 0;
+        }
+    }
+
 }

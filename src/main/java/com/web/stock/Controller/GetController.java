@@ -1,5 +1,7 @@
 package com.web.stock.Controller;
 
+import java.util.List;
+
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
 import com.web.stock.service.ChangeService;
@@ -31,4 +33,10 @@ public class GetController {
     public double getUserProperty(@RequestParam(value = "username", required = true) String username){
         return getdataservice.getuserproperty(username).getProperty();
     }
+    @RequestMapping("/userinfoall")
+    @ResponseBody
+    public List<User> getUserInfoAll(){
+        return getdataserv
+    }
+
 }

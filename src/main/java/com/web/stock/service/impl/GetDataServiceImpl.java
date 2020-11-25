@@ -1,5 +1,7 @@
 package com.web.stock.service.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.web.stock.bean.User;
@@ -24,17 +26,16 @@ public class GetDataServiceImpl implements GetDataService {
     HttpSession session;
     @Autowired
     UserPropertyService userpropertyservice;
-    
-    Logger logger =LoggerFactory.getLogger(GetDataService.class);
-    
-    //获取用户信息
+
+    Logger logger = LoggerFactory.getLogger(GetDataService.class);
+
+    // 获取用户信息
     @Override
     public User getuserinfo(String username) {
         return userservice.getUserByName(username);
     }
 
-
-    //获取资产
+    // 获取资产
     @Override
     public UserProperty getuserproperty(String username) {
         try {
@@ -44,6 +45,30 @@ public class GetDataServiceImpl implements GetDataService {
             logger.error("错误为={}", e);
             return null;
         }
+    }
+
+    @Override
+    public List<User> getuserinfoall() {
+        logger.info("全部用户信息获取");
+        try {
+            return userservice.getAlluser();
+        } catch (Exception e) {
+            logger.error("获取出错了", e);
+            return null;
+        }
+        
+    }
+
+    @Override
+    public List<UserProperty> getuserpropertyall() {
+        logger.info("全部用户资产获取");
+        try {
+            return userpropertyservice.getUserPropertyAll();
+        } catch (Exception e) {
+            logger.error("获取出错了", e);
+            return null;
+        }
+        //return null;
     }
 
 }

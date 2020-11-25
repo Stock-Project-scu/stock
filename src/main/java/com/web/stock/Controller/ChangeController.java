@@ -1,11 +1,9 @@
 package com.web.stock.Controller;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.web.stock.bean.User;
-import com.web.stock.service.Userservice;
+import com.web.stock.service.ChangeService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/change")
 public class ChangeController {
     @Autowired
-    private Userservice userservice;// 创建一个userservice
+    ChangeService changeservice;//引入修改服务
     @Autowired
     HttpSession session;
     Logger logger = LoggerFactory.getLogger(ChangeController.class);
-
     // 修改用户信息
     @RequestMapping("/userinfo")
     @ResponseBody
@@ -35,24 +32,7 @@ public class ChangeController {
             @RequestParam(value = "address", required = true) String address,
             @RequestParam(value = "age", required = true) Integer age,
             @RequestParam(value = "introduction", required = true) String introduction) {
-        try {
-            User u1 = userservice.getUserByName(username);
-            Integer id = u1.getId();
-            userservice.setSexbyId(id, sex);
-            logger.info("修改sex={}", sex);
-            userservice.setAddressbyId(id, address);
-            logger.info("修改address={}", address);
-            userservice.setAgebyId(id, age);
-            logger.info("修改age={}", age);
-            userservice.setIntroductionbyId(id, introduction);
-            logger.info("修改introduction={}",introduction);
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            logger.error("出现错误", e);
-            return 0;
-        }
-        return 1;
+        return changeUserInfo(username, sex, address, age, introduction);
     }
 
     // 修改密码
@@ -60,35 +40,15 @@ public class ChangeController {
     @ResponseBody
     public Integer changePassord(@RequestParam(value = "repwd", required = true) String password,
     @RequestParam(value = "oldpwd", required = true) String oldpassword,HttpServletResponse response) {
-        try {
-            logger.info("用户 {} 进入密码修改", session.getAttribute("username"));
-            logger.info("开始密码修改");
-            User u1 = userservice.getUserByName(session.getAttribute("username").toString());
-            logger.info("输入的old密码={}",oldpassword);
-            if(!oldpassword.equals(u1.getPassword())){
-                logger.info("原密码={}",u1.getPassword());
-                //logger.info("输入的")
-                logger.info("输入密码有误，返回");
-                return 2;
-            }
-            // userservice.getUserByName(session.getAttribute("username").toString());
-            logger.info("用户密码要修改的{}", password);
-            Integer id = u1.getId();
-
-            logger.info("用户ID={}", id.toString());
-            userservice.setPassowrdbyId(id, password);
-            //修改成功之后注销
-            logger.info("修改成功，关闭session和cookie");
-            Cookie cookie = new Cookie("username", null);
-            // 将`Max-Age`设置为0
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
-            session.removeAttribute("username");// 删除session
-            return 1;
-        } catch (Exception e) {
-            logger.error("有错误", e);
-            // TODO: handle exception
-            return 3;
-        }
+        return changeservice.changePassordService(password, oldpassword, response);
+    }
+    //添加资产
+    @RequestMapping("/addMoney")
+    @ResponseBody
+    public Integer addMoney(
+    @RequestParam(value = "money", required = true) double money){
+        logger.info("进入修改资产,增加金额={}",money);
+        String username = session.getAttribute("username").toString();
+        return changeservice.addUserPropertyService(username, money);
     }
 }

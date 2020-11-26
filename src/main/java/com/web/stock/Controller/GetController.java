@@ -36,7 +36,12 @@ public class GetController {
     @RequestMapping("/userinfoall")
     @ResponseBody
     public List<User> getUserInfoAll(){
-        return getdataserv
+        return getdataservice.getuserinfoall();
+    }
+    @RequestMapping("/propertyall")
+    @ResponseBody
+    public List<UserProperty> getUserPropertyAll(){
+        return getdataservice.getuserpropertyall();
     }
 
 }

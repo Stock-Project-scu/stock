@@ -4,8 +4,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.web.stock.bean.User;
+
 import com.web.stock.service.LoginService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LoginController {
     @Autowired
     LoginService loginservice;//登录服务
+
+
+
+    Logger logger = LoggerFactory.getLogger(LoginController.class);
+
     @RequestMapping("/login")
     @ResponseBody
     public Integer login(HttpServletResponse response,
@@ -29,6 +37,7 @@ public class LoginController {
     @RequestMapping("/signin")
     @ResponseBody
     public String sign(User user) {
+        logger.info("开始注册服务");
         return loginservice.signservice(user);
     }
 

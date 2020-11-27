@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.web.stock.bean.User;
+import com.web.stock.service.EmailService;
 import com.web.stock.service.LoginService;
 import com.web.stock.service.UserPropertyService;
 import com.web.stock.service.Userservice;
@@ -26,6 +27,10 @@ public class LoginServiceImpl implements LoginService {
     private Userservice userservice;// 创建一个userservice
     @Autowired
     UserPropertyService userpropertyservice;
+
+    @Autowired
+    EmailService emailservice;//邮件服务
+    
     @Autowired
     HttpSession session;
     Logger logger =LoggerFactory.getLogger(LoginServiceImpl.class);
@@ -82,6 +87,11 @@ public class LoginServiceImpl implements LoginService {
                 // 如果找不到就说明可以注册
                 userservice.insertUser(user);
                 userpropertyservice.insertUserProperty(user.getUsername());//建立资产表
+                logger.info("注册成功,开始发送邮件");
+                String msg = "欢迎您使用XM01股票期货交易系统!<br>您的用户名是 "+user.getUsername()+" 请牢记！"+"<br>此用户名作为登录唯一凭证";
+                String account = user.getEmail();
+                emailservice.sendEmail(msg, account);
+                logger.info("发送成功");
                 return "注册成功";
             } else {
                 return "注册失败,名称重复";

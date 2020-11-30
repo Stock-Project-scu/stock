@@ -2,6 +2,7 @@ package com.web.stock.Controller;
 
 import java.util.List;
 
+import com.web.stock.bean.Stock;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
 //import com.web.stock.service.ChangeService;
@@ -44,6 +45,12 @@ public class GetController {
     @ResponseBody
     public List<UserProperty> getUserPropertyAll(){
         return getdataservice.getuserpropertyall();
+    }
+
+    @RequestMapping("/stockcurrentprice")
+    @ResponseBody
+    public Stock getStockCurrentPrice(Integer StockId){
+        return getdataservice.getstockcurrentprice(StockId);
     }
 
 }

@@ -4,16 +4,22 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.web.stock.bean.Stock;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
 import com.web.stock.service.GetDataService;
 import com.web.stock.service.UserPropertyService;
 import com.web.stock.service.Userservice;
+import com.web.stock.service.myHttpClient;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service("GetDataService")
 public class GetDataServiceImpl implements GetDataService {
@@ -56,7 +62,7 @@ public class GetDataServiceImpl implements GetDataService {
             logger.error("获取出错了", e);
             return null;
         }
-        
+
     }
 
     @Override
@@ -68,7 +74,32 @@ public class GetDataServiceImpl implements GetDataService {
             logger.error("获取出错了", e);
             return null;
         }
-        //return null;
+        // return null;
+    }
+
+    @Autowired
+    myHttpClient httpclient;
+
+    @Override
+    public Stock getstockcurrentprice(Integer StockId) {
+        
+        String url = "http://hq.sinajs.cn/list=";
+        url=url+StockId.toString();
+		HttpMethod method = HttpMethod.GET;
+        //RestTemplate template = new RestTemplate();
+        String data = httpclient.client(url, method);
+		String [] res = data.split("=");
+		String d1 = res[1];
+		String []res2=d1.split("\"");
+		String d2 = res2[1];
+		String []res3 = d2.split(",");
+        String d3 = res3[3];//第四个是当前价格
+        //第一个是股票名称
+        Stock stock =new Stock();
+        stock.setStockId(StockId);
+        stock.setStockName(res3[0]);
+        stock.setCurrentPrice(Double.parseDouble(res[3]));
+        return stock;
     }
 
 }

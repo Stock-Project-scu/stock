@@ -47,3 +47,29 @@
 ​        {field: "doneCount", title: "成交数量"},
 
 ​        {field: "donePrice", title: "成交金额"}
+
+#### 交易系统数据库
+##### user-stock表
+Id useranme stockId stockName stocknumber 
+active1： 如果没有记录，用户购买股票的时候，存入用户名，股票代码，股票名，股票数(**不设置总价，暂时**)
+active2： 如果有记录，直接在上面增减，如果超过用户已有数量的卖出，会返回错误。
+
+规约1：getstock信息，发送StockID编号，返回当前最新的价格(休市期另算)，也可以传stockName回来了(很方便)
+
+规约2：buystock，
+前端传回
+1.(用户名/可以不获取采用session获取)
+2.需要购买的stockId
+3.最好能有stockname
+4.购买数量number
+5.currentprice(可选当前价格，这样就不用再次访问价格了)
+后端反应计算出总额，从user-property中取出相应额度，user-stock表添加相应的记录，如果余额不足返回2，其他错误返回0
+
+规约3：salestock
+前端回传
+1.用户名
+2.stockId
+3.购买数量
+4.最好能传stockname
+5.售出总价
+后端：如果user-stock没有或者是持有数量不够，返回2，其他错误返回0，正常情况，修改user-property数值，

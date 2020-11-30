@@ -32,7 +32,7 @@ public class ChangeController {
             @RequestParam(value = "address", required = true) String address,
             @RequestParam(value = "age", required = true) Integer age,
             @RequestParam(value = "introduction", required = true) String introduction) {
-        return changeUserInfo(username, sex, address, age, introduction);
+        return changeservice.changeUserInfoService(username, sex, address, age, introduction);
     }
 
     // 修改密码

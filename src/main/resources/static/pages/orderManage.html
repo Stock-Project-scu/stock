@@ -17,6 +17,12 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <div class="layui-card">
+            <div class="layui-card-header">操作</div>
+            <div class="layui-card-body">
+                <button class="layui-btn" id="createOrder">新建订单</button>
+            </div>
+        </div>
+        <div class="layui-card">
             <div class="layui-card-header">正在进行的交易</div>
             <div class="layui-card-body">
                 <table id="currentOrder" lay-filter="stockHandle"></table>
@@ -91,6 +97,14 @@
                 layer.alert("现价抛出");
             }
         });
+
+        $("#createOrder").click(function() {
+            layer.open({
+                type: 2,
+                content: ["newOrder.html", "no"],
+                area: ["500px", "500px"]
+            });
+        })
         
     });
 </script>

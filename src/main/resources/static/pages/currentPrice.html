@@ -1,11 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <title>实时行情</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .layui-card {border:1px solid #f2f2f2;border-radius:5px;}
+        .layui-input-block {width: 200px;}
+        #k-graph {
+            height: 680px;
+        }
+        .stockInfo {
+            width: 100%;
+            height: 100%;
+        }
+        .currentPrice {
+            font-size: 30px;
+            color: #000;
+        }
+        .diffInfo {
+            overflow: hidden;
+        }
+        .diffInfo div:first-child {
+            float: left;
+        }
+        .diffInfo div:last-child {
+            padding-left: 30px;
+            float: left;
+        }
+        .stockItem {
+            overflow: hidden;
+            font-size: 16px;
+        }
+        .stockItem div:nth-child(1) {
+            float: left;
+        }
+        .stockItem div:nth-child(2) {
+            float: right;
+        }
+    </style>
 </head>
 <body>
-    实时行情页
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-card">
+            <div class="layui-card-header">股票信息查询</div>
+            <div class="layui-card-body">
+                <div class="layui-form" lay-filter="stockInfo">
+                    <!-- 内容区域 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">股票代码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="stockId" id="stockId" placeholder="输入股票代码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 提交区域 -->
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="searchStockInfo">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-card layui-col-md3">
+                <div class="layui-card-header">行情信息</div>
+                <div class="layui-card-body">
+                    <div class="stockInfo">
+                        <div class="currentPrice">--.--</div>
+                        <div class="diffInfo">
+                            <div>--.--</div>
+                            <div>--.--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>今开</div>
+                            <div>--.--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>昨收</div>
+                            <div>--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>最高</div>
+                            <div>--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>最低</div>
+                            <div>--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>成交量</div>
+                            <div>--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>成交额</div>
+                            <div>--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>买一</div>
+                            <div>--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>买一申请</div>
+                            <div>--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>卖一</div>
+                            <div>--</div>
+                        </div>
+                        <div class="stockItem">
+                            <div>卖一申请</div>
+                            <div>--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card layui-col-md9">
+                <div class="layui-card-header">查看图表</div>
+                <div class="layui-card-body">
+                    <div id="k-graph"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script src="../lib/defineByMyself/echarts.min.js" charset="utf-8"></script>
+<script>
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer;
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        var stockInfo = [];
+
+        // 查询股票信息
+        form.on('submit(searchStockInfo)', function (data) {
+            var stockId = data.field["stockId"];
+            if (!stockId.match(/^(((002|000|300|600)[\d]{3})|60[\d]{4})$/)) {
+                layer.alert("请输入正确的股票代码", {icon: 5, title: "提示"});
+                return false;
+            }
+            else if (stockId[0] == "6" || stockId[0] == "9") {
+                // console.log("sh")
+                stockInfo.push(stockId)
+                var stockIdGraph = stockId + ".ss"
+                var stockIdInfo = "sh" + stockId
+                layer.msg("正在查询 请稍后...")
+                getStockInfo(stockIdInfo)
+                getKGraphInfo(stockIdGraph)
+                
+                return false;
+            }
+            else {
+                // console.log("sz")
+                var stockIdGraph = stockId + ".sz"
+                var stockIdInfo = "sz" + stockId
+                layer.msg("正在查询 请稍后...")
+                getKGraphInfo(stockIdGraph)
+                
+                return false;
+            }
+        })
+
+        function getStockInfo(stockid) {
+            $.ajax({
+                url: "../getdata/stockInfo",
+                type: "post",
+                data: {stockid: stockid},
+                success: (res) => {
+                    stockInfo.push(res["stockName"])
+                    // 先计算涨跌
+                    var currentPrice = parseFloat(res["currentPrice"])
+                    var closePrice = parseFloat(res["closePrice"])
+                    var range = currentPrice - closePrice
+                    var rangeRate = range / closePrice
+                    var dealCount = parseFloat(res["dealCount"])
+                    var dealValue = parseFloat(res["dealValue"])
+                    var maxPrice = parseFloat(res["maxPrice"])
+                    var minPrice = parseFloat(res["minPrice"])
+                    
+                    if (range > 0) {
+                        $(".currentPrice").text(currentPrice.toFixed(2))
+                        $(".diffInfo div:eq(0)").text("+" + range.toFixed(2))
+                        $(".diffInfo div:eq(1)").text("+" + (rangeRate*100).toFixed(2))
+                        $(".currentPrice").css("color", "#FD1050")
+                        $(".diffInfo div:eq(0)").css("color", "#FD1050")
+                        $(".diffInfo div:eq(1)").css("color", "#FD1050")
+                    }
+                    else {
+                        $(".currentPrice").text(currentPrice.toFixed(2))
+                        $(".diffInfo div:eq(0)").text(range.toFixed(2))
+                        $(".diffInfo div:eq(1)").text((rangeRate*100).toFixed(2))
+                        $(".currentPrice").css("color", "#2E8B57")
+                        $(".diffInfo div:eq(0)").css("color", "#2E8B57")
+                        $(".diffInfo div:eq(1)").css("color", "#2E8B57")
+                    }
+
+                    $(".stockItem:eq(0) div:eq(1)").text("haha")
+                }
+            })
+        }
+        
+        function getKGraphInfo(stockId) {
+            $.ajax({
+                url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + stockId + "&apikey=N85MME457DZEJLPY",
+                success: (res) => {
+                    var data = dealData(res)
+                    drawKGraph(data)
+                }
+            })
+        }
+
+        function dealData(res) {
+            var data = res["Time Series (Daily)"]
+            // console.log(data)
+            var dates = []
+            var totals = []
+
+            for (var key in data) {
+                dates.push(key)
+                var eachDayInfo = data[key]
+                var std_eachDayInfo = []
+                std_eachDayInfo.push(eachDayInfo["1. open"])
+                std_eachDayInfo.push(eachDayInfo["4. close"])
+                std_eachDayInfo.push(eachDayInfo["3. low"])
+                std_eachDayInfo.push(eachDayInfo["2. high"])
+                
+                totals.push(std_eachDayInfo)
+            }
+
+            dates = dates.reverse()
+            totals = totals.reverse()
+
+            var ret = []
+            ret.push(dates)
+            ret.push(totals)
+            
+            return ret
+        }
+
+        function drawKGraph(data) {
+            // console.log(data)
+
+            var option = {
+                title: {
+                    text: "贵州茅台 600519",
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                backgroundColor: '#21202D',
+                legend: {
+                    data: ['日K'],
+                    inactiveColor: '#777',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        animation: false,
+                        type: 'cross',
+                        lineStyle: {
+                            color: '#376df4',
+                            width: 2,
+                            opacity: 1
+                        }
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: data[0],
+                    axisLine: { lineStyle: { color: '#8392A5' } }
+                },
+                yAxis: {
+                    scale: true,
+                    axisLine: { lineStyle: { color: '#8392A5' } },
+                    splitLine: { show: false }
+                },
+                grid: {
+                    bottom: 80
+                },
+                dataZoom: [{
+                    textStyle: {
+                        color: '#8392A5'
+                    },
+                    handleSize: '80%',
+                    dataBackground: {
+                        areaStyle: {
+                            color: '#8392A5'
+                        },
+                        lineStyle: {
+                            opacity: 0.8,
+                            color: '#8392A5'
+                        }
+                    },
+                    handleStyle: {
+                        color: '#fff',
+                        shadowBlur: 3,
+                        shadowColor: 'rgba(0, 0, 0, 0.6)',
+                        shadowOffsetX: 2,
+                        shadowOffsetY: 2
+                    }
+                },
+                {
+                    type: 'inside'
+                }],
+                animation: true,
+                series: [
+                    {
+                        type: 'candlestick',
+                        name: '日K',
+                        data: data[1],
+                        itemStyle: {
+                            normal: {
+                                color: '#FD1050',
+                                color0: '#0CF49B',
+                                borderColor: '#FD1050',
+                                borderColor0: '#0CF49B'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            var myChart = echarts.init(document.getElementById('k-graph'));    
+            myChart.setOption(option);
+
+            $(window).resize(function() {
+                $('#k-graph').height($(window).innerHeight() - 300)
+                myChart.resize();
+            })
+        }
+    });
+</script>
 </body>
 </html>

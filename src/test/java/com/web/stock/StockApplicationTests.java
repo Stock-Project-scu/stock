@@ -1,6 +1,9 @@
 package com.web.stock;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
 //import com.web.stock.mapper.UserPropertyMapper;
@@ -27,18 +30,11 @@ class StockApplicationTests {
 	LoginService loginservice;
 	@Autowired 
 	GetDataService gd;
-	// @Test
-	// void test_mybatis_mapper() throws Exception {
-	// 	User user = new User();
-	// 	user.setEmail("1196154768@qq.com");
-	// 	user.setPassword("123456");
-	// 	user.setUsername("zdy");
-	// 	loginservice.signservice(user);
-	// 	//es.sendEmail("<br>换行<br>测试", "1097249217@qq.com");
-	// }
+	
 	@Autowired
 	myHttpClient httpclient;
 	@Test
+
 	void test_client(){
 		String url = "http://hq.sinajs.cn/list=sh601006";
 		HttpMethod method = HttpMethod.GET;
@@ -50,6 +46,16 @@ class StockApplicationTests {
 		String []res3 = d2.split(",");
 		String d3 = res3[3];
 		System.out.println(d3);
+		// Map m1 = new HashMap<>();
+		// m1.put("名字", "贵州茅台");
+		// m1.put("编号", 650001);
+		// System.out.println(m1.get("名字"));
+		// System.out.println(m1.get("编号"));
+		Map<String,String> m1 = gd.getstockcurrentprice(601006);
+		m1.forEach((key,value)->{
+			System.out.println(key+":"+value);
+		});
+		
 	}
 
 

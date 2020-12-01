@@ -1,6 +1,7 @@
 package com.web.stock.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import com.web.stock.bean.Stock;
 import com.web.stock.bean.User;
@@ -47,9 +48,9 @@ public class GetController {
         return getdataservice.getuserpropertyall();
     }
 
-    @RequestMapping("/stockcurrentprice")
+    @RequestMapping("/stockInfo")
     @ResponseBody
-    public Stock getStockCurrentPrice(Integer StockId){
+    public Map<String,String> getStockCurrentPrice(Integer StockId){
         return getdataservice.getstockcurrentprice(StockId);
     }
 

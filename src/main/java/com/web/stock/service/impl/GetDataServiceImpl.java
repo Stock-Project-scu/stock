@@ -1,6 +1,9 @@
 package com.web.stock.service.impl;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -81,25 +84,42 @@ public class GetDataServiceImpl implements GetDataService {
     myHttpClient httpclient;
 
     @Override
-    public Stock getstockcurrentprice(Integer StockId) {
+    public Map<String,String> getstockcurrentprice(Integer StockId) {
         
-        String url = "http://hq.sinajs.cn/list=";
+        String url = "http://hq.sinajs.cn/list=sh";
         url=url+StockId.toString();
+        logger.info("stockid={}",url);
 		HttpMethod method = HttpMethod.GET;
         //RestTemplate template = new RestTemplate();
         String data = httpclient.client(url, method);
+        logger.info("data=", data);
 		String [] res = data.split("=");
 		String d1 = res[1];
 		String []res2=d1.split("\"");
-		String d2 = res2[1];
-		String []res3 = d2.split(",");
-        String d3 = res3[3];//第四个是当前价格
+        String d2 = res2[1];
+//        System.out.println(d2);
+        String []res3 = d2.split(",");
+        
+        Map<String,String> map = new LinkedHashMap<String,String>();
+        logger.info("数组溢出？size res3={}", res3.length);
+        map.put("stockName", res3[0]);
+        map.put("openPrice", res3[1]);
+        map.put("closePrice", res3[2]);
+        map.put("currentPrice", res3[3]);
+        map.put("maxPrice", res3[4]);
+        map.put("minPrice", res3[5]);
+        map.put("buyOnePrice", res3[6]);
+        map.put("sellOnePrice", res3[7]);
+        map.put("dealCount", res3[8]);
+        map.put("dealValue",res3[9]);
+        map.put("buyOneCount", res3[10]);
+        map.put("Integer", res3[11]);
         //第一个是股票名称
-        Stock stock =new Stock();
-        stock.setStockId(StockId);
-        stock.setStockName(res3[0]);
-        stock.setCurrentPrice(Double.parseDouble(res[3]));
-        return stock;
+        // Stock stock =new Stock();
+        // stock.setStockId(StockId);
+        // stock.setStockName(res3[0]);
+        // stock.setCurrentPrice(Double.parseDouble(res[3]));
+        return map;
     }
 
 }

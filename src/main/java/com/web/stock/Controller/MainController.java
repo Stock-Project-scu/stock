@@ -20,4 +20,8 @@ public class MainController {
     public String gotoregister(){
         return "/pages/register";
     }
+    @RequestMapping("/index")
+    public String gotoindex(){
+        return "/index";
+    }
 }

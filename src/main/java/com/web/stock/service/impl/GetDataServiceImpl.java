@@ -1,13 +1,12 @@
 package com.web.stock.service.impl;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import com.web.stock.bean.Stock;
+
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
 import com.web.stock.service.GetDataService;
@@ -15,14 +14,12 @@ import com.web.stock.service.UserPropertyService;
 import com.web.stock.service.Userservice;
 import com.web.stock.service.myHttpClient;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
 
 @Service("GetDataService")
 public class GetDataServiceImpl implements GetDataService {
@@ -84,23 +81,20 @@ public class GetDataServiceImpl implements GetDataService {
     myHttpClient httpclient;
 
     @Override
-    public Map<String,String> getstockcurrentprice(Integer StockId) {
+    public Map<String,String> getstockcurrentprice(String StockId) {
         
         String url = "http://hq.sinajs.cn/list=sh";
-        url=url+StockId.toString();
+        url=url+StockId;
         logger.info("stockid={}",url);
 		HttpMethod method = HttpMethod.GET;
-        //RestTemplate template = new RestTemplate();
         String data = httpclient.client(url, method);
-        logger.info("data=", data);
 		String [] res = data.split("=");
 		String d1 = res[1];
 		String []res2=d1.split("\"");
         String d2 = res2[1];
-//        System.out.println(d2);
         String []res3 = d2.split(",");
         
-        Map<String,String> map = new LinkedHashMap<String,String>();
+        Map<String,String> map = new LinkedHashMap<>();
         logger.info("数组溢出？size res3={}", res3.length);
         map.put("stockName", res3[0]);
         map.put("openPrice", res3[1]);
@@ -114,11 +108,6 @@ public class GetDataServiceImpl implements GetDataService {
         map.put("dealValue",res3[9]);
         map.put("buyOneCount", res3[10]);
         map.put("Integer", res3[11]);
-        //第一个是股票名称
-        // Stock stock =new Stock();
-        // stock.setStockId(StockId);
-        // stock.setStockName(res3[0]);
-        // stock.setCurrentPrice(Double.parseDouble(res[3]));
         return map;
     }
 

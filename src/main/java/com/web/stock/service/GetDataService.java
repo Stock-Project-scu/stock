@@ -3,7 +3,7 @@ package com.web.stock.service;
 import java.util.List;
 import java.util.Map;
 
-import com.web.stock.bean.Stock;
+
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
 
@@ -12,5 +12,5 @@ public interface GetDataService {
     public UserProperty getuserproperty(String username);
     public List<User> getuserinfoall();
     public List<UserProperty> getuserpropertyall();
-    public Map<String,String> getstockcurrentprice(Integer StockId);
+    public Map<String,String> getstockcurrentprice(String stockid);
 }

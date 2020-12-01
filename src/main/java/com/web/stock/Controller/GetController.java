@@ -50,8 +50,8 @@ public class GetController {
 
     @RequestMapping("/stockInfo")
     @ResponseBody
-    public Map<String,String> getStockCurrentPrice(Integer StockId){
-        return getdataservice.getstockcurrentprice(StockId);
+    public Map<String,String> getStockCurrentPrice(String stockid){
+        return getdataservice.getstockcurrentprice(stockid);
     }
 
 }

@@ -81,7 +81,7 @@ public class GetDataServiceImpl implements GetDataService {
     public Map<String, String> getstockcurrentprice(String StockId) {
 
         try {
-            String url = "http://hq.sinajs.cn/list=sh";
+            String url = "http://hq.sinajs.cn/list=";
             url = url + StockId;
             logger.info("stockid={}", url);
             HttpMethod method = HttpMethod.GET;

@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,14 +29,14 @@ public class LoginController {
 
     Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    @RequestMapping("/login")
+    @PostMapping("/login")
     @ResponseBody
     public Integer login(HttpServletResponse response,
             @RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "password", required = true) String passowrd) {
         return loginservice.loginservice(response, username, passowrd);
     }
-    @RequestMapping("/signin")
+    @PostMapping("/signin")
     @ResponseBody
     public String sign(User user) {
         logger.info("开始注册服务");
@@ -49,7 +51,7 @@ public class LoginController {
     }
 
     // 注销
-    @RequestMapping("/logoff")
+    @GetMapping("/logoff")
     @ResponseBody
     public Integer logoff(HttpServletResponse response) {
         return loginservice.logoffservice(response);

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +26,7 @@ public class ChangeController {
     HttpSession session;
     Logger logger = LoggerFactory.getLogger(ChangeController.class);
     // 修改用户信息
-    @RequestMapping("/userinfo")
+    @PostMapping("/userinfo")
     @ResponseBody
     public Integer changeUserInfo(@RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "sex", required = true) String sex,
@@ -36,14 +37,14 @@ public class ChangeController {
     }
 
     // 修改密码
-    @RequestMapping("/password")
+    @PostMapping("/password")
     @ResponseBody
     public Integer changePassord(@RequestParam(value = "repwd", required = true) String password,
     @RequestParam(value = "oldpwd", required = true) String oldpassword,HttpServletResponse response) {
         return changeservice.changePassordService(password, oldpassword, response);
     }
     //添加资产
-    @RequestMapping("/addMoney")
+    @PostMapping("/addMoney")
     @ResponseBody
     public Integer addMoney(
     @RequestParam(value = "money", required = true) double money){
@@ -51,7 +52,7 @@ public class ChangeController {
         String username = session.getAttribute("username").toString();
         return changeservice.addUserPropertyService(username, money);
     }
-    @RequestMapping("/withdrawMoney")
+    @PostMapping("/withdrawMoney")
     @ResponseBody
     public Integer withdrawMoney(
     @RequestParam(value = "money", required = true) double money){

@@ -16,17 +16,8 @@ public class MainController {
     @Autowired
     HttpSession session;
 
-    @RequestMapping("/test")
-    public String test(){
-        return "/pages/login";
-    }
     @RequestMapping("/gotoregister")
     public String gotoregister(){
-        
         return "/pages/register";
-    }
-    @RequestMapping("/index")
-    public String gotoindex(){
-        return "/index";
     }
 }

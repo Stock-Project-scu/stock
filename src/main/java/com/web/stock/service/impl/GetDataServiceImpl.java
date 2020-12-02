@@ -107,7 +107,7 @@ public class GetDataServiceImpl implements GetDataService {
             map.put("dealCount", res3[8]);
             map.put("dealValue", res3[9]);
             map.put("buyOneCount", res3[10]);
-            map.put("Integer", res3[11]);
+            map.put("sellOneCount", res3[11]);
             return map;
         } catch (Exception e) {
             log.error("错误信息", e);

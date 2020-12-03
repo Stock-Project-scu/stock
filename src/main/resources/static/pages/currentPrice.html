@@ -43,6 +43,9 @@
         .stockItem div:nth-child(2) {
             float: right;
         }
+        #createOrder {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -63,6 +66,7 @@
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <button class="layui-btn" lay-submit lay-filter="searchStockInfo">查询</button>
+                            <button class="layui-btn" id="createOrder">买入</button>
                         </div>
                     </div>
                 </div>
@@ -139,35 +143,53 @@
         var form = layui.form;
         var $ = layui.jquery;
 
-        var stockInfo = [];
+        var stockInfo = "";
+        var stockId = "";
+        var index = null;
 
         // 查询股票信息
         form.on('submit(searchStockInfo)', function (data) {
-            var stockId = data.field["stockId"];
+            stockId = data.field["stockId"];
             if (!stockId.match(/^(((002|000|300|600)[\d]{3})|60[\d]{4})$/)) {
                 layer.alert("请输入正确的股票代码", {icon: 5, title: "提示"});
                 return false;
             }
             else if (stockId[0] == "6" || stockId[0] == "9") {
                 // console.log("sh")
-                stockInfo.push(stockId)
+                stockInfo = "" + stockId
                 var stockIdGraph = stockId + ".ss"
                 var stockIdInfo = "sh" + stockId
                 layer.msg("正在查询 请稍后...")
                 getStockInfo(stockIdInfo)
                 getKGraphInfo(stockIdGraph)
+                // 让新建订单的按钮显示
+                $("#createOrder").css("display", "inline-block")
                 
                 return false;
             }
             else {
                 // console.log("sz")
+                stockInfo = "" + stockId
                 var stockIdGraph = stockId + ".sz"
                 var stockIdInfo = "sz" + stockId
                 layer.msg("正在查询 请稍后...")
+                getStockInfo(stockIdInfo)
                 getKGraphInfo(stockIdGraph)
+                // 让新建订单的按钮显示
+                $("#createOrder").css("display", "inline-block")
                 
                 return false;
             }
+        })
+
+        $("#createOrder").click(function() {
+            index = layer.open({
+                type: 2,
+                content: ["newOrder.html?stockInfo=" + stockId, "no"],
+                title: "创建新订单",
+                area: ["500px", "500px"]
+            });
+            console.log(index)
         })
 
         function getStockInfo(stockid) {
@@ -176,21 +198,28 @@
                 type: "post",
                 data: {stockid: stockid},
                 success: (res) => {
-                    stockInfo.push(res["stockName"])
+                    // TODO: 股票代码问题
+                    stockInfo = res["stockName"] + " " + stockInfo
+                    console.log(stockInfo)
                     // 先计算涨跌
                     var currentPrice = parseFloat(res["currentPrice"])
                     var closePrice = parseFloat(res["closePrice"])
+                    var openPrice = parseFloat(res["openPrice"])
                     var range = currentPrice - closePrice
                     var rangeRate = range / closePrice
                     var dealCount = parseFloat(res["dealCount"])
                     var dealValue = parseFloat(res["dealValue"])
                     var maxPrice = parseFloat(res["maxPrice"])
                     var minPrice = parseFloat(res["minPrice"])
+                    var buyOnePrice = parseFloat(res["buyOnePrice"])
+                    var buyOneCount = parseFloat(res["buyOneCount"])
+                    var sellOnePrice = parseFloat(res["sellOnePrice"])
+                    var sellOneCount = parseFloat(res["sellOneCount"])
                     
                     if (range > 0) {
                         $(".currentPrice").text(currentPrice.toFixed(2))
                         $(".diffInfo div:eq(0)").text("+" + range.toFixed(2))
-                        $(".diffInfo div:eq(1)").text("+" + (rangeRate*100).toFixed(2))
+                        $(".diffInfo div:eq(1)").text("+" + (rangeRate*100).toFixed(2) + "%")
                         $(".currentPrice").css("color", "#FD1050")
                         $(".diffInfo div:eq(0)").css("color", "#FD1050")
                         $(".diffInfo div:eq(1)").css("color", "#FD1050")
@@ -198,13 +227,22 @@
                     else {
                         $(".currentPrice").text(currentPrice.toFixed(2))
                         $(".diffInfo div:eq(0)").text(range.toFixed(2))
-                        $(".diffInfo div:eq(1)").text((rangeRate*100).toFixed(2))
+                        $(".diffInfo div:eq(1)").text((rangeRate*100).toFixed(2) + "%")
                         $(".currentPrice").css("color", "#2E8B57")
                         $(".diffInfo div:eq(0)").css("color", "#2E8B57")
                         $(".diffInfo div:eq(1)").css("color", "#2E8B57")
                     }
 
-                    $(".stockItem:eq(0) div:eq(1)").text("haha")
+                    $(".stockItem:eq(0) div:eq(1)").text(openPrice.toFixed(2))
+                    $(".stockItem:eq(1) div:eq(1)").text(closePrice.toFixed(2))
+                    $(".stockItem:eq(2) div:eq(1)").text(maxPrice.toFixed(2))
+                    $(".stockItem:eq(3) div:eq(1)").text(minPrice.toFixed(2))
+                    $(".stockItem:eq(4) div:eq(1)").text((dealCount/1000000).toFixed(2) + "万")
+                    $(".stockItem:eq(5) div:eq(1)").text((dealValue/100000000).toFixed(2) + "亿")
+                    $(".stockItem:eq(6) div:eq(1)").text(buyOnePrice.toFixed(2))
+                    $(".stockItem:eq(7) div:eq(1)").text((buyOneCount/100).toFixed(0))
+                    $(".stockItem:eq(8) div:eq(1)").text(sellOnePrice.toFixed(2))
+                    $(".stockItem:eq(9) div:eq(1)").text((sellOneCount/100).toFixed(0))
                 }
             })
         }
@@ -252,7 +290,7 @@
 
             var option = {
                 title: {
-                    text: "贵州茅台 600519",
+                    text: stockInfo,
                     textStyle: {
                         color: '#fff'
                     }
@@ -342,6 +380,7 @@
             })
         }
     });
+
 </script>
 </body>
 </html>

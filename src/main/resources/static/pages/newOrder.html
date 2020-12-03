@@ -14,7 +14,7 @@
             height: 500px;
             padding: 10px 0px 10px 0px;
             overflow: hidden;
-            background-color: pink;
+            /* background-color: pink; */
             margin: 0 auto;
         }
         .layui-form-label {
@@ -32,6 +32,10 @@
             line-height: 38px;
             font-size: 20px;
         }
+        .stockInfo {
+            line-height: 38px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -39,31 +43,31 @@
     <div class="layui-form" lay-filter="userinfo">
         <!-- 内容区域 -->
         <div class="layui-form-item">
-            <label class="layui-form-label">选择股票</label>
+            <label class="layui-form-label">股票名称</label>
             <div class="layui-input-block">
-                <select name="stockId" lay-filter="stockId">
-                    <option value="600519">600519 | 贵州茅台</option>
-                    <option value="601333">601333 | 广深铁路</option>
-                    <option value="600000">600000 | 浦发银行</option>
-                    <option value="600004">600004 | 白云机场</option>
-                    <option value="600006">600006 | 东风汽车</option>
-                </select>
+                <label class="stockInfo">--</label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">股票代码</label>
+            <div class="layui-input-block">
+                <label class="stockInfo">--</label>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">当前价格</label>
             <div class="layui-input-block">
-                <label class="labelContent" id="currentPrice">1763.50</label>
+                <label class="labelContent" id="currentPrice">--.--</label>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">买入数量</label>
             <div class="layui-input-block">
-                <input type="text" name="buyCount" id="buyCount"class="layui-input">
+                <input type="text" name="buyCount" id="buyCount"class="layui-input" lay-verify="required|buyCount">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">当前价格</label>
+            <label class="layui-form-label">总价</label>
             <div class="layui-input-block">
                 <label class="labelContent" id="totalPrice">0.00</label>
             </div>
@@ -71,7 +75,7 @@
         <!-- 提交区域 -->
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit lay-filter="createNewOrder">修改</button>
+                <button class="layui-btn" lay-submit lay-filter="createNewOrder">提交订单</button>
             </div>
         </div>
     </div>
@@ -97,6 +101,84 @@
             }
         })
 
+        form.verify({
+            buyCount: function(data) {
+                if (!parseInt(data)) {
+                    return "输入内容不合法";
+                }
+                else if (parseInt(data) % 100 != 0) {
+                    return "购买数量必须为100的倍数";
+                }
+            }
+        })
+
+        var url = window.location.href;
+        var urlPart = url.split("?")
+        var stockId = urlPart[1].split("=")[1]
+        // 设置成全局变量便于调用
+        var currentPrice = ""
+        var stockName = ""
+
+        if (stockId[0] == "6" || stockId[0] == "9") {
+            // console.log("sh")
+            var stockIdInfo = "sh" + stockId
+            getStockInfo(stockIdInfo)
+        }
+        else {
+            // console.log("sz")
+            var stockIdInfo = "sz" + stockId
+            getStockInfo(stockIdInfo)
+        }
+
+        function getStockInfo(stockid) {
+            $.ajax({
+                url: "../getdata/stockInfo",
+                type: "post",
+                data: {stockid: stockid},
+                success: (res) => {
+                    currentPrice = parseFloat(res["currentPrice"])
+                    stockName = res["stockName"]
+                    $(".stockInfo:eq(0)").text(stockName)
+                    $(".stockInfo:eq(1)").text(stockId)
+                    $("#currentPrice").text(currentPrice.toFixed(2))
+                }
+            })
+        }
+
+        form.on('submit(createNewOrder)', function (data) {
+            var billInfo = {}
+            var username = document.cookie.split('=')[1]
+            billInfo["username"] = username
+            billInfo["stockId"] = stockId
+            billInfo["stockName"] = stockName
+            billInfo["currentPrice"] = currentPrice
+            billInfo["buyCount"] = parseInt(data.field["buyCount"])
+            billInfo["totalPrice"] = parseFloat($("#totalPrice").text())
+
+            $.ajax({
+                url: "../order/buy",
+                data: billInfo,
+                method: 'post',
+                success: (res) => {
+                    if (res == 1) {
+                        layer.msg("申购成功 即将关闭本页面", {anim: 0}, function() {
+                            parent.layer.close(2)
+                        })
+                    }
+                    else if (res == 2) {
+                        layer.alert("账户余额不足", {icon: 5, title: "提示"});
+                        return false;
+                    }
+                    else {
+                        layer.alert("申购失败 请稍后再试", {icon: 5, title: "提示"});
+                        return false;
+                    }
+                },
+                error: () => {
+                    layer.msg("出现未知错误 请联系管理员", {anim: 6});
+                }
+            })
+        })
     });
 </script>
 </body>

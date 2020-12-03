@@ -13,7 +13,7 @@ import lombok.Data;
 public class Stock {
     public Stock() {
 	}
-	Integer StockId;
-    String StockName;
-    double CurrentPrice;
+	Integer stockid;
+    String stockname;
+    double currentprice;
 }

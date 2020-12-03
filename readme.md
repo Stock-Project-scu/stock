@@ -91,4 +91,39 @@ active2： 如果有记录，直接在上面增减，如果超过用户已有数
 10：”4695″，“买一”申请4695股，即47手； buyOneCount
 20：”3100″，“卖一”申报3100股，即31手； sellOneCount
 
-路由：`get/stockInfo`
+路由
+
+~~~
+../get/stockInfo
+~~~
+
+##### 创建新订单
+
+路由
+
+~~~
+../order/buy
+~~~
+
+数据格式
+
+~~~json
+{
+    "username":"aaa",
+    "stockId":"600519",
+    "stockName":"贵州茅台",
+    "currentPrice":1740.5,
+    "buyCount":100,
+    "totalPrice":174050
+}
+~~~
+
+返回值规定
+
+~~~
+类型：int
+1：创建成功
+2：余额不足
+0：其他错误
+~~~
+

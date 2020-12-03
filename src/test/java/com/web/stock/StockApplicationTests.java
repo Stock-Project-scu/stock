@@ -51,7 +51,7 @@ class StockApplicationTests {
 		// m1.put("编号", 650001);
 		// System.out.println(m1.get("名字"));
 		// System.out.println(m1.get("编号"));
-		Map<String,String> m1 = gd.getstockcurrentprice("601006");
+		Map<String,String> m1 = gd.getstockcurrentprice("sh601006");
 		m1.forEach((key,value)->{
 			System.out.println(key+":"+value);
 		});

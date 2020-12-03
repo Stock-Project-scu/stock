@@ -6,9 +6,9 @@ import com.web.stock.bean.UserStock;
 
 public interface UserStockService  {
     public List<UserStock> getUserAllStockbyName(String username);
-    public UserStock getUserStockbyNameId(String username,Integer stockid);
-    public Integer updateUserStockbyNameId(String name,Integer stockid,Integer number);
-    public Integer insertUserStock(String username,Integer stockid);
-    public Integer deletUserStock(String username,Integer stockid);
+    public UserStock getUserStockbyNameId(String username,String stockid);
+    public Integer updateUserStockbyNameId(String name,String stockid,Integer number);
+    public Integer insertUserStock(String username,String stockid);
+    public Integer deletUserStock(String username,String stockid);
 
 }

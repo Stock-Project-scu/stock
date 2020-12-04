@@ -13,16 +13,17 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class Order {
-    public Order(){}
+public class StockOrder {
+    public StockOrder() {
+    }
     @TableId(type = IdType.AUTO)
     Integer id;
     String username;
-    Integer check;//“买入0/卖出1”
+    Integer stockcheck;//“买入0/卖出1”
     String stockid;
     String stockname;
     double currentprice; //当时价格
-    double totalPrice; //订单总价
+    double totalprice; //订单总价
     Integer number; //购入/卖出 数量
-    String time;
+    String ordertime;
 }

@@ -43,18 +43,14 @@ public class UserStockServiceImpl implements UserStockService {
     }
 
     @Override
-    public Integer updateUserStockbyNameId(String name, String stockid, Integer number) {
+    public Integer updateUserStock(UserStock userstock) {
         try {
             //需要提前做检查。
             log.info("更新信息，本次更新");
-            log.info("name:{}",name);
-            log.info("stockid:{}",stockid);
-            log.info("number:", number);
-            UserStock us1 = getUserStockbyNameId(name,stockid);
+            log.info(":{}",userstock.toString());
+            UserStock us1 = getUserStockbyNameId(userstock.getUsername(),userstock.getStockid());
             log.info("原信息={}", us1.toString());
-            us1.setNumber(number);
-            log.info("现信息:{}",us1.toString());
-            return userstockmapper.update(us1, null);
+            return userstockmapper.update(userstock, null);
         } catch (Exception e) {
             log.error("错误:", e);
         }

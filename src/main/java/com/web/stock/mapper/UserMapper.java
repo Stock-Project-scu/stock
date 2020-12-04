@@ -1,6 +1,5 @@
 package com.web.stock.mapper;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.web.stock.bean.User;
 

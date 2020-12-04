@@ -163,11 +163,9 @@
             $.get("logoff", function (data) {
                 console.log(data)
                 if (data == 1) {
-                    setTimeout(function () {
-                        layer.msg('退出成功', function () {
-                            window.location = "gotologin";
-                        }, {anim: 0});
-                    }, 1000);
+                    layer.msg('退出成功', {anim: 0}, function() {
+                        window.location = "gotologin";
+                    });
                 }
                 else {
                     layer.msg('出现未知错误 请稍后重试');

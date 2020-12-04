@@ -32,6 +32,68 @@
             padding-right: 70px !important;text-overflow:ellipsis!important;overflow:hidden!important;white-space:nowrap!important;}
         .layuimini-notice-title {line-height:28px;font-size:14px;}
         .layuimini-notice-extra {position:absolute;top:50%;margin-top:-8px;right:16px;display:inline-block;height:16px;color:#999;}
+
+        .userinfoItem {
+            line-height: 38px;
+            display: flex;
+        }
+        .userinfoItem div:first-child {
+            flex: 1;
+        }
+        .userinfoItem div:last-child {
+            flex: 3;
+            word-break: break-all;
+        }
+
+        .userWelcome {
+            font-size: 24px;
+            margin: 10px 10px 10px 0;
+            height: 30px;
+            line-height: 30px;
+        }
+        .userWelcome div:first-child {
+            float: left;
+        }
+        .userWelcome div:last-child {
+            float: left;
+        }
+        
+        .no-address {
+            font-size: 18px;
+        }
+        .have-address {
+            display: flex;
+            flex-direction: column;
+        }
+        .degreeRange,
+        .wind {
+            display: flex;
+        }
+        .degreeRange div,
+        .wind div {
+            margin: 5px auto;
+        }
+        .city,
+        .weatherType,
+        .degree,
+        .degreeRange,
+        .wind {
+            text-align: center;
+            margin-top: 16px;
+        }
+        .city {
+            font-size: 28px;
+        }
+        .weatherType {
+            font-size: 20px;
+        }
+        .degree {
+            font-size: 40px;
+        }
+        .tips {
+            margin-top: 16px;
+        }
+        
     </style>
 </head>
 <body>
@@ -49,7 +111,23 @@
                     <div class="layui-row-md3">
                         <div class="layui-card">
                             <div class="layui-card-header">今日天气</div>
-                            <div class="layui-card-body">抬头看看</div>
+                            <div class="layui-card-body">
+                                <div class="no-address" style="display: none;">先设置所在地才能看到天气哦！</div>
+                                <div class="have-address" style="display: none;">
+                                    <div class="city">--</div>
+                                    <div class="weatherType">--</div>
+                                    <div class="degree">--</div>
+                                    <div class="degreeRange">
+                                        <div>--</div>
+                                        <div>--</div>
+                                    </div>
+                                    <div class="wind">
+                                        <div>--</div>
+                                        <div>--</div>
+                                    </div>
+                                    <div class="tips">--</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -57,11 +135,28 @@
             <div class="layui-col-md4">
                 <div class="layui-card">
                     <div class="layui-card-header">个人信息</div>
-                    <div class="layui-card-body"><b>系统需要实现的功能</b></div>
-                    <div class="layui-card-body">对行情交易进行模拟</div>
-                    <div class="layui-card-body">获取实时行情</div>
-                    <div class="layui-card-body">提交反馈工单</div>
-                    <div class="layui-card-body">查看财经信息</div>
+                    <div class="layui-card-body">
+                        <div class="userWelcome">
+                            <div>欢迎您，</div>
+                            <div></div>
+                        </div>
+                        <div class="userinfoItem">
+                            <div>性别</div>
+                            <div></div>
+                        </div>
+                        <div class="userinfoItem">
+                            <div>年龄</div>
+                            <div></div>
+                        </div>
+                        <div class="userinfoItem">
+                            <div>所在地</div>
+                            <div></div>
+                        </div>
+                        <div class="userinfoItem">
+                            <div>个人简介</div>
+                            <div></div>
+                        </div>
+                    </div>
                     <div class="layui-card-body" style="font-size: 22px; color: red;">别乱看 功能还没实现全 就注册注册登录登录得了</div>
                 </div>
             </div>
@@ -162,13 +257,91 @@
 <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 <script>
-    layui.use(['layer', 'miniTab','echarts'], function () {
+    layui.use(['layer', 'miniTab'], function () {
         var $ = layui.jquery,
             layer = layui.layer,
-            miniTab = layui.miniTab,
-            echarts = layui.echarts;
+            miniTab = layui.miniTab;
 
         miniTab.listen();
+
+        var username = document.cookie.split('=')[1];
+
+        $.ajax({
+            url: "../getdata/userinfo",
+            method: "POST",
+            data: {username: username},
+            success: (res) => {
+                // console.log(res);
+                var sex = res["sex"]
+                var age = res["age"]
+                var address = res["address"]
+                var introduction = res["introduction"]
+
+                $(".userWelcome div:eq(1)").text(username)
+                if (sex != null) {
+                    $(".userinfoItem:eq(0) div:eq(1)").text(sex)
+                }
+                else {
+                    $(".userinfoItem:eq(0) div:eq(1)").text("暂未设置")
+                }
+
+                if (age != null) {
+                    $(".userinfoItem:eq(1) div:eq(1)").text(age)
+                }
+                else {
+                    $(".userinfoItem:eq(1) div:eq(1)").text("暂未设置")
+                }
+
+                if (address != null) {
+                    $(".userinfoItem:eq(2) div:eq(1)").text(address)
+                    $(".have-address").css("display", "block")
+                    $(".no-address").css("display", "none")
+                    getWeatherInfo(address)
+                }
+                else {
+                    $(".userinfoItem:eq(2) div:eq(1)").text("暂未设置")
+                    $(".have-address").css("display", "none")
+                    $(".no-address").css("display", "block")
+                }
+
+                if (introduction != null) {
+                    $(".userinfoItem:eq(3) div:eq(1)").text(introduction)
+                }
+                else {
+                    $(".userinfoItem:eq(3) div:eq(1)").text("暂未设置")
+                }
+            }
+        })
+
+        function getWeatherInfo(address) {
+            // 获取天气数据
+            $.ajax({
+                url: "http://wthrcdn.etouch.cn/weather_mini?city=" + address,
+                success: (res) => {
+                    var data = JSON.parse(res)["data"]
+                    // console.log(data)
+                    var today = data["forecast"][0]
+                    var degree = data["wendu"]
+                    var weatherType = today["type"]
+                    var maxDeg = today["high"]
+                    var minDeg = today["low"]
+                    var windType = today["fengxiang"]
+                    var windSpeed = today["fengli"][9] + today["fengli"][10]
+                    var tips = data["ganmao"]
+
+                    $(".city").text(address)
+                    $(".weatherType").text(weatherType)
+                    $(".degree").text(degree)
+                    $(".degreeRange div:eq(0)").text(minDeg)
+                    $(".degreeRange div:eq(1)").text(maxDeg)
+                    $(".wind div:eq(0)").text(windType)
+                    $(".wind div:eq(1)").text(windSpeed)
+                    $(".tips").text(tips)
+                }
+            })
+        }
+
+
 
         /**
          * 查看公告信息

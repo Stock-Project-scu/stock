@@ -161,7 +161,9 @@
                 url: '../change/userinfo',
                 success: (res) => {
                     if (res == 1) {
-                        layer.alert("提交成功 您的反馈将帮助我们做的更好", {icon: 1, title: "提示"});
+                        layer.alert("修改成功", {icon: 1, title: "提示"}, function() {
+                            parent.location.reload();
+                        });
                     }
                     // else {
                     //     layer.msg("修改失败 请检查修改内容是否合法", {anim: 6});

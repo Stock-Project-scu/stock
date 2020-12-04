@@ -13,13 +13,13 @@ spring:
      prefix: classpath:/static/
 
 #mybatis的相关配置
-# mybatis:
-#   #mapper配置文件
-#   mapper-locations: classpath:mapper/*.xml
-#   #type-aliases-package: com.web.stock.bean
-#   #驼峰命名,暂不开启
-#   configuration:
-#     map-underscore-to-camel-case: true
+mybatis:
+  #mapper配置文件
+  #mapper-locations: classpath:mapper/*.xml
+  #type-aliases-package: com.web.stock.bean
+  #驼峰命名,暂不开启
+  # configuration:
+  #   map-underscore-to-camel-case: true
 
 
    

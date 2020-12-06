@@ -28,7 +28,7 @@ public class StockOrderServiceImpl implements StockOrderService {
             log.error("出错：", e);
             return null;
         }
-        //return null;
+        
     }
 
     @Override
@@ -68,7 +68,7 @@ public class StockOrderServiceImpl implements StockOrderService {
             log.error("出错", e);
             return 0;
         }
-        //return null;
+        
     }
 
     @Override

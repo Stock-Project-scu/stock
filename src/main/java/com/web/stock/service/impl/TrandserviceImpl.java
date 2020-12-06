@@ -1,7 +1,7 @@
 package com.web.stock.service.impl;
 
 import java.util.List;
-
+import java.util.Date;
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.UserProperty;
 import com.web.stock.bean.UserStock;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+
 @Service("TradeService")
 @Slf4j
 public class TrandserviceImpl implements TradeService {
@@ -72,7 +73,11 @@ public class TrandserviceImpl implements TradeService {
                     //开始购买
                     userproperty.setProperty(property-totalprice);
                     //先创建这个订单
+                    Date d = new Date();
+                    log.info("订单时间：{}", d.toString());
                     StockOrder order = new StockOrder();
+                    order.setOrdertime(d.toString());
+                    order.setNumber(number);
                     order.setUsername(username);
                     order.setStockid(stockid);
                     order.setStockname(stockname);
@@ -82,14 +87,13 @@ public class TrandserviceImpl implements TradeService {
                     log.info("买入操作:{}", order.toString());
                     UserStock us1 = userstockservice.getUserStockbyNameId(username, stockid);
                     if(us1==null){
-                        //如果还没有这个股票的资产，先创建
+                        
                         userstockservice.insertUserStock(username, stockid);
                         us1 = userstockservice.getUserStockbyNameId(username, stockid);
                         us1.setStockname(stockname);
                         us1.setNumber(number);
                         log.info("新建用户资产:{}", us1.toString());
                         userstockservice.updateUserStock(us1);//更新用户资产
-                        //return stockorderservice.insertbyUsernameId(order);
                     }
                     else{
                         //如果已经有了该股票资产
@@ -100,6 +104,8 @@ public class TrandserviceImpl implements TradeService {
                         userstockservice.updateUserStock(us1);
                         //return stockorderservice.insertbyUsernameId(order);
                     }
+                    log.info("更新财产");
+                    userpropertyservice.updateUserPropertyById(userproperty.getId(), userproperty.getProperty());
                     //最后返回创建订单
                     return stockorderservice.insertbyUsernameId(order);
                 } catch (Exception e) {

@@ -34,6 +34,7 @@ public class UserStockServiceImpl implements UserStockService {
     public UserStock getUserStockbyNameId(String username, String stockid) {
         try {
             log.info("获取用户名下指定股票数据");
+            System.out.println("username:"+username+"   stockid:"+stockid);
             return userstockmapper.selectOne(new QueryWrapper<UserStock>().eq("username", username).eq("stockid", stockid));
         } catch (Exception e) {
             log.error("出错:", e);

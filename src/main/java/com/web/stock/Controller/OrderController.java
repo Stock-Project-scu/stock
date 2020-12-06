@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +25,7 @@ public class OrderController {
     TradeService tradeservice;
 
     @PostMapping("/buy")
+    @ResponseBody
     public Integer BuyStock(@RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "stockId", required = true) String stockid,
             @RequestParam(value = "stockName", required = true) String stockname,

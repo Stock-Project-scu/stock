@@ -1,9 +1,9 @@
 package com.web.stock;
 
 import java.util.Date;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
@@ -50,7 +50,7 @@ class StockApplicationTests {
 		System.out.println("select="+uss.getUserStockbyNameId("ddd", "sh65001"));
 		System.out.println("select错误返回="+uss.getUserStockbyNameId("ddd", "sh65000"));
 		
-		System.out.println("update="+uss.updateUserStockbyNameId("ddd", "sh65001",4753));
+		//System.out.println("update="+uss.updateUserStock("ddd", "sh65001",4753));
 
 		//System.out.println("update错误时="+uss.updateUserStockbyNameId("ddd", "sh65000",4753));
 

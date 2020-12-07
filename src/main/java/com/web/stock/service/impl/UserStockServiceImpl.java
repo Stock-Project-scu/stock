@@ -81,7 +81,7 @@ public class UserStockServiceImpl implements UserStockService {
     public Integer deletUserStock(String username, String stockid) {
         try {
             log.info("删除一条记录,当number=0");
-            
+            log.info("删除记录id号={}",stockid);
             return userstockmapper.delete(new QueryWrapper<UserStock>().eq("username", username).eq("stockid", stockid));
         } catch (Exception e) {
             log.error("错误:", e);

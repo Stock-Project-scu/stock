@@ -4,16 +4,16 @@ spring:
     username: xm01
     password: xm01aaa
     driver-class-name: com.mysql.jdbc.Driver
-    #localhost:3366
-    #username: root
-    #password: XWClassroom20202023
+    # localhost:3366
+    # username: root
+    # password: XWClassroom20202023
     #模板引擎位置
   thymeleaf:
      cache: false
      prefix: classpath:/static/
 
 #mybatis的相关配置
-mybatis:
+#mybatis:
   #mapper配置文件
   #mapper-locations: classpath:mapper/*.xml
   #type-aliases-package: com.web.stock.bean

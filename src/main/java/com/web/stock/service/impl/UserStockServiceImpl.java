@@ -27,7 +27,7 @@ public class UserStockServiceImpl implements UserStockService {
             log.error("出错:", e);
             return null;
         }
-        //return null;
+        
     }
 
     @Override
@@ -35,12 +35,14 @@ public class UserStockServiceImpl implements UserStockService {
         try {
             log.info("获取用户名下指定股票数据");
             System.out.println("username:"+username+"   stockid:"+stockid);
-            return userstockmapper.selectOne(new QueryWrapper<UserStock>().eq("username", username).eq("stockid", stockid));
+            UserStock us1 = userstockmapper.selectOne(new QueryWrapper<UserStock>().eq("username", username).eq("stockid", stockid));
+            log.info("查找到的userstock:{}", us1.toString());
+            return us1;
         } catch (Exception e) {
             log.error("出错:", e);
             return null;
         }
-        //return null;
+        
     }
 
     @Override
@@ -48,10 +50,10 @@ public class UserStockServiceImpl implements UserStockService {
         try {
             //需要提前做检查。
             log.info("更新信息，本次更新");
-            log.info(":{}",userstock.toString());
-            UserStock us1 = getUserStockbyNameId(userstock.getUsername(),userstock.getStockid());
-            log.info("原信息={}", us1.toString());
-            return userstockmapper.update(userstock, null);
+            log.info("原信息:{}",userstock.toString());
+            //UserStock us1 = getUserStockbyNameId(userstock.getUsername(),userstock.getStockid());
+            //log.info("原信息={}", us1.toString());
+            return userstockmapper.update(userstock, new QueryWrapper<UserStock>().eq("id", userstock.getId()));
         } catch (Exception e) {
             log.error("错误:", e);
         }
@@ -72,7 +74,7 @@ public class UserStockServiceImpl implements UserStockService {
             log.error("错误:", e);
             return 0;
         }
-        //return null;
+        
     }
 
     @Override
@@ -85,7 +87,7 @@ public class UserStockServiceImpl implements UserStockService {
             log.error("错误:", e);
             return 0;
         }
-        //return null;
+        
     }
 
 }

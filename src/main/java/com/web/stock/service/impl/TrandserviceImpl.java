@@ -87,7 +87,7 @@ public class TrandserviceImpl implements TradeService {
                     log.info("买入操作:{}", order.toString());
                     UserStock us1 = userstockservice.getUserStockbyNameId(username, stockid);
                     if(us1==null){
-                        
+                        log.info("还没有这个股票的记录");
                         userstockservice.insertUserStock(username, stockid);
                         us1 = userstockservice.getUserStockbyNameId(username, stockid);
                         us1.setStockname(stockname);
@@ -126,6 +126,9 @@ public class TrandserviceImpl implements TradeService {
                     userproperty.setProperty(property+totalprice);
                     //先创建这个订单
                     StockOrder order = new StockOrder();
+                    order.setNumber(number);
+                    Date d = new Date();
+                    order.setOrdertime(d.toString());
                     order.setUsername(username);
                     order.setStockid(stockid);
                     order.setStockname(stockname);
@@ -159,6 +162,8 @@ public class TrandserviceImpl implements TradeService {
                         us1.setNumber(newnumber);
                         userstockservice.updateUserStock(us1);//更新用户资产
                     }
+                    log.info("更新财产");
+                    userpropertyservice.updateUserPropertyById(userproperty.getId(), userproperty.getProperty());
                     //最后返回创建订单
                     return stockorderservice.insertbyUsernameId(order);
                 } catch (Exception e) {

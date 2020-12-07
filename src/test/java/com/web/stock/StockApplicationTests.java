@@ -44,41 +44,41 @@ class StockApplicationTests {
 	myHttpClient httpclient;
 	@Autowired
 	StockOrderService orderservice;
-	@Test
-	void test_client(){
-		System.out.println("insert="+uss.insertUserStock("ddd", "sh65001"));
-		System.out.println("select="+uss.getUserStockbyNameId("ddd", "sh65001"));
-		System.out.println("select错误返回="+uss.getUserStockbyNameId("ddd", "sh65000"));
+	// @Test
+	// void test_client(){
+	// 	System.out.println("insert="+uss.insertUserStock("ddd", "sh65001"));
+	// 	System.out.println("select="+uss.getUserStockbyNameId("ddd", "sh65001"));
+	// 	System.out.println("select错误返回="+uss.getUserStockbyNameId("ddd", "sh65000"));
 		
-		//System.out.println("update="+uss.updateUserStock("ddd", "sh65001",4753));
+	// 	//System.out.println("update="+uss.updateUserStock("ddd", "sh65001",4753));
 
-		//System.out.println("update错误时="+uss.updateUserStockbyNameId("ddd", "sh65000",4753));
+	// 	//System.out.println("update错误时="+uss.updateUserStockbyNameId("ddd", "sh65000",4753));
 
-		System.out.println("delet错误时="+uss.deletUserStock("ddd1", "sh65001"));
-		System.out.println("dele成功"+uss.deletUserStock("ddd", "sh65001"));
+	// 	System.out.println("delet错误时="+uss.deletUserStock("ddd1", "sh65001"));
+	// 	System.out.println("dele成功"+uss.deletUserStock("ddd", "sh65001"));
 		
-	}
-	@Autowired
-	StockOrderMapper om;
-	@Test
+	// }
+	// @Autowired
+	// StockOrderMapper om;
+	// @Test
 	
-	void test_order(){
-		StockOrder order = new StockOrder();
-		order.setStockcheck(1);
-		order.setCurrentprice(256.00);
-		order.setNumber(50);
-		order.setStockid("sh60051");
-		order.setStockname("茅台");
-		order.setUsername("ddd");
-		Date d = new Date();
-		log.info("time:{}",d.toString());
-		order.setOrdertime(d.toString());
-		log.info("insert:{}",order.toString());
-		orderservice.insertbyUsernameId(order);
-		List<StockOrder>solist=orderservice.getAllStockOrder();
-		solist.forEach( value -> {System.out.println(value.toString());});
-		System.out.println("插入成功:");
-	}
+	// void test_order(){
+	// 	StockOrder order = new StockOrder();
+	// 	order.setStockcheck(1);
+	// 	order.setCurrentprice(256.00);
+	// 	order.setNumber(50);
+	// 	order.setStockid("sh60051");
+	// 	order.setStockname("茅台");
+	// 	order.setUsername("ddd");
+	// 	Date d = new Date();
+	// 	log.info("time:{}",d.toString());
+	// 	order.setOrdertime(d.toString());
+	// 	log.info("insert:{}",order.toString());
+	// 	orderservice.insertbyUsernameId(order);
+	// 	List<StockOrder>solist=orderservice.getAllStockOrder();
+	// 	solist.forEach( value -> {System.out.println(value.toString());});
+	// 	System.out.println("插入成功:");
+	// }
 
 
 }

@@ -61,9 +61,15 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">买入数量</label>
+            <label class="layui-form-label">持仓数量</label>
             <div class="layui-input-block">
-                <input type="text" name="buyCount" id="buyCount"class="layui-input" lay-verify="required|buyCount">
+                <label class="labelContent" id="sharesHolding">--.--</label>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">卖出数量</label>
+            <div class="layui-input-block">
+                <input type="text" name="sellCount" id="sellCount"class="layui-input" lay-verify="required|sellCount">
             </div>
         </div>
         <div class="layui-form-item">
@@ -89,11 +95,11 @@
             $ = layui.$,
             miniTab = layui.miniTab;
 
-        $("#buyCount").on("input propertychange", function() {
+        $("#sellCount").on("input propertychange", function() {
             var currentPrice = parseFloat($("#currentPrice").text());
-            var buyCount = parseInt($("#buyCount").val());
-            var totalPrice = currentPrice * buyCount;
-            if (!buyCount) {
+            var sellCount = parseInt($("#sellCount").val());
+            var totalPrice = currentPrice * sellCount;
+            if (!sellCount) {
                 $("#totalPrice").text("0.00");
             }
             else {
@@ -102,12 +108,13 @@
         })
 
         form.verify({
-            buyCount: function(data) {
+            sellCount: function(data) {
+                var sharesHolding = parseInt($("#sharesHolding").text())
                 if (!parseInt(data)) {
                     return "输入内容不合法";
                 }
-                else if (parseInt(data) % 100 != 0) {
-                    return "购买数量必须为100的倍数";
+                else if (parseInt(data) > sharesHolding) {
+                    return "卖出数量不可以大于持仓数量";
                 }
             }
         })
@@ -118,6 +125,8 @@
         // 设置成全局变量便于调用
         var currentPrice = ""
         var stockName = ""
+        var username = document.cookie.split('=')[1]
+        var sharesHolding = 0
 
         if (stockId[0] == "6" || stockId[0] == "9") {
             // console.log("sh")
@@ -131,16 +140,30 @@
         }
 
         function getStockInfo(stockid) {
+            // 获取基本信息
             $.ajax({
                 url: "../getdata/stockInfo",
                 type: "post",
                 data: {stockid: stockid},
+                async: false,
                 success: (res) => {
                     currentPrice = parseFloat(res["currentPrice"])
                     stockName = res["stockName"]
                     $(".stockInfo:eq(0)").text(stockName)
                     $(".stockInfo:eq(1)").text(stockId)
                     $("#currentPrice").text(currentPrice.toFixed(2))
+                }
+            })
+            // 获取持仓数量
+            $.ajax({
+                url: "../getdata/userstock?username=" + username,
+                success: (res) => {
+                    for (var index in res) {
+                        if (res[index]["stockid"] == stockId) {
+                            sharesHolding = res[index]["number"]
+                        }
+                    }
+                    $("#sharesHolding").text(sharesHolding)
                 }
             })
         }
@@ -152,25 +175,25 @@
             billInfo["stockId"] = stockId
             billInfo["stockName"] = stockName
             billInfo["currentPrice"] = currentPrice
-            billInfo["buyCount"] = parseInt(data.field["buyCount"])
+            billInfo["sellCount"] = parseInt(data.field["sellCount"])
             billInfo["totalPrice"] = parseFloat($("#totalPrice").text())
 
             $.ajax({
-                url: "../order/buy",
+                url: "../order/sell",
                 data: billInfo,
                 method: 'post',
                 success: (res) => {
                     if (res == 1) {
-                        layer.msg("申购成功 即将关闭本页面", {anim: 0}, function() {
-                            parent.layer.close(2)
+                        layer.msg("售出成功", {anim: 0}, function() {
+                            parent.layer.closeAll()
                         })
                     }
                     else if (res == 2) {
-                        layer.alert("账户余额不足", {icon: 5, title: "提示"});
+                        layer.alert("账户余额不足以完成订单", {icon: 5, title: "提示"});
                         return false;
                     }
                     else {
-                        layer.alert("申购失败 请稍后再试", {icon: 5, title: "提示"});
+                        layer.alert("售出失败 请稍后再试", {icon: 5, title: "提示"});
                         return false;
                     }
                 },

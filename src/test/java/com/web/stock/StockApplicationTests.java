@@ -4,10 +4,11 @@ import java.util.Date;
 
 import java.util.List;
 
-
+import com.web.stock.Controller.GetController;
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
+import com.web.stock.bean.UserStock;
 import com.web.stock.mapper.StockOrderMapper;
 //import com.web.stock.mapper.UserPropertyMapper;
 import com.web.stock.service.ChangeService;
@@ -79,6 +80,17 @@ class StockApplicationTests {
 	// 	solist.forEach( value -> {System.out.println(value.toString());});
 	// 	System.out.println("插入成功:");
 	// }
+	@Autowired
+	GetController getcontroller;
+	@Test
+	void test_buy(){
+		//StockOrder order = new StockOrder();
+		List<StockOrder> listorder = getcontroller.getuserstockorder("ddd");
+		listorder.forEach(i ->{System.out.println("order"+i.toString());});
+		List<UserStock> liststock = getcontroller.getUserStock("ddd");
+		liststock.forEach(i ->{System.out.println("stock"+ i.toString());});
+
+	}
 
 
 }

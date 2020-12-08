@@ -25,5 +25,5 @@ public class StockOrder {
     double currentprice; //当时价格
     double totalprice; //订单总价
     Integer number; //购入/卖出 数量
-    String ordertime;
+    Long ordertime; //时间戳
 }

@@ -43,7 +43,8 @@
         .stockItem div:nth-child(2) {
             float: right;
         }
-        #createOrder {
+        .showMargin {
+            margin-top: 10px;
             display: none;
         }
     </style>
@@ -66,7 +67,10 @@
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <button class="layui-btn" lay-submit lay-filter="searchStockInfo">查询</button>
-                            <button class="layui-btn" id="createOrder">买入</button>
+                        </div>
+                        <div class="layui-input-block showMargin">
+                            <button class="layui-btn layui-btn-danger" id="createOrderBuy">买入</button>
+                            <button class="layui-btn layui-btn-normal" id="createOrderSell">卖出</button>
                         </div>
                     </div>
                 </div>
@@ -163,7 +167,7 @@
                 getStockInfo(stockIdInfo)
                 getKGraphInfo(stockIdGraph)
                 // 让新建订单的按钮显示
-                $("#createOrder").css("display", "inline-block")
+                $(".showMargin").css("display", "inline-block")
                 
                 return false;
             }
@@ -176,20 +180,28 @@
                 getStockInfo(stockIdInfo)
                 getKGraphInfo(stockIdGraph)
                 // 让新建订单的按钮显示
-                $("#createOrder").css("display", "inline-block")
+                $(".showMargin").css("display", "inline-block")
                 
                 return false;
             }
         })
 
-        $("#createOrder").click(function() {
+        $("#createOrderBuy").click(function() {
             index = layer.open({
                 type: 2,
-                content: ["newOrder.html?stockInfo=" + stockId, "no"],
+                content: ["newOrderBuy.html?stockInfo=" + stockId, "no"],
                 title: "创建新订单",
                 area: ["500px", "500px"]
             });
-            console.log(index)
+        })
+
+        $("#createOrderSell").click(function() {
+            index = layer.open({
+                type: 2,
+                content: ["newOrderSell.html?stockInfo=" + stockId, "no"],
+                title: "创建新订单",
+                area: ["500px", "500px"]
+            });
         })
 
         function getStockInfo(stockid) {
@@ -200,7 +212,7 @@
                 success: (res) => {
                     // TODO: 股票代码问题
                     stockInfo = res["stockName"] + " " + stockInfo
-                    console.log(stockInfo)
+                    // console.log(stockInfo)
                     // 先计算涨跌
                     var currentPrice = parseFloat(res["currentPrice"])
                     var closePrice = parseFloat(res["closePrice"])

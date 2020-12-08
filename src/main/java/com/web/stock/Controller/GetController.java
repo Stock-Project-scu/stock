@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.web.stock.bean.Stock;
+import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
-
+import com.web.stock.bean.UserStock;
 import com.web.stock.service.GetDataService;
 
 
@@ -27,17 +28,34 @@ public class GetController {
 
     Logger logger = LoggerFactory.getLogger(GetController.class);
     
+    //获取用户信息
     @PostMapping("/userinfo")
     @ResponseBody
     public User getUserInfo(@RequestParam(value = "username", required = true) String username){
         return getdataservice.getuserinfo(username);
     }
 
+    //获取用户资产
     @PostMapping("/property")
     @ResponseBody
     public double getUserProperty(@RequestParam(value = "username", required = true) String username){
         return getdataservice.getuserproperty(username).getProperty();
     }
+
+    //获取用户持有的股票
+    @PostMapping("/userstock")
+    @ResponseBody
+    public List<UserStock> getUserStock(@RequestParam(value = "username", required = true) String username){
+        return getdataservice.getuserstock(username);
+    }
+
+    //获取用户订单记录
+    @PostMapping("/userstockorder")
+    @ResponseBody
+    public List<StockOrder> getuserstockorder(@RequestParam(value = "username", required = true) String username){
+        return getdataservice.getuserstockorder(username);
+    }
+
     @PostMapping("/userinfoall")
     @ResponseBody
     public List<User> getUserInfoAll(){

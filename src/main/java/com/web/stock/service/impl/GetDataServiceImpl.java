@@ -6,13 +6,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
+import com.web.stock.bean.UserStock;
 import com.web.stock.service.GetDataService;
+import com.web.stock.service.StockOrderService;
 import com.web.stock.service.UserPropertyService;
+import com.web.stock.service.UserStockService;
 import com.web.stock.service.Userservice;
 import com.web.stock.service.myHttpClient;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -33,7 +36,7 @@ public class GetDataServiceImpl implements GetDataService {
     @Autowired
     UserPropertyService userpropertyservice;
 
-   // log log = logFactory.getlog(GetDataService.class);
+    // log log = logFactory.getlog(GetDataService.class);
 
     // 获取用户信息
     @Override
@@ -47,7 +50,7 @@ public class GetDataServiceImpl implements GetDataService {
         try {
             return userpropertyservice.getUserPropertyByName(username);
         } catch (Exception e) {
-            
+
             log.info("获取失败");
             log.error("错误为=", e);
             return null;
@@ -111,6 +114,32 @@ public class GetDataServiceImpl implements GetDataService {
             return map;
         } catch (Exception e) {
             log.error("错误信息", e);
+            return null;
+        }
+    }
+    @Autowired
+    UserStockService userstockservice;
+
+    @Override
+    public List<UserStock> getuserstock(String username) {
+        try {
+            log.info("获取用户持有的股票");
+            return userstockservice.getUserAllStockbyName(username);
+        } catch (Exception e) {
+            log.error("出错getdataservice", e);
+            return null;
+        }
+    }
+    @Autowired
+    StockOrderService stockorderservice;
+
+    @Override
+    public List<StockOrder> getuserstockorder(String username) {
+        try {
+            log.info("获取用户订单记录");
+            return stockorderservice.getUserStockOrderbyUsername(username);
+        } catch (Exception e) {
+            log.error("出错getdataservice", e);
             return null;
         }
     }

@@ -20,5 +20,5 @@ public class UserStock {
     String username;//用户名
     String stockid;//股票id
     String stockname;//股票名
-    Integer number;
+    Integer number;//持有数量
 }

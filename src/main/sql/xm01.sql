@@ -11,10 +11,10 @@
  Target Server Version : 50151
  File Encoding         : 65001
 
- Date: 06/12/2020 22:49:50
+ Date: 08/12/2020 21:01:18
 */
 
-SET NAMES utf8;
+SET NAMES utf;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -32,13 +32,16 @@ CREATE TABLE `stock_order`  (
   `number` int(64) NULL DEFAULT NULL,
   `ordertime` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of stock_order
 -- ----------------------------
-INSERT INTO `stock_order` VALUES (13, 'ddd', 1, 'sh60051', '茅台', 256.00, 0.00, 50, 'Fri Dec 04 10:32:05 CST 2020');
-INSERT INTO `stock_order` VALUES (14, 'ddd', 1, 'sh60051', '茅台', 256.00, 0.00, 50, 'Fri Dec 04 10:32:32 CST 2020');
+INSERT INTO `stock_order` VALUES (15, 'ddd', 1, '600493', '凤竹纺织', 5.51, 551.00, 100, '1607432371660');
+INSERT INTO `stock_order` VALUES (16, 'ddd', 1, '600493', '凤竹纺织', 5.51, 551.00, 100, '1607432382543');
+INSERT INTO `stock_order` VALUES (17, 'ddd', 1, '600493', '凤竹纺织', 5.51, 551.00, 100, '1607432395337');
+INSERT INTO `stock_order` VALUES (18, 'ddd', 1, '600495', '晋西车轴', 4.07, 407.00, 100, '1607432423013');
+INSERT INTO `stock_order` VALUES (19, 'ddd', 1, '600495', '晋西车轴', 4.07, 407.00, 100, '1607432436510');
 
 -- ----------------------------
 -- Table structure for user
@@ -85,7 +88,7 @@ CREATE TABLE `user_property`  (
 -- ----------------------------
 -- Records of user_property
 -- ----------------------------
-INSERT INTO `user_property` VALUES (1, 'ddd', 0.00);
+INSERT INTO `user_property` VALUES (1, 'ddd', 6982.00);
 INSERT INTO `user_property` VALUES (2, 'dxt', 0.00);
 INSERT INTO `user_property` VALUES (3, 'aaa', 0.00);
 INSERT INTO `user_property` VALUES (4, 'GHGHGHG', 1000.00);
@@ -106,6 +109,12 @@ CREATE TABLE `user_stock`  (
   `stockname` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `number` int(16) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of user_stock
+-- ----------------------------
+INSERT INTO `user_stock` VALUES (6, 'ddd', '600493', '凤竹纺织', 400);
+INSERT INTO `user_stock` VALUES (7, 'ddd', '600495', '晋西车轴', 200);
 
 SET FOREIGN_KEY_CHECKS = 1;

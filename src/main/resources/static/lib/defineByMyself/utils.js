@@ -72,7 +72,7 @@
             for(var i = 1; i <=size; i++) {
                 var txt = txtArr[randomNum(0, txtArr.length)];
                 this.options.code += txt;
-                ctx.font = randomNum(this.options.height/2, this.options.height) + 'px SimHei'; //随机生成字体大小
+                ctx.font = randomNum(this.options.height/2, this.options.height) + 'px Arial'; //随机生成字体大小
                 ctx.fillStyle = randomColor(50, 160); //随机生成字体颜色        
                 ctx.shadowOffsetX = randomNum(-3, 3);
                 ctx.shadowOffsetY = randomNum(-3, 3);

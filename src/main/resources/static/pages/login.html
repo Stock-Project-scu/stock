@@ -116,9 +116,7 @@
                     console.log(res);
                     if(res == 1){
                         layer.msg("登录成功");
-                        setTimeout(function() {
-                            window.location = 'index';
-                        }, 500);
+                        window.location = 'index';
                     }
                     
                     else if (res == 2) {
@@ -126,6 +124,10 @@
                     }
                     else if (res == 3) {
                         layer.alert("用户名或邮箱不存在", {icon: 5, title: "提示"});
+                    }
+                    else if (res == 4) {
+                        layer.msg("登录成功");
+                        window.location = 'admin';
                     }
                 }
                 

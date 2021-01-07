@@ -17,13 +17,13 @@ public class StockOrder {
     public StockOrder() {
     }
     @TableId(type = IdType.AUTO)
-    Integer id;
-    String username;
-    Integer stockcheck;//“买入0/卖出1”
-    String stockid;
-    String stockname;
+    Integer id;//ID
+    String username;//购买/卖出的用户名
+    Integer stockcheck;//买入0/卖出1
+    String stockid;//股票ID
+    String stockname;//股票名
     double currentprice; //当时价格
     double totalprice; //订单总价
     Integer number; //购入/卖出 数量
-    String ordertime;
+    String ordertime;//订单产生时间
 }

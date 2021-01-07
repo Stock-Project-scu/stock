@@ -35,6 +35,20 @@ public class OrderController {
         log.info("买股票");
         return tradeservice.buyStockOrder(username, stockid, stockname, currentprice, totalprice, number);
     }
+
+    @PostMapping("/sell")
+    @ResponseBody
+    public Integer SellStock(
+        @RequestParam(value = "username", required = true) String username,
+            @RequestParam(value = "stockId", required = true) String stockid,
+            @RequestParam(value = "stockName", required = true) String stockname,
+            @RequestParam(value = "currentPrice", required = true) double currentprice,
+            @RequestParam(value = "sellCount", required = true) Integer number,
+            @RequestParam(value = "totalPrice", required = true) double totalprice
+    ){
+        log.info("卖出股票");
+        return tradeservice.sellStockOrder(username, stockid, stockname, currentprice, totalprice, number);
+    }
     
 
 }

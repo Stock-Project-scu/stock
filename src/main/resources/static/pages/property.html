@@ -74,7 +74,7 @@
                     dataType: 'json',
                     success: function (res) {
                         console.log(res);
-                        form.val("userproperty", { property: res });
+                        form.val("userproperty", { property: res.toFixed(2) });
                     }
                 });
                 //临时指定金额 发送好请求要删

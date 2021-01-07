@@ -76,7 +76,7 @@ public class TrandserviceImpl implements TradeService {
                     Date d = new Date();
                     log.info("订单时间：{}", d.toString());
                     StockOrder order = new StockOrder();
-                    order.setOrdertime(d.toString());
+                    order.setOrdertime(d.getTime());
                     order.setNumber(number);
                     order.setUsername(username);
                     order.setStockid(stockid);
@@ -128,7 +128,8 @@ public class TrandserviceImpl implements TradeService {
                     StockOrder order = new StockOrder();
                     order.setNumber(number);
                     Date d = new Date();
-                    order.setOrdertime(d.toString());
+                    long dd = d.getTime();
+                    order.setOrdertime(dd);
                     order.setUsername(username);
                     order.setStockid(stockid);
                     order.setStockname(stockname);

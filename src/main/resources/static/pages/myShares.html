@@ -17,9 +17,9 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
         <div class="layui-card">
-            <div class="layui-card-header">交易记录</div>
+            <div class="layui-card-header">我的持仓</div>
             <div class="layui-card-body">
-                <table id="historyOrder"></table>
+                <table id="currentOrder" lay-filter="stockHandle"></table>
             </div>
         </div>
     </div>
@@ -33,20 +33,16 @@
         var layer = layui.layer;
         var table = layui.table;
 
-        var username = document.cookie.split('=')[1];
+        var username = document.cookie.split('=')[1]
 
         table.render({
-            elem: "#historyOrder",
-            url: "../getdata/userstockorder?username=" + username,
+            elem: "#currentOrder",
+            url: "../getdata/userstock?username=" + username,
             parseData: (res) => {
-                // console.log(res)
                 for (var index in res) {
-                    var d = new Date(res[index].ordertime)
-                    res[index]["date"] = formatDate(d)
-                    res[index]["time"] = formatTime(d)
                     res[index]["id"] = parseInt(index) + 1
-                    res[index]["type"] = res[index]["stockcheck"]==1 ? "买入" : "卖出"
                 }
+                // console.log(res)
                 return {
                     "code": 0,
                     "msg": "",
@@ -54,21 +50,20 @@
                     data: res
                 }
             },
-            page: true,
+            page: false,
             toolbar: true,
-            title: "历史交易",
+            title: "正在进行的交易",
+            text: {
+                none: "暂无进行中的交易"
+            },
             cols: [[
                 {field: "id", title: "编号", sort: true, fixed: "left"},
                 {field: "stockid", title: "证券代码"},
                 {field: "stockname", title: "证券名称"},
-                {field: "type", title: "交易类型"},
-                {field: "currentprice", title: "成交价格"},
-                {field: "number", title: "成交数量"},
-                {field: "totalprice", title: "成交金额"},
-                {field: "date", title: "成交日期"},
-                {field: "time", title: "成交时间"},
+                {field: "number", title: "证券数量"},
+                {field: "number", title: "可卖数量"}
             ]]
-        });        
+        })
     });
 </script>
 </body>

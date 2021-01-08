@@ -20,11 +20,13 @@ import com.web.stock.service.myHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service("GetDataService")
 @Slf4j
+@CrossOrigin
 public class GetDataServiceImpl implements GetDataService {
     @Autowired
     private Userservice userservice;// 创建一个userservice
@@ -140,6 +142,23 @@ public class GetDataServiceImpl implements GetDataService {
             return stockorderservice.getUserStockOrderbyUsername(username);
         } catch (Exception e) {
             log.error("出错getdataservice", e);
+            return null;
+        }
+    }
+
+    @Override
+    public String getnews(Integer page) {
+        try {
+            log.info("根据page获取资讯");
+            String url = "https://interface.sina.cn/wap_api/layout_col.d.json?showcid=76706&col=76706,76983&level=&show_num=10&page=";
+            url=url+page.toString();
+            log.info("url信息：{}", url);
+            HttpMethod method = HttpMethod.GET;
+            String data = httpclient.client(url, method);
+            log.info(data);
+            return data;
+        } catch (Exception e) {
+            log.error("获取资讯出错", e);
             return null;
         }
     }

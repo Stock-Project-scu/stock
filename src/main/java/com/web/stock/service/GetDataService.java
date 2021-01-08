@@ -16,4 +16,5 @@ public interface GetDataService {
     public Map<String,String> getstockcurrentprice(String stockid);
     public List<UserStock> getuserstock(String username);//获取用户持有的股票信息
     public List<StockOrder> getuserstockorder(String username);//获取用户订单记录
+    public String getnews(Integer page);//获取资讯，分页数
 }

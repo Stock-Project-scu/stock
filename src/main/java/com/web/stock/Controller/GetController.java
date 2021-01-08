@@ -74,5 +74,9 @@ public class GetController {
     public Map<String,String> getStockCurrentPrice(@RequestParam(value = "stockid", required = true) String stockid){
         return getdataservice.getstockcurrentprice(stockid);
     }
-
+    @GetMapping("/news")
+    @ResponseBody
+    public String getNewsbyPage(@RequestParam(value = "page", required = true )Integer page){
+        return getdataservice.getnews(page);
+    }
 }

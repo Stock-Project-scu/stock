@@ -1,0 +1,49 @@
+@startuml
+title 实体类
+class Stock {
+    
+	Integer stockid;//股票ID
+    String stockname;//股票名
+    double currentprice;//当前价格
+}
+
+class UserStock {
+    
+    Integer id;//编号
+    String username;//用户名
+    String stockid;//股票id
+    String stockname;//股票名
+    Integer number;//持有数量
+}
+
+class User {
+	Integer id;              //编号
+    String username;        //用户名
+    String password;        //密码
+    String email;           //邮箱
+    String sex;             //性别
+    Integer age;            //年龄
+    String address;         //所在地
+    String introduction;    //个人简介
+}
+
+class UserProperty {
+	Integer id;//id号
+    String username;//用户名
+    double property;//资产
+}
+
+class StockOrder {
+    Integer id;//ID
+    String username;//购买/卖出的用户名
+    Integer stockcheck;//买入0/卖出1
+    String stockid;//股票ID
+    String stockname;//股票名
+    double currentprice; //当时价格
+    double totalprice; //订单总价
+    Integer number; //购入/卖出 数量
+    String ordertime;//订单产生时间
+}
+
+
+@enduml

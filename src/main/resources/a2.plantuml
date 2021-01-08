@@ -1,0 +1,19 @@
+@startuml
+interface ChangeService {
+    public Integer changeUserInfoService(String username,String sex,String address,Integer age,String introduction);//修改用户信息
+    public Integer changePassordService(String password,String oldpassword,HttpServletResponse response);//修改密码 
+    public Integer addUserPropertyService(String username,double property);//添加用户资产
+    public Integer subUserPropertyService(String username,double property);//减少用户资产
+}
+
+interface EmailService {
+    boolean sendEmail(String myMessage,String receiveMailAccount) throws Exception;//发送邮件
+}
+interface GetDataService {
+    public User getuserinfo(String username);//获取指定用户信息
+    public UserProperty getuserproperty(String username);//按用户名获取用户资产
+    public List<User> getuserinfoall();//获取所有用户信息
+    public List<UserProperty> getuserpropertyall();//获取所有用户资产
+    public Map<String,String> getstockcurrentprice(String stockid);//获取股票当前信息
+}
+@enduml

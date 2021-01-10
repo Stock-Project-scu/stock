@@ -16,6 +16,10 @@
             font-size: 22px;
             padding: 10px;
         }
+        .news-card-content {
+            font-size: 16px;
+            padding: 5px 10px 5px 10px;
+        }
         .news-card-redirect {
             display: block;
             font-size: 16px;
@@ -24,25 +28,20 @@
         .news-card-redirect:hover {
             color: #009688;
         }
+        #change {
+            margin-top: 30px;
+            margin-left: 30px;
+        }
     </style>
 </head>
 <body>
 <div class="layuimini-container">
-    <div class="layuimini-main">
-        <div class="news-card">
-            <div class="news-card-title">[观点] “长牛”驱动因素仍在</div>
-            <a class="news-card-redirect" href="javascript:void(0);">→ 继续阅读</a>
-        </div>
-        <div class="news-card">
-            <div class="news-card-title">[观点] 老艾：有到割外资韭菜时？</div>
-            <a class="news-card-redirect" href="javascript:void(0);">→ 继续阅读</a>
-        </div>
-        <div class="news-card">
-            <div class="news-card-title">[研报] 军工十四五发展方向明确</div>
-            <a class="news-card-redirect" href="javascript:void(0);">→ 继续阅读</a>
-        </div>
+    <div class="layui-btn"  id="change">
+        <div class="fa fa-refresh"></div>
+        换一批
     </div>
-    
+    <div class="layuimini-main" id="container">
+    </div>
 </div>
 <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
@@ -51,7 +50,55 @@
         var $ = layui.jquery,
             layer = layui.layer;
 
-        // 查看财经资讯
+        var page = 1;
+
+        // 获取财经资讯
+        $.ajax({
+            url: "../getdata/news",
+            data: {
+                page: page
+            },
+            success: (res) => {
+                var data = JSON.parse(res).result.data
+                // console.log(data)
+                var count = data.count
+                var list = data.list
+                for (var i=0; i<count; ++i)
+                {
+                    var title = "<div class=\"news-card-title\">" + list[i].title + "</div>"
+                    var time = "<div class=\"news-card-content\">" + list[i].cdateTime + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;来源：" + list[i].source + "</div>";
+                    var link = "<a class=\"news-card-redirect\" target=\"_blank\" href=\"" + list[i].pc_url + "\">→ 继续阅读</a>"
+                    var element = "<div class=\"news-card\">" + title + time + link + "</div>"
+                    $("#container").append(element)
+                }
+            }
+        })
+
+        // 点击按钮触发事件
+        $("#change").click(function() {
+            $("#container").empty()
+            page = (page + 1) % 10
+
+            $.ajax({
+            url: "../getdata/news",
+            data: {
+                page: page
+            },
+            success: (res) => {
+                var data = JSON.parse(res).result.data
+                var count = data.count
+                var list = data.list
+                for (var i=0; i<count; ++i)
+                {
+                    var title = "<div class=\"news-card-title\">" + list[i].title + "</div>"
+                    var time = "<div class=\"news-card-content\">" + list[i].cdateTime + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;来源：" + list[i].source + "</div>";
+                    var link = "<a class=\"news-card-redirect\" target=\"_blank\" href=\"" + list[i].pc_url + "\">→ 继续阅读</a>"
+                    var element = "<div class=\"news-card\">" + title + time + link + "</div>"
+                    $("#container").append(element)
+                }
+            }
+        })
+        })
         
     });
 </script>

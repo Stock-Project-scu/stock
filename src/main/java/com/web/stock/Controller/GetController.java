@@ -3,6 +3,7 @@ package com.web.stock.Controller;
 import java.util.List;
 import java.util.Map;
 
+import com.web.stock.bean.Marketinfo;
 import com.web.stock.bean.Stock;
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
@@ -79,4 +80,10 @@ public class GetController {
     public String getNewsbyPage(@RequestParam(value = "page", required = true )Integer page){
         return getdataservice.getnews(page);
     }
+    @GetMapping("/marketInfo")
+    @ResponseBody
+    public Marketinfo getMarketInfo(@RequestParam(value = "stockid", required = true) String stockid){
+        return getdataservice.getmarketinfo(stockid);
+    }
+    
 }

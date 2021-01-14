@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.web.stock.bean.Marketinfo;
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
@@ -119,6 +120,7 @@ public class GetDataServiceImpl implements GetDataService {
             return null;
         }
     }
+
     @Autowired
     UserStockService userstockservice;
 
@@ -132,6 +134,7 @@ public class GetDataServiceImpl implements GetDataService {
             return null;
         }
     }
+
     @Autowired
     StockOrderService stockorderservice;
 
@@ -151,7 +154,7 @@ public class GetDataServiceImpl implements GetDataService {
         try {
             log.info("根据page获取资讯");
             String url = "https://interface.sina.cn/wap_api/layout_col.d.json?showcid=76706&col=76706,76983&level=&show_num=10&page=";
-            url=url+page.toString();
+            url = url + page.toString();
             log.info("url信息：{}", url);
             HttpMethod method = HttpMethod.GET;
             String data = httpclient.client(url, method);
@@ -159,6 +162,35 @@ public class GetDataServiceImpl implements GetDataService {
             return data;
         } catch (Exception e) {
             log.error("获取资讯出错", e);
+            return null;
+        }
+    }
+
+    @Override
+    public Marketinfo getmarketinfo(String stockid) {
+        try {
+            log.info("获取单个大盘信息");
+            log.info("stockid={}", stockid);
+            String url = "http://hq.sinajs.cn/list=";
+            url = url + stockid;
+            HttpMethod method = HttpMethod.GET;
+            String data = httpclient.client(url, method);
+            log.info("data={}", data);
+            String[] res = data.split("\"");
+            //var hq_str_s_sh000001="上证指数,3571.8959,-26.7559,-0.74,1636469,22213950";
+            String d1 = res[1];
+            System.out.println(d1);
+            String[] res1 = d1.split(",");
+            Marketinfo marketinfo = new Marketinfo();
+            marketinfo.setName(res1[0]);
+            marketinfo.setPrice(Double.parseDouble(res1[1]));
+            marketinfo.setUoDownPercent(Double.parseDouble(res1[2]));
+            marketinfo.setUpDown(Double.parseDouble(res1[3]));
+            marketinfo.setValue1(Integer.parseInt(res1[4]));
+            marketinfo.setValue2(Integer.parseInt(res1[5]));
+            return marketinfo;
+        } catch (Exception e) {
+            log.error("获取大盘出错", e);
             return null;
         }
     }

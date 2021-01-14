@@ -93,6 +93,35 @@
         .tips {
             margin-top: 16px;
         }
+
+        /*大盘信息*/
+        .eachMarket {
+            overflow: hidden;
+        }
+        .eachMarket div:first-child:hover {
+            cursor: pointer;
+            color: #1E9FFF;
+        }
+        .eachMarket div:nth-child(1) {
+            float: left;
+            width: 25%;
+        }
+        .eachMarket div:nth-child(2) {
+            float: left;
+            width: 25%;
+        }
+        .eachMarket div:nth-child(3) {
+            float: left;
+            width: 25%;
+        }
+        .eachMarket div:nth-child(4) {
+            float: left;
+            width: 25%;
+        }
+        .marketTip {
+            font-size: 12px;
+            margin-top: 10px
+        }
         
     </style>
 </head>
@@ -105,7 +134,41 @@
                     <div class="layui-row-md3">
                         <div class="layui-card">
                             <div class="layui-card-header">今日指数</div>
-                            <div class="layui-card-body">还没做呢</div>
+                            <div class="layui-card-body">
+                                <div class="stockMarket">
+                                    <div class="eachMarket">
+                                        <div>上证综指</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                    </div>
+                                    <div class="eachMarket">
+                                        <div>深圳成指</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                    </div>
+                                    <div class="eachMarket">
+                                        <div>沪深300</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                    </div>
+                                    <div class="eachMarket">
+                                        <div>大数据100</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                    </div>
+                                    <div class="eachMarket">
+                                        <div>创业板指</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                        <div>--</div>
+                                    </div>
+                                    <div class="marketTip">注：点击大盘名可以查看分时图</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="layui-row-md3">
@@ -157,7 +220,6 @@
                             <div></div>
                         </div>
                     </div>
-                    <div class="layui-card-body" style="font-size: 22px; color: red;">别乱看 功能还没实现全 就注册注册登录登录得了</div>
                 </div>
             </div>
             <div class="layui-col-md4">
@@ -165,87 +227,49 @@
                     <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
                     <div class="layui-card-body layui-text">
                         <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">修改选项卡样式</div>
-                            <div class="layuimini-notice-extra">2019-07-11 23:06</div>
+                            <div class="layuimini-notice-title">今日大盘正式上线</div>
+                            <div class="layuimini-notice-extra">2021-01-14 15:08</div>
                             <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
+                                一进入系统就想看到大盘是涨是跌？<br>
+                                今日大盘模块帮你实现！获取五大市场板块最新数据，是涨是跌一目了然<br>
+                                点击标题还能查看大盘分时 您的方便是我们努力的方向
                             </div>
                         </div>
                         <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">新增系统404模板</div>
-                            <div class="layuimini-notice-extra">2019-07-11 12:57</div>
+                            <div class="layuimini-notice-title">财经资讯正式上线</div>
+                            <div class="layuimini-notice-extra">2021-01-12 14:05</div>
                             <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
+                                想要获取最新市场动向？想要在看盘时打发时间？<br>
+                                财经资讯模块上线，从新浪财经引入最新财经信息<br>
+                                让你停留在本系统就能看到最新消息<br>
+                                若想查看详情，还能点击前往新浪内容页，实现无缝衔接
                             </div>
                         </div>
                         <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">新增treetable插件和菜单管理样式</div>
-                            <div class="layuimini-notice-extra">2019-07-05 14:28</div>
+                            <div class="layuimini-notice-title">历史交易正式上线</div>
+                            <div class="layuimini-notice-extra">2020-12-13 17:45</div>
                             <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
+                                历史交易记录、持仓信息上线，妈妈再也不用担心我忘记买过啥了<br>
+                                在持仓信息模块中我们可以观察到自己正在持有的相关股票信息<br>
+                                在历史交易记录模块中我们可以看到自己曾经买/卖过哪些股票<br>
+                                所有模块都是可以查看、导出、统计、打印的，数据统计不在是难题！
                             </div>
                         </div>
                         <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">修改logo缩放问题</div>
-                            <div class="layuimini-notice-extra">2019-07-04 11:02</div>
+                            <div class="layuimini-notice-title">买卖股票部分正式上线</div>
+                            <div class="layuimini-notice-extra">2020-12-03 14:53</div>
                             <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
+                                买卖股票部分正式上线，今后终于不用只能看不能买了！<br>
+                                仿照[广发证券APP]设计模式，尽力为用户提供最接近真实情况的交易过程<br>
+                                在查询到股票相关信息之后，就可以点击[买入]或[卖出]按钮进行选购
                             </div>
                         </div>
                         <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">修复左侧菜单缩放tab无法移动</div>
-                            <div class="layuimini-notice-extra">2019-06-17 11:55</div>
+                            <div class="layuimini-notice-title">查询股票信息正式上线</div>
+                            <div class="layuimini-notice-extra">2020-11-30 16:00</div>
                             <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
-                            </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">修复多模块菜单栏展开有问题</div>
-                            <div class="layuimini-notice-extra">2019-06-13 14:53</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                界面足够简洁清爽。<br>
-                                一个接口几行代码而已直接初始化整个框架，无需复杂操作。<br>
-                                支持多tab，可以打开多窗口。<br>
-                                支持无限级菜单和对font-awesome图标库的完美支持。<br>
-                                失效以及报错菜单无法直接打开，并给出弹出层提示完美的线上用户体验。<br>
-                                url地址hash定位，可以清楚看到当前tab的地址信息。<br>
-                                刷新页面会保留当前的窗口，并且会定位当前窗口对应左侧菜单栏。<br>
-                                移动端的友好支持。<br>
+                                查询股票信息功能正式上线<br>
+                                在[交易大厅]-[实时行情]中输入任何在上交所或深交所上市的股票，都可以看到该股票的实时数据与我们为您精心绘制的K线图
                             </div>
                         </div>
                     </div>
@@ -266,6 +290,7 @@
 
         var username = document.cookie.split('=')[1];
 
+        // 获取用户信息
         $.ajax({
             url: "../getdata/userinfo",
             method: "POST",
@@ -341,7 +366,96 @@
             })
         }
 
+        var list = ["s_sh000001","s_sz399001","s_sh000300","s_sz399415","s_sz399006"]
+        // 获取大盘信息
+        // 红 #FD1050 绿 #2E8B57
+        // 先单独获取一轮
+        getMarketInfo(0)
+        getMarketInfo(1)
+        getMarketInfo(2)
+        getMarketInfo(3)
+        getMarketInfo(4)
+        // 再周期性获取
+        setInterval(function() {
+            getMarketInfo(0)
+            getMarketInfo(1)
+            getMarketInfo(2)
+            getMarketInfo(3)
+            getMarketInfo(4)
+        }, 2000)
 
+        function getMarketInfo(id) {
+            $.ajax({
+            url: "../getdata/marketInfo",
+            data: {stockid: list[id]},
+            success: (res) => {
+                // console.log(res)
+                if (res.uoDownPercent < 0) {
+                    // 变色
+                    $(".eachMarket:eq("+ id + ") div:eq(1)").css("color", "#2E8B57")
+                    $(".eachMarket:eq("+ id + ") div:eq(2)").css("color", "#2E8B57")
+                    $(".eachMarket:eq("+ id + ") div:eq(3)").css("color", "#2E8B57")
+                    // 改内容
+                    $(".eachMarket:eq("+ id + ") div:eq(1)").text(res.price.toFixed(2))
+                    $(".eachMarket:eq("+ id + ") div:eq(2)").text(res.uoDownPercent.toFixed(2))
+                    $(".eachMarket:eq("+ id + ") div:eq(3)").text(res.upDown.toFixed(2) + "%")
+                }
+                else {
+                    // 变色
+                    $(".eachMarket:eq("+ id + ") div:eq(1)").css("color", "#FD1050")
+                    $(".eachMarket:eq("+ id + ") div:eq(2)").css("color", "#FD1050")
+                    $(".eachMarket:eq("+ id + ") div:eq(3)").css("color", "#FD1050")
+                    // 改内容
+                    $(".eachMarket:eq("+ id + ") div:eq(1)").text(res.price.toFixed(2))
+                    $(".eachMarket:eq("+ id + ") div:eq(2)").text("+" + res.uoDownPercent.toFixed(2))
+                    $(".eachMarket:eq("+ id + ") div:eq(3)").text("+" + res.upDown.toFixed(2) + "%")
+                }
+            }
+        })
+        }
+
+        // 点击查看K线图
+        $(".eachMarket:eq(0)").click(function() {
+            index = layer.open({
+                type: 2,
+                content: ["showMarketGraph.html?stockId=" + list[0], "no"],
+                title: "上证综指",
+                area: ["600px", "400px"]
+            })
+        })
+        $(".eachMarket:eq(1)").click(function() {
+            index = layer.open({
+                type: 2,
+                content: ["showMarketGraph.html?stockId=" + list[1], "no"],
+                title: "深圳成指",
+                area: ["600px", "400px"]
+            })
+        })
+        $(".eachMarket:eq(2)").click(function() {
+            index = layer.open({
+                type: 2,
+                content: ["showMarketGraph.html?stockId=" + list[2], "no"],
+                title: "沪深300",
+                area: ["600px", "400px"]
+            })
+        })
+        $(".eachMarket:eq(3)").click(function() {
+            index = layer.open({
+                type: 2,
+                content: ["showMarketGraph.html?stockId=" + list[3], "no"],
+                title: "大数据100",
+                area: ["600px", "400px"]
+            })
+        })
+        $(".eachMarket:eq(4)").click(function() {
+            index = layer.open({
+                type: 2,
+                content: ["showMarketGraph.html?stockId=" + list[4], "no"],
+                title: "创业板指",
+                area: ["600px", "400px"]
+            })
+        })
+        
 
         /**
          * 查看公告信息
@@ -367,8 +481,8 @@
                 success: function (layero) {
                     var btn = layero.find('.layui-layer-btn');
                     btn.find('.layui-layer-btn0').attr({
-                        href: 'javascript:void(0);',
-                        target: '_blank'
+                        href: 'javascript:void(0);'
+                        // target: '_blank'
                     });
                 }
             });

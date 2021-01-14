@@ -104,7 +104,9 @@
             //         layer.msg("出现未知错误 请联系管理员", {anim: 6});
             //     }
             // });
-            layer.alert("提交成功 您的反馈将帮助我们做得更好", {icon: 6, title: "提示"});
+            layer.alert("提交成功 您的反馈将帮助我们做得更好", {icon: 6, title: "提示"}, function() {
+                location.reload();
+            });
         });
     });
 </script>

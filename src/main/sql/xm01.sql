@@ -11,10 +11,10 @@
  Target Server Version : 50151
  File Encoding         : 65001
 
- Date: 08/12/2020 21:01:18
+ Date: 18/01/2021 10:39:17
 */
 
-SET NAMES utf8;
+SET NAMES utf;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -58,7 +58,7 @@ CREATE TABLE `user`  (
   `introduction` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user
@@ -73,6 +73,8 @@ INSERT INTO `user` VALUES (9, 'dai', '123456', '1097249217@qq.com', NULL, NULL, 
 INSERT INTO `user` VALUES (10, 'zdy', '123456', '1196154768@qq.com', NULL, NULL, NULL, NULL);
 INSERT INTO `user` VALUES (11, 'ylx1', '123456', '2754@qq.com', NULL, NULL, NULL, NULL);
 INSERT INTO `user` VALUES (12, 'ylx2', '123456', '5784@qq.com', NULL, NULL, NULL, NULL);
+INSERT INTO `user` VALUES (13, 'roletest', '123456', '6773@yu.com', NULL, NULL, NULL, NULL);
+INSERT INTO `user` VALUES (14, 'admin', '123456', '555@po.com', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for user_property
@@ -83,7 +85,7 @@ CREATE TABLE `user_property`  (
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `property` decimal(32, 2) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_property
@@ -97,6 +99,36 @@ INSERT INTO `user_property` VALUES (6, 'TTTT', 33547.00);
 INSERT INTO `user_property` VALUES (9, 'dai', 0.00);
 INSERT INTO `user_property` VALUES (10, 'zdy', 0.00);
 INSERT INTO `user_property` VALUES (11, 'ylx2', 0.00);
+INSERT INTO `user_property` VALUES (12, 'roletest', 0.00);
+INSERT INTO `user_property` VALUES (13, 'admin', 0.00);
+
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `roleid` int(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `username`(`username`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+INSERT INTO `user_role` VALUES (1, 'ddd', 1);
+INSERT INTO `user_role` VALUES (2, 'dxt', 1);
+INSERT INTO `user_role` VALUES (3, 'aaa', 1);
+INSERT INTO `user_role` VALUES (4, 'GHGHGHG', 1);
+INSERT INTO `user_role` VALUES (5, 'GGG', 1);
+INSERT INTO `user_role` VALUES (6, 'TTTT', 1);
+INSERT INTO `user_role` VALUES (9, 'dai', 1);
+INSERT INTO `user_role` VALUES (10, 'zdy', 1);
+INSERT INTO `user_role` VALUES (11, 'ylx1', 1);
+INSERT INTO `user_role` VALUES (12, 'ylx2', 1);
+INSERT INTO `user_role` VALUES (13, 'roletest', 0);
+INSERT INTO `user_role` VALUES (14, 'admin', 0);
 
 -- ----------------------------
 -- Table structure for user_stock

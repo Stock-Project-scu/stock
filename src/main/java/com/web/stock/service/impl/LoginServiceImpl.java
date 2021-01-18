@@ -5,9 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.web.stock.bean.User;
+import com.web.stock.bean.UserRole;
+import com.web.stock.mapper.UserRoleMapper;
 import com.web.stock.service.EmailService;
 import com.web.stock.service.LoginService;
 import com.web.stock.service.UserPropertyService;
+import com.web.stock.service.UserRoleService;
 import com.web.stock.service.Userservice;
 
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     EmailService emailservice;//邮件服务
+
+    @Autowired
+    UserRoleService userrolemapperservice;
     
     @Autowired
     HttpSession session;
@@ -53,8 +59,15 @@ public class LoginServiceImpl implements LoginService {
                 
                 cookie.setMaxAge(6 * 60 * 60); // 6小时cookie过期
                 logger.info("sessionvalue={}",un);
-                
-                return 1;// 登陆成功
+                Integer roleid = userrolemapperservice.getUserRoleIdbyname(username);
+                logger.info("用户权限={}", roleid);
+                if(roleid==1){
+                    return 1;// 登陆成功
+                }
+                else if(roleid==0){
+                    return 4;//管理员
+                }
+                else return 1;
             } else {
                 logger.info("登录失败");
                 return 2;// 登录失败，密码不对
@@ -87,6 +100,10 @@ public class LoginServiceImpl implements LoginService {
                 // 如果找不到就说明可以注册
                 userservice.insertUser(user);
                 userpropertyservice.insertUserProperty(user.getUsername());//建立资产表
+                UserRole userRole = new UserRole();
+                userRole.setUsername(user.getUsername());
+                userRole.setRoleid(1); //默认都是普通用户
+                userrolemapperservice.insertUserRole(userRole);//注册权限
                 logger.info("注册成功,开始发送邮件");
                 String msg = "欢迎您使用XM01股票期货交易系统!<br>您的用户名是 "+user.getUsername()+" 请牢记！"+"<br>此用户名作为登录唯一凭证";
                 String account = user.getEmail();

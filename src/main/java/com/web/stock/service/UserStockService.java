@@ -10,5 +10,6 @@ public interface UserStockService  {
     public Integer updateUserStock(UserStock userstock);
     public Integer insertUserStock(String username,String stockid);
     public Integer deletUserStock(String username,String stockid);
+    public List<UserStock> getuserstockall();
 
 }

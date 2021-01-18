@@ -10,10 +10,12 @@ import com.web.stock.bean.Marketinfo;
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
+import com.web.stock.bean.UserRole;
 import com.web.stock.bean.UserStock;
 import com.web.stock.service.GetDataService;
 import com.web.stock.service.StockOrderService;
 import com.web.stock.service.UserPropertyService;
+import com.web.stock.service.UserRoleService;
 import com.web.stock.service.UserStockService;
 import com.web.stock.service.Userservice;
 import com.web.stock.service.myHttpClient;
@@ -177,7 +179,7 @@ public class GetDataServiceImpl implements GetDataService {
             String data = httpclient.client(url, method);
             log.info("data={}", data);
             String[] res = data.split("\"");
-            //var hq_str_s_sh000001="上证指数,3571.8959,-26.7559,-0.74,1636469,22213950";
+            // var hq_str_s_sh000001="上证指数,3571.8959,-26.7559,-0.74,1636469,22213950";
             String d1 = res[1];
             System.out.println(d1);
             String[] res1 = d1.split(",");
@@ -193,6 +195,18 @@ public class GetDataServiceImpl implements GetDataService {
             log.error("获取大盘出错", e);
             return null;
         }
+    }
+
+    @Autowired
+    UserRoleService userroleservice;
+    @Override
+    public List<UserRole> getuserroleall() {
+        return userroleservice.getUserRoleAll();
+    }
+
+    @Override
+    public List<UserStock> getuserstockall() {
+        return userstockservice.getuserstockall();
     }
 
 }

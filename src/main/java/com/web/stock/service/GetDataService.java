@@ -7,6 +7,7 @@ import com.web.stock.bean.Marketinfo;
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
+import com.web.stock.bean.UserRole;
 import com.web.stock.bean.UserStock;
 
 public interface GetDataService {
@@ -19,4 +20,6 @@ public interface GetDataService {
     public List<StockOrder> getuserstockorder(String username);//获取用户订单记录
     public String getnews(Integer page);//获取资讯，分页数
     public Marketinfo getmarketinfo(String stockid);//获取单个大盘信息
+    public List<UserRole> getuserroleall();//权限，目录
+    public List<UserStock> getuserstockall();//交易目录
 }

@@ -90,4 +90,9 @@ public class UserStockServiceImpl implements UserStockService {
         
     }
 
+    @Override
+    public List<UserStock> getuserstockall() {
+        return userstockmapper.selectList(null);
+    }
+
 }

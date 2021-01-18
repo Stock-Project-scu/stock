@@ -64,7 +64,7 @@ public class GetController {
         return getdataservice.getuserinfoall();
     }
     //获取所有用户的资产 //无用
-    @PostMapping("/propertyall")
+    @GetMapping("/propertyall")
     @ResponseBody
     public List<UserProperty> getUserPropertyAll(){
         return getdataservice.getuserpropertyall();
@@ -84,6 +84,17 @@ public class GetController {
     @ResponseBody
     public Marketinfo getMarketInfo(@RequestParam(value = "stockid", required = true) String stockid){
         return getdataservice.getmarketinfo(stockid);
+    }
+    
+    @GetMapping("/userstockall")
+    @ResponseBody
+    public List<UserStock> getUserStockAll(){
+        return getdataservice.getuserstockall();
+    }
+    @GetMapping("/userroleall")
+    @ResponseBody
+    public List<UserStock> getUserRoleAll(){
+        return getdataservice.getuserroleall();
     }
     
 }

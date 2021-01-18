@@ -80,17 +80,17 @@ class StockApplicationTests {
 	// 	solist.forEach( value -> {System.out.println(value.toString());});
 	// 	System.out.println("插入成功:");
 	// }
-	@Autowired
-	GetController getcontroller;
-	@Test
-	void test_buy(){
-		//StockOrder order = new StockOrder();
-		//System.out.println(getcontroller.getNewsbyPage(1));
-		//getcontroller.getNewsbyPage(1);
-		HttpMethod method = HttpMethod.GET;
-		String a1 = httpclient.client("https://interface.sina.cn/wap_api/layout_col.d.json?showcid=76706&col=76706%2C76983&level=&show_num=10&page=1", method);
-		System.out.println(a1);
-	}
+	// @Autowired
+	// GetController getcontroller;
+	// @Test
+	// void test_buy(){
+	// 	//StockOrder order = new StockOrder();
+	// 	//System.out.println(getcontroller.getNewsbyPage(1));
+	// 	//getcontroller.getNewsbyPage(1);
+	// 	HttpMethod method = HttpMethod.GET;
+	// 	String a1 = httpclient.client("https://interface.sina.cn/wap_api/layout_col.d.json?showcid=76706&col=76706%2C76983&level=&show_num=10&page=1", method);
+	// 	System.out.println(a1);
+	// }
 
 
 }

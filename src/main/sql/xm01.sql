@@ -11,11 +11,28 @@
  Target Server Version : 50151
  File Encoding         : 65001
 
- Date: 18/01/2021 10:39:17
+ Date: 20/01/2021 13:21:47
 */
 
-SET NAMES utf;
+SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for notice
+-- ----------------------------
+DROP TABLE IF EXISTS `notice`;
+CREATE TABLE `notice`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `time` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of notice
+-- ----------------------------
+INSERT INTO `notice` VALUES (3, '今日大盘正式上线', '一进入系统就想看到大盘是涨是跌？ 今日大盘模块帮你实现！获取五大市场板块最新数据，是涨是跌一目了然 点击标题还能查看大盘分时 您的方便是我们努力的方向', '2021-01-20 15:06:50');
 
 -- ----------------------------
 -- Table structure for stock_order
@@ -32,7 +49,7 @@ CREATE TABLE `stock_order`  (
   `number` int(64) NULL DEFAULT NULL,
   `ordertime` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of stock_order
@@ -58,7 +75,7 @@ CREATE TABLE `user`  (
   `introduction` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user
@@ -67,7 +84,7 @@ INSERT INTO `user` VALUES (1, 'ddd', '123456', '1097249217@qq.com', '男', 18, '
 INSERT INTO `user` VALUES (2, 'dxt', '123456', '1097249217@qq.com', NULL, NULL, NULL, NULL);
 INSERT INTO `user` VALUES (3, 'aaa', '111111', '111@qq.com', '男', 18, '深圳', 'nihao');
 INSERT INTO `user` VALUES (4, 'GHGHGHG', '123456', '1112@qq.com', NULL, NULL, NULL, NULL);
-INSERT INTO `user` VALUES (5, 'GGG', '123456', '43563@11.com', NULL, NULL, NULL, NULL);
+INSERT INTO `user` VALUES (5, 'GGG', '111111', '43563@11.com', NULL, NULL, NULL, NULL);
 INSERT INTO `user` VALUES (6, 'TTTT', '123456', '436564@56.com', NULL, NULL, NULL, NULL);
 INSERT INTO `user` VALUES (9, 'dai', '123456', '1097249217@qq.com', NULL, NULL, NULL, NULL);
 INSERT INTO `user` VALUES (10, 'zdy', '123456', '1196154768@qq.com', NULL, NULL, NULL, NULL);
@@ -85,7 +102,7 @@ CREATE TABLE `user_property`  (
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `property` decimal(32, 2) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_property
@@ -112,14 +129,14 @@ CREATE TABLE `user_role`  (
   `roleid` int(1) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
 INSERT INTO `user_role` VALUES (1, 'ddd', 1);
 INSERT INTO `user_role` VALUES (2, 'dxt', 1);
-INSERT INTO `user_role` VALUES (3, 'aaa', 1);
+INSERT INTO `user_role` VALUES (3, 'aaa', 0);
 INSERT INTO `user_role` VALUES (4, 'GHGHGHG', 1);
 INSERT INTO `user_role` VALUES (5, 'GGG', 1);
 INSERT INTO `user_role` VALUES (6, 'TTTT', 1);
@@ -141,7 +158,7 @@ CREATE TABLE `user_stock`  (
   `stockname` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `number` int(16) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_stock

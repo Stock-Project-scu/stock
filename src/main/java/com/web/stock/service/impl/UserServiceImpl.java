@@ -10,10 +10,13 @@ import com.web.stock.service.Userservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author 代相廷 impl注入
  */
 @Service("UserService")
+@Slf4j
 public class UserServiceImpl implements Userservice {
     @Autowired
     private UserMapper usermapper;
@@ -155,6 +158,17 @@ public class UserServiceImpl implements Userservice {
             return 2;
         }
         return 1;
+    }
+
+    @Override
+    public Integer deletUserById(Integer id) {
+        try {
+            log.info("删除用户byid");
+            return usermapper.deleteById(id);
+        } catch (Exception e) {
+            log.error("出错", e);
+            return 0;
+        }
     }
 
     

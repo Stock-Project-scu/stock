@@ -21,4 +21,5 @@ public interface Userservice {
     Integer setPassowrdbyId(Integer id,String password); //修改密码 
     Integer setAgebyId(Integer id,Integer age);//修改年龄
     Integer setIntroductionbyId(Integer id,String introduction);//修改简介
+    Integer deletUserById(Integer id);//根据id删除用户
 }

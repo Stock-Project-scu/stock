@@ -10,6 +10,5 @@ public interface UserPropertyService {
     List<UserProperty> getUserPropertyAll();
     Integer insertUserProperty(String username);//新增账户，用于账号创建时调用
     Integer updateUserPropertyById(Integer id,double property);//修改值
-    Integer deletUserPropertyById(Integer id);//根据id删除用户
-
+    Integer deletUserPropertyById(Integer id);//根据id删除用户资产
 }

@@ -55,8 +55,13 @@ public class UserPropertyImpl implements UserPropertyService {
 
     @Override
     public Integer deletUserPropertyById(Integer id) {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            System.out.println("删除用户资产");
+            return userpropertymapper.deleteById(id);
+        } catch (Exception e) {
+            System.out.println("删除失败");
+            return 0;
+        }
     }
 
 }

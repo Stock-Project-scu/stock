@@ -95,4 +95,20 @@ public class UserStockServiceImpl implements UserStockService {
         return userstockmapper.selectList(null);
     }
 
+    @Override
+    public Integer deletUser(String username) {
+        try {
+            log.info("删除user之后进行用户持有股票删除");
+            log.info("用户名={}",username);
+            List<UserStock> uslist = userstockmapper.selectList(new QueryWrapper<UserStock>().eq("username", username));
+            log.info("用户持股种类={}", uslist.size());
+            for (UserStock userStock : uslist) {
+                userstockmapper.deleteById(userStock.getId());
+            }
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
 }

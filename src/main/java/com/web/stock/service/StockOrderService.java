@@ -15,4 +15,5 @@ public interface StockOrderService {
     //public Integer updateStockOrderbyUsernameId();
     public Integer insertbyUsernameId(StockOrder StockOrder);
     public Integer deletbyUsernameId(String username,String stockid);
+    public Integer deletUser(String username);//删除用户时候的操作
 }

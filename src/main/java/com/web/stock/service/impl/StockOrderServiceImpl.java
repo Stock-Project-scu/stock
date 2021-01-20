@@ -10,6 +10,7 @@ import com.web.stock.service.StockOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ch.qos.logback.classic.Logger;
 import lombok.extern.slf4j.Slf4j;
 
 @Service("StockOrderService")
@@ -83,6 +84,19 @@ public class StockOrderServiceImpl implements StockOrderService {
             return 0;
         }
         //return null;
+    }
+
+    @Override
+    public Integer deletUser(String username) {
+        try {
+            //
+            log.info("删除该用户:{}所有订单记录",username);
+            return  StockOrdermapper.delete(new QueryWrapper<StockOrder>().eq("username", username));
+            
+        } catch (Exception e) {
+            log.error("出错", e);
+            return 0;
+        }
     }
 
 }

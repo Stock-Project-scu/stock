@@ -46,7 +46,13 @@ public class GetDataServiceImpl implements GetDataService {
     // 获取用户信息
     @Override
     public User getuserinfo(String username) {
-        return userservice.getUserByName(username);
+        try {
+            return userservice.getUserByName(username);
+        } catch (Exception e) {
+            log.info("获取失败");
+            log.error("错误为=", e);
+            return null;
+        }
     }
 
     // 获取资产

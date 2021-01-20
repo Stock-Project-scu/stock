@@ -7,7 +7,10 @@ import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
 import com.web.stock.service.ChangeService;
 import com.web.stock.service.LoginService;
+import com.web.stock.service.StockOrderService;
 import com.web.stock.service.UserPropertyService;
+import com.web.stock.service.UserRoleService;
+import com.web.stock.service.UserStockService;
 import com.web.stock.service.Userservice;
 
 import org.slf4j.Logger;
@@ -20,6 +23,12 @@ import org.springframework.stereotype.Service;
  */
 @Service("ChangeService")
 public class ChangeServiceImpl implements ChangeService {
+    @Autowired
+    UserStockService userstockservice;
+    @Autowired
+    StockOrderService stockorderservice;
+    @Autowired
+    UserRoleService userroleservice;
     @Autowired
     Userservice userservice;// 创建一个userservice
     @Autowired
@@ -119,6 +128,68 @@ public class ChangeServiceImpl implements ChangeService {
             return userpropertyservice.updateUserPropertyById(up1.getId(), up1.getProperty());
         } catch (Exception e) {
             logger.error("添加失败", e);
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer resetUserPassword(String username, String password) {
+        try {
+            logger.info("开始重置密码");
+            User u1 = userservice.getUserByName(username);
+            if(u1!=null){
+                logger.info("用户信息={}",u1.toString());
+                u1.setPassword(password);
+                userservice.setPassowrdbyId(u1.getId(), password);
+                return 1;
+            }
+            else return 0;
+        } catch (Exception e) {
+            logger.error("重置密码失败", e);
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer deletuser(String username,HttpServletResponse response) {
+        try {
+            logger.info("删除用户开始");
+            int propertyid = userpropertyservice.getUserPropertyByName(username).getId();
+            logger.info("propertyid={}",propertyid);
+            int test1 = userpropertyservice.deletUserPropertyById(propertyid);
+            if(test1!=0){logger.info("用户资产删除正常");}
+            int test2 = userstockservice.deletUser(username);
+            if(test2!=0){logger.info("用户持仓删除正常");}
+            int test3 = stockorderservice.deletUser(username);
+            if(test3!=0){logger.info("用户记录删除正常");}
+            int userroleid = userroleservice.getUserRolebyName(username).getId();
+            int test4 = userroleservice.deletUserRolebyId(userroleid);
+            if(test4!=0){logger.info("用户权限删除正常");}
+            int userid = userservice.getUserByName(username).getId();
+            int test5 = userservice.deletUserById(userid);
+            if(test5!=0){logger.info("用户删除正常");}
+            // 修改成功之后注销
+            loginservice.logoffservice(response);
+            return 1;
+        } catch (Exception e) {
+            logger.error("删除错误", 0);
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer changeroleid(String username, Integer roleid ) {
+        try {
+            if(userroleservice.getUserRoleIdbyname(session.getAttribute("username").toString())!=0){
+                logger.info(userroleservice.getUserRoleIdbyname(session.getAttribute("username").toString()).toString());
+                logger.info("无权限");
+                return 0;
+            }
+            logger.info("修改权限={}",roleid);
+            
+            return userroleservice.updateRoleIdbyName(username, roleid);
+
+        } catch (Exception e) {
             return 0;
         }
     }

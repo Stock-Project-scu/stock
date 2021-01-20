@@ -7,12 +7,14 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import com.web.stock.bean.Marketinfo;
+import com.web.stock.bean.Notice;
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
 import com.web.stock.bean.UserRole;
 import com.web.stock.bean.UserStock;
 import com.web.stock.service.GetDataService;
+import com.web.stock.service.NoticeService;
 import com.web.stock.service.StockOrderService;
 import com.web.stock.service.UserPropertyService;
 import com.web.stock.service.UserRoleService;
@@ -40,6 +42,8 @@ public class GetDataServiceImpl implements GetDataService {
     HttpSession session;
     @Autowired
     UserPropertyService userpropertyservice;
+    @Autowired
+    NoticeService noticeservice;
 
     // log log = logFactory.getlog(GetDataService.class);
 
@@ -205,6 +209,7 @@ public class GetDataServiceImpl implements GetDataService {
 
     @Autowired
     UserRoleService userroleservice;
+
     @Override
     public List<UserRole> getuserroleall() {
         return userroleservice.getUserRoleAll();
@@ -213,6 +218,11 @@ public class GetDataServiceImpl implements GetDataService {
     @Override
     public List<UserStock> getuserstockall() {
         return userstockservice.getuserstockall();
+    }
+
+    @Override
+    public List<Notice> getnoticeall() {
+        return noticeservice.getNoticeAll();
     }
 
 }

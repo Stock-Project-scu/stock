@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.web.stock.bean.Marketinfo;
+import com.web.stock.bean.Notice;
 import com.web.stock.bean.Stock;
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
@@ -101,6 +102,11 @@ public class GetController {
     @ResponseBody
     public List<UserRole> getUserRoleAll() {
         return getdataservice.getuserroleall();
+    }
+    @GetMapping("/notice")
+    @ResponseBody
+    public List<Notice> getnoticeall(){
+        return getdataservice.getnoticeall();
     }
     
 }

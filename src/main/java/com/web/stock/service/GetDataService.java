@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.web.stock.bean.Marketinfo;
+import com.web.stock.bean.Notice;
 import com.web.stock.bean.StockOrder;
 import com.web.stock.bean.User;
 import com.web.stock.bean.UserProperty;
@@ -22,4 +23,5 @@ public interface GetDataService {
     public Marketinfo getmarketinfo(String stockid);//获取单个大盘信息
     public List<UserRole> getuserroleall();//权限，目录
     public List<UserStock> getuserstockall();//交易目录
+    public List<Notice> getnoticeall();//所有公告
 }

@@ -22,34 +22,34 @@
             "target": "_self",
             "child": [
               {
-                "title": "查询用户",
-                "href": "pages/userInfo.html",
+                "title": "重置用户密码",
+                "href": "setInitPswd.html",
                 "icon": "fa fa-search",
                 "target": "_self"
               },
               {
                 "title": "修改用户信息",
-                "href": "pages/property.html",
+                "href": "setUserInfo.html",
                 "icon": "fa fa-home",
                 "target": "_self"
               }
             ]
           },
           {
-            "title": "工单管理",
+            "title": "公告管理",
             "href": "",
             "icon": "fa fa-institution",
             "target": "_self",
             "child": [
               {
-                "title": "查看工单",
+                "title": "所有公告管理",
                 "href": "pages/currentPrice.html",
                 "icon": "fa fa-database",
                 "target": "_self"
               },
               {
-                "title": "处理工单",
-                "href": "pages/myShares.html",
+                "title": "发布新公告",
+                "href": "newNotice.html",
                 "icon": "fa fa-pencil",
                 "target": "_self"
               }

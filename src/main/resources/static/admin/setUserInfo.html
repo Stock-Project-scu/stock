@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>修改用户信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .layui-card {border:1px solid #f2f2f2;border-radius:5px;}
+        .layui-input-block {width: 200px;}
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-card">
+            <div class="layui-card-header">用户信息查询</div>
+            <div class="layui-card-body">
+                <div class="layui-form" lay-filter="username">
+                    <!-- 内容区域 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="username" id="username" placeholder="请输入要查询的用户名" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 提交区域 -->
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="searchUser">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-card">
+            <div class="layui-card-header">更改个人信息</div>
+            <div class="layui-card-body">
+                <div class="layui-form" lay-filter="userinfo">
+                    <!-- 内容区域 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户邮箱</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="email" placeholder="更改登录邮箱" lay-verify="required|email" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="0" title="男">
+                            <input type="radio" name="sex" value="1" title="女">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">年龄</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="age" placeholder="更改年龄" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">所在地</label>
+                        <div class="layui-input-block">
+                            <select name="address" lay-filter="address">
+                                <option value="北京">北京</option>
+                                <option value="上海">上海</option>
+                                <option value="深圳">深圳</option>
+                                <option value="广州">广州</option>
+                                <option value="成都">成都</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">个人介绍</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请填写内容" class="layui-textarea" name="introduction"></textarea>
+                        </div>
+                    </div>
+                    <!-- 提交区域 -->
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="changeUserinfo">修改</button>
+                            <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer;
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        // 点击查询用户信息
+        form.on('submit(searchUser)', (data) => {
+            $.ajax({
+                method: 'POST',
+                url: "../getdata/userinfo",
+                data: data.field,
+                success: (res) => {
+                    // console.log(res)
+                    // TODO: 这里需要对接一下
+                    // if (res == null)
+                    if (res.sex == "男") {
+                        res.sex = 0;
+                    }
+                    else if (res.sex == "女") {
+                        res.sex = 1;
+                    }
+                    for (var key in res) {
+                        // console.log(key + ":" + res[key]);
+                        form.val("userinfo", {[key]: res[key]});
+                    }
+                    form.val("useremail", {email: res.email});
+                },
+                error: () => {
+                    layer.msg("出现未知错误 请联系管理员", {anim: 6});
+                }
+            });
+        })
+
+        // 点击修改用户信息
+        form.on("submit(changeUserinfo)", (data) => {
+            var data = data.field
+            var email = data.email
+            delete data.email
+            data["username"] = $("#username").val()
+            var emailData = {}
+            emailData["username"] = $("#username").val()
+            emailData["email"] = email
+            // TODO： 后端暂时没有写修改邮箱模块
+
+            if (!data["sex"]) {
+                data["sex"] = null;
+            }
+            else {
+                data["sex"] = data["sex"]=="0" ? "男" : "女";
+            }
+            // 年龄合法性判断
+            if (data["age"] == "") {
+                data["age"] = null;
+            }
+            else if (!parseInt(data["age"])) {
+                layer.msg("您输入的年龄不合法", {
+                    icon: 2,
+                    time: 2000,
+                    anim: 6
+                });
+                return false;
+            }
+            else {
+                data["age"] = data["age"]=="" ? null : parseInt(data["age"]);
+            }
+            // 将未输入的空串转化成null
+            data["address"] = data["address"]=="" ? null : data["address"];
+            data["introduction"] = data["introduction"]=="" ? null : data["introduction"];
+            // console.log(data);
+            $.ajax({
+                method: "post",
+                data: data,
+                url: '../change/userinfo',
+                success: (res) => {
+                    if (res == 1) {
+                        layer.alert("修改成功", {icon: 1, title: "提示"}, function() {
+                            window.location.reload();
+                        });
+                    }
+                    else {
+                        layer.msg("修改失败 请检查修改内容是否合法", {anim: 6});
+                        return false;
+                    }
+                },
+                error: () => {
+                    layer.msg("出现未知错误 请联系管理员", {anim: 6});
+                }
+            })
+        });
+    });
+</script>
+</body>
+</html>

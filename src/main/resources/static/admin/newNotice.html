@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>发布新公告</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .layui-card {border:1px solid #f2f2f2;border-radius:5px;}
+        .layui-input-block {width: 200px;}
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-card">
+            <div class="layui-card-header">发布新公告</div>
+            <div class="layui-card-body">
+                <div class="layui-form" lay-filter="notice">
+                    <!-- 内容区域 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="time" id="time" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">公告标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" id="title" placeholder="请填写标题" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">具体内容</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请填写内容" class="layui-textarea" name="content"></textarea>
+                        </div>
+                    </div>
+                    <!-- 提交区域 -->
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="newNotice">发布</button>
+                            <button class="layui-btn layui-btn-primary" type="reset">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script src="../lib/defineByMyself/utils.js"></script>
+<script>
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer;
+        var form = layui.form;
+        var $ = layui.jquery;
+        
+        // 页面加载时自动获取信息填入表单
+        $(document).ready(function () {
+            var date = formatDate(new Date())
+            var time = formatTime(new Date())
+            var totalTime = date + " " + time
+            // console.log(totalTime)
+            form.val("notice", {time: totalTime})
+        });
+
+        // 修改用户信息提交按钮
+        form.on("submit(newNotice)", (data) => {
+            var data = data.field;
+            console.log(data);
+            if (data.title == "") {
+                layer.msg("请填写标题", {anim: 6});
+                return false;
+            }
+            if (data.content == "") {
+                layer.msg("请填写具体内容", {anim: 6});
+                return false;
+            }
+
+            // 发送意见请求
+            // $.ajax({
+            //     method: 'post',
+            //     url: '../giveAdvice',
+            //     data: data,
+            //     success: (res) => {
+            //         if (res == 1) {
+            //             layer.alert("提交成功 您的反馈将帮助我们做得更好", {icon: 5, title: "提示"});
+            //         }
+            //         // 我也不太清楚提交意见反馈会出什么大问题
+            //         // else {
+            //         //     layer.msg("修改失败 请检查修改内容是否合法", {anim: 6});
+            //         //     return false;
+            //         // }
+            //     },
+            //     error: () => {
+            //         layer.msg("出现未知错误 请联系管理员", {anim: 6});
+            //     }
+            // });
+            layer.alert("提交成功 您的反馈将帮助我们做得更好", {icon: 6, title: "提示"}, function() {
+                location.reload();
+            });
+        });
+    });
+</script>
+</body>
+</html>

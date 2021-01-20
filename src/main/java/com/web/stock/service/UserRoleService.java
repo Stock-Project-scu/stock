@@ -15,4 +15,6 @@ public interface UserRoleService {
     UserRole getUserRolebyName(String username);//
     List<UserRole> getUserRoleAll();
     Integer getUserRoleIdbyname(String username);//获取roleid
+    Integer deletUserRolebyId(Integer id);//根据id删除
+    Integer updateRoleIdbyName(String username,Integer roleid);//根据name修改id
 }

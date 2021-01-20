@@ -56,4 +56,28 @@ public class UserRoleServiceImpl implements UserRoleService {
             return null;
         }
     }
+
+    @Override
+    public Integer deletUserRolebyId(Integer id) {
+        try {
+            return userRoleMapper.deleteById(id);
+        } catch (Exception e) {
+            System.err.println("删除roleid出错");
+            return null;
+        }
+    }
+
+    @Override
+    public Integer updateRoleIdbyName(String username, Integer roleid) {
+        try {
+            UserRole u1 = userRoleMapper.selectOne(new QueryWrapper<UserRole>().eq("username", username));
+            System.out.println("修改的userrole= "+u1.toString());
+            System.out.println("修改的权限="+roleid);
+            u1.setRoleid(roleid);
+            return userRoleMapper.updateById(u1);
+        } catch (Exception e) {
+            System.out.println("修改roleid失败");
+            return 0;
+        }
+    }
 }

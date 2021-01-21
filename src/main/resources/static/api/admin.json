@@ -43,7 +43,7 @@
             "child": [
               {
                 "title": "所有公告管理",
-                "href": "pages/currentPrice.html",
+                "href": "manageNotice.html",
                 "icon": "fa fa-database",
                 "target": "_self"
               },

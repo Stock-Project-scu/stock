@@ -89,10 +89,10 @@ public class ChangeController {
 
     @PostMapping("/deletuser")
     @ResponseBody
-    public Integer deletUser(@RequestParam(value = "username", required = true) String username,HttpServletResponse response) {
+    public Integer deletUser(@RequestParam(value = "username", required = true) String username) {
         logger.info("删除用户={}", username);
         try {
-            return changeservice.deletuser(username,response);
+            return changeservice.deletuser(username);
         } catch (Exception e) {
             logger.error("删除失败", e);
             return 0;

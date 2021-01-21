@@ -8,6 +8,6 @@ public interface ChangeService {
     public Integer addUserPropertyService(String username,double property);//添加用户资产
     public Integer subUserPropertyService(String username,double property);//减少用户资产
     public Integer resetUserPassword(String username,String password);//重置密码
-    public Integer deletuser(String username,HttpServletResponse response);//根据用户名删除用户
+    public Integer deletuser(String username);//根据用户名删除用户
     public Integer changeroleid(String username,Integer roleid);//修改权限
 }

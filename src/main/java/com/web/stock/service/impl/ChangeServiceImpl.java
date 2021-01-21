@@ -151,7 +151,7 @@ public class ChangeServiceImpl implements ChangeService {
     }
 
     @Override
-    public Integer deletuser(String username,HttpServletResponse response) {
+    public Integer deletuser(String username) {
         try {
             logger.info("删除用户开始");
             int propertyid = userpropertyservice.getUserPropertyByName(username).getId();
@@ -168,8 +168,7 @@ public class ChangeServiceImpl implements ChangeService {
             int userid = userservice.getUserByName(username).getId();
             int test5 = userservice.deletUserById(userid);
             if(test5!=0){logger.info("用户删除正常");}
-            // 修改成功之后注销
-            loginservice.logoffservice(response);
+            
             return 1;
         } catch (Exception e) {
             logger.error("删除错误", 0);

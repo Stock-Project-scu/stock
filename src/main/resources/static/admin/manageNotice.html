@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>所有公告</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .layui-card {border:1px solid #f2f2f2;border-radius:5px;}
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-card">
+            <div class="layui-card-header">所有系统公告</div>
+            <div class="layui-card-body">
+                <table id="noticeAll" lay-filter="noticeAll"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="barOpr">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script src="../lib/defineByMyself/utils.js"></script>
+<script>
+    layui.use(['layer', 'table', 'miniTab'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var table = layui.table;
+        var miniTab = layui.miniTab;
+
+        table.render({
+            elem: "#noticeAll",
+            url: "../getdata/notice",
+            parseData: (res) => {
+                for (var index in res) {
+                    res[index]["_id"] = parseInt(index) + 1
+                }
+                // console.log(res)
+                return {
+                    "code": 0,
+                    "msg": "",
+                    count: res.length,
+                    data: res
+                }
+            },
+            page: true,
+            toolbar: true,
+            title: "所有系统公告",
+            cols: [[
+                {field: "_id", title: "编号", sort: true, fixed: "left"},
+                {field: "time", title: "发布时间", sort: true},
+                {field: "title", title: "标题"},
+                {field: "comment", title: "内容"},
+                {title: "操作", fixed: "right", toolbar: "#barOpr", width: 150},
+                {field: "id", title: "systemCode", hide: true},
+            ]]
+        });
+
+        // 监听行工具事件
+        table.on("tool(noticeAll)", function(obj) {
+            var data = obj.data
+            // console.log(obj)
+            if (obj.event == "del") {
+                layer.confirm("确定要删除这条公告吗？", {icon: 3, title: "提示"}, function(index) {
+                    $.ajax({
+                        url: "../noptice/delete",
+                        data: {id: data.id},
+                        type: 'POST',
+                        success: (res) => {
+                            // console.log(res)
+                            if (res == 1) {
+                                layer.msg("删除成功")
+                                setTimeout(function() {
+                                    window.location.reload()
+                                }, 1000)
+                            }
+                            else {
+                                layer.msg("删除失败", {anim: 6})
+                                layer.close(index)
+                                return false    
+                            }
+                        },
+                        error: () => {
+                            layer.msg("出现未知错误 请联系管理员", {anim: 6});
+                        }
+                    })
+                })
+            }
+            else if (obj.event == "edit") {
+                var url = "editNotice.html?id=" + data.id + "&time=" + data.time + "&title=" + data.title + "&comment=" + data.comment
+                // console.log(url)
+                miniTab.openNewTabByIframe({
+                    href: url,
+                    title: "修改公告",
+                })
+                layer.alert("跳转成功 点击确定刷新公告", {icon: 1, title: "提示"}, function(index) {
+                    layer.close(index)
+                    window.location.reload()
+                })
+            }
+        })
+    });
+</script>
+</body>
+</html>

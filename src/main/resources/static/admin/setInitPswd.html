@@ -50,7 +50,7 @@
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <div id="warning">暂未查询到用户信息</div>
-                            <button class="layui-btn" lay-submit lay-filter="setInitPswd">确认重置</button>
+                            <button class="layui-btn" id="setInitPswd">确认重置</button>
                         </div>
                     </div>
                 </div>
@@ -74,8 +74,11 @@
                 data: data.field,
                 success: (res) => {
                     // console.log(res)
-                    // TODO: 这里需要对接一下
-                    // if (res == null)
+                    if (res == "") {
+                        $("#warning").text("暂未查询到用户信息")
+                        layer.msg("相关用户不存在", {anim: 6})
+                        return false
+                    }
                     var warningContent = "是否要为 " + $("#username").val() + " 重置密码"
                     $("#warning").text(warningContent)
                 },
@@ -86,16 +89,47 @@
         })
         
         // 确认重置用户密码
-        form.on("submit(setInitPswd)"), () => {
+        // form.on("submit(setInitPswd)"), () => {
+        //     if ($("#warning").text() != "暂未查询到用户信息") {
+        //         var data = {}
+        //             data["username"] = $("#username").val()
+        //             data["password"] = "123456"
+        //             console.log(data)
+        //             // $.ajax({
+        //             //     type: 'POST',
+        //             //     url: "../change/resetPwd",
+        //             //     data: data.field,
+        //             //     success: (data) => {
+        //             //         if (data == 1) {
+        //             //             layer.msg("重置成功 请提醒用户重新登录", {anim: 0}, function() {
+        //             //                 ///
+        //             //             });
+        //             //         }
+        //             //         else {
+        //             //             layer.alert("修改失败 请稍后重试", {icon: 5, title: "提示"});
+        //             //         }
+                            
+        //             //     },
+        //             //     error: () => {
+        //             //         layer.alert("出现未知错误 请检查网络连接或联系管理员", {icon: 5, title: "提示"});
+        //             //     }
+        //             // })
+        //             return false
+        //     }
+        // }
+        $("#setInitPswd").click(function() {
             if ($("#warning").text() != "暂未查询到用户信息") {
-                form.on('submit(changePassword)', (data) => {
-                    // console.log(data.field);
+                var data = {}
+                    data["username"] = $("#username").val()
+                    data["password"] = "123456"
+                    console.log(data)
                     $.ajax({
                         type: 'POST',
                         url: "../change/resetPwd",
-                        data: data.field,
-                        success: (data) => {
-                            if (data == 1) {
+                        data: data,
+                        success: (res) => {
+                            console.log(res)
+                            if (res == 1) {
                                 layer.msg("重置成功 请提醒用户重新登录", {anim: 0}, function() {
                                     ///
                                 });
@@ -110,9 +144,8 @@
                         }
                     })
                     return false
-                });
             }
-        }
+        })
     });
 </script>
 </body>

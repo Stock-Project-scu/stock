@@ -32,6 +32,12 @@
                 "href": "setUserInfo.html",
                 "icon": "fa fa-home",
                 "target": "_self"
+              },
+              {
+                "title": "注销用户",
+                "href": "delUser.html",
+                "icon": "fa fa-trash-o",
+                "target": "_self"
               }
             ]
           },

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>重置用户密码</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <style>
+        .layui-card {border:1px solid #f2f2f2;border-radius:5px;}
+        .layui-input-block {width: 200px;}
+        #warning {
+            margin: 20px 0 20px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-card">
+            <div class="layui-card-header">用户信息查询</div>
+            <div class="layui-card-body">
+                <div class="layui-form" lay-filter="useremail">
+                    <!-- 内容区域 -->
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="username" id="username" placeholder="请输入要查询的用户名" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <!-- 提交区域 -->
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="searchUser">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-card">
+            <div class="layui-card-header">重置用户密码</div>
+            <div class="layui-card-body">
+                <div class="layui-form" lay-filter="delUser">
+                    <!-- 内容区域 -->
+                    <!-- 提交区域 -->
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <div id="warning">暂未查询到用户信息</div>
+                            <button class="layui-btn" id="delUser">确认注销</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script>
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer;
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        // 点击查询用户信息
+        form.on('submit(searchUser)', (data) => {
+            $.ajax({
+                method: 'POST',
+                url: "../getdata/userinfo",
+                data: data.field,
+                success: (res) => {
+                    // console.log(res)
+                    if (res == "") {
+                        $("#warning").text("暂未查询到用户信息")
+                        layer.msg("相关用户不存在", {anim: 6})
+                        return false
+                    }
+                    var warningContent = "是否要为 " + $("#username").val() + " 注销账号"
+                    $("#warning").text(warningContent)
+                },
+                error: () => {
+                    layer.msg("出现未知错误 请联系管理员", {anim: 6});
+                }
+            });
+        })
+        
+        $("#delUser").click(function() {
+            if ($("#warning").text() != "暂未查询到用户信息") {
+                var data = {}
+                data["username"] = $("#username").val()
+                console.log(data)
+                $.ajax({
+                    type: 'POST',
+                    url: "../change/deletuser",
+                    data: data,
+                    success: (res) => {
+                        console.log(res)
+                        if (res == 1) {
+                            layer.msg("注销成功", {anim: 0}, function() {
+                                window.location.reload()
+                            });
+                        }
+                        else {
+                            layer.alert("注销失败 请稍后重试", {icon: 5, title: "提示"});
+                        }
+                        
+                    },
+                    error: () => {
+                        layer.alert("出现未知错误 请检查网络连接或联系管理员", {icon: 5, title: "提示"});
+                    }
+                })
+                return false
+            }
+        })
+    });
+</script>
+</body>
+</html>

@@ -99,6 +99,9 @@
         var form = layui.form;
         var $ = layui.jquery;
 
+        // 是否查询到用户标记
+        var flag = false
+
         // 点击查询用户信息
         form.on('submit(searchUser)', (data) => {
             $.ajax({
@@ -108,7 +111,11 @@
                 success: (res) => {
                     // console.log(res)
                     // TODO: 这里需要对接一下
-                    // if (res == null)
+                    if (res == "") {
+                        layer.msg("相关用户不存在", {anim: 6})
+                        flag = false
+                        return false
+                    }
                     if (res.sex == "男") {
                         res.sex = 0;
                     }
@@ -120,6 +127,7 @@
                         form.val("userinfo", {[key]: res[key]});
                     }
                     form.val("useremail", {email: res.email});
+                    flag = true
                 },
                 error: () => {
                     layer.msg("出现未知错误 请联系管理员", {anim: 6});
@@ -129,59 +137,66 @@
 
         // 点击修改用户信息
         form.on("submit(changeUserinfo)", (data) => {
-            var data = data.field
-            var email = data.email
-            delete data.email
-            data["username"] = $("#username").val()
-            var emailData = {}
-            emailData["username"] = $("#username").val()
-            emailData["email"] = email
-            // TODO： 后端暂时没有写修改邮箱模块
+            if (flag) {
+                var data = data.field
+                var email = data.email
+                delete data.email
+                data["username"] = $("#username").val()
+                var emailData = {}
+                emailData["username"] = $("#username").val()
+                emailData["email"] = email
+                // TODO： 后端暂时没有写修改邮箱模块
 
-            if (!data["sex"]) {
-                data["sex"] = null;
-            }
-            else {
-                data["sex"] = data["sex"]=="0" ? "男" : "女";
-            }
-            // 年龄合法性判断
-            if (data["age"] == "") {
-                data["age"] = null;
-            }
-            else if (!parseInt(data["age"])) {
-                layer.msg("您输入的年龄不合法", {
-                    icon: 2,
-                    time: 2000,
-                    anim: 6
-                });
-                return false;
-            }
-            else {
-                data["age"] = data["age"]=="" ? null : parseInt(data["age"]);
-            }
-            // 将未输入的空串转化成null
-            data["address"] = data["address"]=="" ? null : data["address"];
-            data["introduction"] = data["introduction"]=="" ? null : data["introduction"];
-            // console.log(data);
-            $.ajax({
-                method: "post",
-                data: data,
-                url: '../change/userinfo',
-                success: (res) => {
-                    if (res == 1) {
-                        layer.alert("修改成功", {icon: 1, title: "提示"}, function() {
-                            window.location.reload();
-                        });
-                    }
-                    else {
-                        layer.msg("修改失败 请检查修改内容是否合法", {anim: 6});
-                        return false;
-                    }
-                },
-                error: () => {
-                    layer.msg("出现未知错误 请联系管理员", {anim: 6});
+                if (!data["sex"]) {
+                    data["sex"] = null;
                 }
-            })
+                else {
+                    data["sex"] = data["sex"]=="0" ? "男" : "女";
+                }
+                // 年龄合法性判断
+                if (data["age"] == "") {
+                    data["age"] = null;
+                }
+                else if (!parseInt(data["age"])) {
+                    layer.msg("您输入的年龄不合法", {
+                        icon: 2,
+                        time: 2000,
+                        anim: 6
+                    });
+                    return false;
+                }
+                else {
+                    data["age"] = data["age"]=="" ? null : parseInt(data["age"]);
+                }
+                // 将未输入的空串转化成null
+                data["address"] = data["address"]=="" ? null : data["address"];
+                data["introduction"] = data["introduction"]=="" ? null : data["introduction"];
+                // console.log(data);
+                $.ajax({
+                    method: "post",
+                    data: data,
+                    url: '../change/userinfo',
+                    success: (res) => {
+                        if (res == 1) {
+                            layer.alert("修改成功", {icon: 1, title: "提示"}, function() {
+                                window.location.reload();
+                            });
+                        }
+                        else {
+                            layer.msg("修改失败 请检查修改内容是否合法", {anim: 6});
+                            return false;
+                        }
+                    },
+                    error: () => {
+                        layer.msg("出现未知错误 请联系管理员", {anim: 6});
+                    }
+                })
+            }
+            else {
+                layer.msg("相关用户不存在", {anim: 6});
+                flag = false
+                return false
+            }
         });
     });
 </script>

@@ -61,7 +61,7 @@
                     <a href="javascript:;">--</a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" layuimini-content-href="pages/changePassword.html" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+                            <a href="javascript:;" layuimini-content-href="changeAdminPwd.html" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
                         </dd>
                         <dd>
                             <hr>
@@ -151,11 +151,11 @@
         $(".layuimini-setting>a").text(username)
 
         $('.login-out').on("click", function () {
-            $.get("logoff", function (data) {
-                console.log(data)
+            $.get("../logoff", function (data) {
+                // console.log(data)
                 if (data == 1) {
                     layer.msg('退出成功', {anim: 0}, function() {
-                        window.location = "gotologin";
+                        window.location = "../gotologin";
                     });
                 }
                 else {

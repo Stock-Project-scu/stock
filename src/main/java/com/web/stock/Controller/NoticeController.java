@@ -42,9 +42,9 @@ public class NoticeController {
     }
     @PostMapping("/update")
     @ResponseBody
-    public Integer updateNotice(Integer id){
+    public Integer updateNotice(Notice notice){
         try {
-            return noticeservice.deletNoticebyId(id);
+            return noticeservice.updateNotice(notice);
         } catch (Exception e) {
             log.error("删除失败", e);
             return 0;

@@ -225,54 +225,7 @@
             <div class="layui-col-md4">
                 <div class="layui-card">
                     <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>系统公告</div>
-                    <div class="layui-card-body layui-text">
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">今日大盘正式上线</div>
-                            <div class="layuimini-notice-extra">2021-01-14 15:08</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                一进入系统就想看到大盘是涨是跌？<br>
-                                今日大盘模块帮你实现！获取五大市场板块最新数据，是涨是跌一目了然<br>
-                                点击标题还能查看大盘分时 您的方便是我们努力的方向
-                            </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">财经资讯正式上线</div>
-                            <div class="layuimini-notice-extra">2021-01-12 14:05</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                想要获取最新市场动向？想要在看盘时打发时间？<br>
-                                财经资讯模块上线，从新浪财经引入最新财经信息<br>
-                                让你停留在本系统就能看到最新消息<br>
-                                若想查看详情，还能点击前往新浪内容页，实现无缝衔接
-                            </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">历史交易正式上线</div>
-                            <div class="layuimini-notice-extra">2020-12-13 17:45</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                历史交易记录、持仓信息上线，妈妈再也不用担心我忘记买过啥了<br>
-                                在持仓信息模块中我们可以观察到自己正在持有的相关股票信息<br>
-                                在历史交易记录模块中我们可以看到自己曾经买/卖过哪些股票<br>
-                                所有模块都是可以查看、导出、统计、打印的，数据统计不在是难题！
-                            </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">买卖股票部分正式上线</div>
-                            <div class="layuimini-notice-extra">2020-12-03 14:53</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                买卖股票部分正式上线，今后终于不用只能看不能买了！<br>
-                                仿照[广发证券APP]设计模式，尽力为用户提供最接近真实情况的交易过程<br>
-                                在查询到股票相关信息之后，就可以点击[买入]或[卖出]按钮进行选购
-                            </div>
-                        </div>
-                        <div class="layuimini-notice">
-                            <div class="layuimini-notice-title">查询股票信息正式上线</div>
-                            <div class="layuimini-notice-extra">2020-11-30 16:00</div>
-                            <div class="layuimini-notice-content layui-hide">
-                                查询股票信息功能正式上线<br>
-                                在[交易大厅]-[实时行情]中输入任何在上交所或深交所上市的股票，都可以看到该股票的实时数据与我们为您精心绘制的K线图
-                            </div>
-                        </div>
-                    </div>
+                    <div class="layui-card-body layui-text" id="notice"></div>
                 </div>
             </div>
         </div>
@@ -457,6 +410,23 @@
         })
         
 
+        // 获取所有公告
+        $(document).ready(function() {
+            $.ajax({
+                url: "../getdata/notice",
+                success: (res) => {
+                    // console.log(res)
+                    for (var i=0; i<res.length; i++) {
+                        var title = "<div class=\"layuimini-notice-title\">" + res[i].title + "</div>"
+                        var extra = "<div class=\"layuimini-notice-extra\">" + res[i].time + "</div>"
+                        var content = "<div class=\"layuimini-notice-content layui-hide\">" + res[i].comment + "</div>"
+                        var element = "<div class=\"layuimini-notice\">" + title + extra + content + "</div>"
+                        $("#notice").append(element)
+                    }
+                }
+            })
+        })
+        
         /**
          * 查看公告信息
          **/
@@ -474,7 +444,7 @@
                 area: '300px;',
                 shade: 0.8,
                 id: 'layuimini-notice',
-                btn: ['查看', '取消'],
+                btn: ['关闭'],
                 btnAlign: 'c',
                 moveType: 1,
                 content:html,

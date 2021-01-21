@@ -88,62 +88,33 @@
             });
         })
         
-        // 确认重置用户密码
-        // form.on("submit(setInitPswd)"), () => {
-        //     if ($("#warning").text() != "暂未查询到用户信息") {
-        //         var data = {}
-        //             data["username"] = $("#username").val()
-        //             data["password"] = "123456"
-        //             console.log(data)
-        //             // $.ajax({
-        //             //     type: 'POST',
-        //             //     url: "../change/resetPwd",
-        //             //     data: data.field,
-        //             //     success: (data) => {
-        //             //         if (data == 1) {
-        //             //             layer.msg("重置成功 请提醒用户重新登录", {anim: 0}, function() {
-        //             //                 ///
-        //             //             });
-        //             //         }
-        //             //         else {
-        //             //             layer.alert("修改失败 请稍后重试", {icon: 5, title: "提示"});
-        //             //         }
-                            
-        //             //     },
-        //             //     error: () => {
-        //             //         layer.alert("出现未知错误 请检查网络连接或联系管理员", {icon: 5, title: "提示"});
-        //             //     }
-        //             // })
-        //             return false
-        //     }
-        // }
         $("#setInitPswd").click(function() {
             if ($("#warning").text() != "暂未查询到用户信息") {
                 var data = {}
-                    data["username"] = $("#username").val()
-                    data["password"] = "123456"
-                    console.log(data)
-                    $.ajax({
-                        type: 'POST',
-                        url: "../change/resetPwd",
-                        data: data,
-                        success: (res) => {
-                            console.log(res)
-                            if (res == 1) {
-                                layer.msg("重置成功 请提醒用户重新登录", {anim: 0}, function() {
-                                    ///
-                                });
-                            }
-                            else {
-                                layer.alert("修改失败 请稍后重试", {icon: 5, title: "提示"});
-                            }
-                            
-                        },
-                        error: () => {
-                            layer.alert("出现未知错误 请检查网络连接或联系管理员", {icon: 5, title: "提示"});
+                data["username"] = $("#username").val()
+                data["password"] = "123456"
+                console.log(data)
+                $.ajax({
+                    type: 'POST',
+                    url: "../change/resetPwd",
+                    data: data,
+                    success: (res) => {
+                        // console.log(res)
+                        if (res == 1) {
+                            layer.msg("重置成功 请提醒用户重新登录", {anim: 0}, function() {
+                                window.location.reload()
+                            });
                         }
-                    })
-                    return false
+                        else {
+                            layer.alert("修改失败 请稍后重试", {icon: 5, title: "提示"});
+                        }
+                        
+                    },
+                    error: () => {
+                        layer.alert("出现未知错误 请检查网络连接或联系管理员", {icon: 5, title: "提示"});
+                    }
+                })
+                return false
             }
         })
     });
